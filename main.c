@@ -7,10 +7,10 @@ int main(void){
 
   char test_sentence [50] = "Jeg er glad, fordi jeg skal hjem"; 
 
-  strstr(test_sentence, verbs));
+  strstr(test_sentence, verbs);
 
   int yes = strcmp(test_sentence,verbs);
 
 
-//hello
+//yep cock
 }
