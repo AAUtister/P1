@@ -12,5 +12,5 @@ int main(void){
   int yes = strcmp(test_sentence,verbs);
 
 
-int YEP COCK;
+int YEP_COCK;
 }
