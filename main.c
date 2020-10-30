@@ -5,35 +5,34 @@ int main(void)
 {
   // char nothing[2] = " ";
   char nothing[1] = " ";
-  char word[4];
-  char verbs[4] = "er";
+  char *verbs[3][10] = {{"er"}, {"bliver"}, {"siger"}};
   char str1[50];
-  char test_sentence[50] = "Jeg er glad, fordi jeg er dum.";
+  char test_sentence[50] = "Jeg er glad, fordi jeg siger og bliver dum";
   char *token;
   int ret;
   // space = strtok(test_sentence, nothing);
 
   token = strtok(test_sentence, nothing);
   // int yes = strcmp(test_sentence, verbs);
-  strcpy(str1, verbs);
-  strcpy(word, token);
 
   while (token != NULL)
   {
     ret = strcmp(verbs, token);
 
-    if (ret == 0)
-    {
-      printf("komma \n");
-      printf("Token = %s og str1 = %s \n", token, str1);
-      token = strtok(NULL, nothing);
-    }
-    else
+    for (verbs[0]; 0 < 3; +1)
     {
 
-      token = strtok(NULL, nothing);
+      if (ret == 0)
+      {
+        printf("komma \n");
+        printf("Token = %s og str1 = %s \n", token, str1);
+        token = strtok(NULL, nothing);
+      }
+      else
+      {
+        printf("Token = %s \n", token);
+        token = strtok(NULL, nothing);
+      }
     }
   }
-
-  // int YEP_COCK;
 }
