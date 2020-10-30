@@ -8,7 +8,7 @@ int main(void)
   char word[4];
   char verbs[4] = "er";
   char str1[50];
-  char test_sentence[50] = "Jeg er glad, fordi jeg dum";
+  char test_sentence[50] = "Jeg er glad, fordi jeg er dum.";
   char *token;
   int ret;
   // space = strtok(test_sentence, nothing);
