@@ -8,7 +8,7 @@ int main(void)
 
     // // char filename[20];
     int j = 0, line_num = 1, find_result = 0, i = 0;
-    char ch, str[512], temp[512], *verbarr[50], *(*ptr)[50] = &verbarr;
+    char ch, str[512], temp[512], verbarr[50] = {0};
 
     FILE *filename;
 
@@ -26,8 +26,8 @@ int main(void)
             {
                 printf("A match found on line: %d\n", line_num);
                 printf("%s\n", temp);
-                (*ptr)[j] = temp;
-                printf("String %d : %s\n", j + 1, (*ptr)[j]);
+                verbarr[j] = temp;
+                printf("String %d : %s\n", j + 1, verbarr[j]);
                 j++;
                 line_num++;
                 find_result++;
@@ -37,7 +37,7 @@ int main(void)
 
     for (j = 0; j < 5; j++)
     {
-        printf("String %d : %s\n", j + 1, (*ptr)[j]);
+        printf("String %d : %s\n", j + 1,  verbarr[j]);
     }
     fclose(filename);
     return 0;
