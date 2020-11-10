@@ -44,6 +44,7 @@ int main() {
     // Printer array
     for (x = 0; x < i; x++){
         printf("\n%s", tekst_array[x]);
+        //(Pelle og benjamins funktion)
     }
 
     printf("\n%s",tekst_array[i]); //Eksempel
