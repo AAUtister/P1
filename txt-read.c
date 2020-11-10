@@ -31,20 +31,22 @@ int main() {
 
 
     while(token != NULL) {
-        printf(" %s\n", token);
+        printf("%s\n", token);
         tekst_array[i++] = token;
         token = strtok(NULL, s);
         
     };
     
-    printf("NY NY NY NY NY NY %d", i);
+    // i = st›rrelsen af filen.
+    
+    printf("\n\nArray:");
 
     // Printer array
     for (x = 0; x < i; x++){
         printf("\n%s", tekst_array[x]);
     }
 
-    printf("\n%s",tekst_array[31]); //Eksempel
+    printf("\n%s",tekst_array[i]); //Eksempel
     
     return 0;    
 }
