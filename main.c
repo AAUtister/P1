@@ -1,6 +1,7 @@
 #include "txt-read.h"
 #include "verb-read.h"
 #include <ctype.h>
+// Mighty shit
 
 int main() {
 	int x = 0;
