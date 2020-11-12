@@ -1,5 +1,4 @@
 # Projekt Komma
-## Hvad er dette?
-### Ingen ved det, alle taler om det
-
-test
+## VERSION: Alpha
+### Finder udsagnsord i txt. Markerer med CAPS.
+Vildt nok
