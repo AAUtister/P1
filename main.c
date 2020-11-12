@@ -1,51 +1,53 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include "txt-read.h"
+#include "verb-read.h"
+#include <ctype.h>
 
 int main() {
-    FILE *file_p = fopen("/Users/frederikfrohn/P1/txt/verbs_ascii_friendly.txt", "r");
-    int i = 0;
-    int x = 0;
-    char file_content[600000];
-    const char s[3] = "\n";
-    char *token;
-    char *verb_array[60000];
+	int x = 0;
+	char ** verb_array = diller();
+	char ** tekst_array = diller_1();
 
-    if (file_p == NULL) {
-            printf("Fejl. Filen kunne ikke findes.\n");
-            exit(EXIT_FAILURE);
-    }
-   
-    char * line = NULL;
-    size_t len = 0;
-    ssize_t read;
+	int c = 0;
+	while (tekst_array[c] != '\0') {
+		c++;
+	}
 
-    strcpy(file_content, "_VERBS_\n");
+	int binary_shit[c];
 
-    while ((read = getline(&line, &len, file_p)) != -1) {
-        strcat(file_content, line);
-    }
+    while (x <= c-1){
+		for (int i = 0; i <= 44233; i++){
+        
+		  if (strcmp(tekst_array[x], verb_array[i])){
+		  	binary_shit[x] = 0;
+		  }
+		  else{
+			printf("\nFundet paa , %d plads, ordet er %s", i, tekst_array[x]);
+			binary_shit[x] = 1;
+			x++;
+		  }
+		}
+	x++;
+	}
+	FILE *output;
+	output = fopen("output.txt", "w");
 
-    fclose(file_p);
-    
-    token = strtok(file_content, s);
-
-
-    while(token != NULL) {
-        verb_array[i++] = token;
-        token = strtok(NULL, s);
-    };
-    
-    // printf("NY NY NY NY NY NY %d", i);
-
-    // Printer array
-    for (x = 0; x < i; x++){
-        printf("\n%s", verb_array[x]);
-    }
-
-    printf("\n%s", verb_array[31]); // Eksempel på at tage et ord
-    printf("\n%c", verb_array[31][0]); // Eksempel på at tage et bogstav
-    
-    return 0;
+	int looperboi = 0;
+	while (looperboi < c) { // For hvert ord
+		int p = 0;
+		if (binary_shit[looperboi] == 1) { // Check om det er verbum
+			while (tekst_array[looperboi][p] != '\0') {
+				fprintf(output, "%c", toupper(tekst_array[looperboi][p]));
+				p++;	
+			
+			}fprintf(output, " ");
+			} else {
+			while (tekst_array[looperboi][p] != '\0') {
+				fprintf(output, "%c", tekst_array[looperboi][p]);
+				p++;	
+			}}
+			fprintf(output, " ");
+		looperboi++;
+	}
+	fclose(output);
+return 0;
 }
