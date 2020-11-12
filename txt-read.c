@@ -5,41 +5,45 @@
 
 int main() {
 
-    FILE *file_p = fopen("test.txt", "r");
+    FILE *file_p = fopen("/Users/frederikfrohn/P1/txt/tekst1.txt", "r");
     int i = 0;
     int x = 0;
-    char tekst[1000];
-    const char s[2] = " ";
+    char tekst[100];
+    const char s[2] = " \n";
     char *token;
-    char *tekst_array[1000];
+    char *tekst_array[50];
 
     if (file_p == NULL) {
             printf("Fejl. Filen kunne ikke findes.\n");
             exit(EXIT_FAILURE);
     }
     
-    /* fseek(file_p, 0L,SEEK_END);
-    long int ret = ftell(file_p);
-    printf("File size is %ld", ret);  Læser størrelsen af filen */ 
+    // fgets(tekst, 100, file_p);
 
-    if( fgets (tekst, 1000, file_p) !=NULL) {
-        puts(tekst);
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    while ((read = getline(&line, &len, file_p)) != -1) {
+        strcat(tekst, line);
     }
+
+
     fclose(file_p);
     
     token = strtok(tekst, s);
 
 
     while(token != NULL) {
-        printf("%s\n", token);
+        // printf("%s\n", token);
         tekst_array[i++] = token;
         token = strtok(NULL, s);
         
     };
-    
-    // i = st�rrelsen af filen.
-    
-    printf("\n\nArray:");
+        
+    printf("Array: %d", i);
+
+    // i--;
 
     // Printer array
     for (x = 0; x < i; x++){
@@ -47,7 +51,7 @@ int main() {
         //(Pelle og benjamins funktion)
     }
 
-    printf("\n%s",tekst_array[i]); //Eksempel
+    printf("\n%s", tekst_array[9]);
     
     return 0;    
 }
