@@ -1,12 +1,13 @@
 #include "txt-read.h"
 #include "verb-read.h"
 #include <ctype.h>
+#include <stdio.h>
 // Mighty shit
 
 int main() {
 	int x = 0;
-	char ** verb_array = diller();
-	char ** tekst_array = diller_1();
+	char ** verb_array = ReadVerbFromFile();
+	char ** tekst_array = ReadTextFromFile();
 
 	int c = 0;
 	while (tekst_array[c] != '\0') {
@@ -32,22 +33,22 @@ int main() {
 	FILE *output;
 	output = fopen("output.txt", "w");
 
-	int looperboi = 0;
-	while (looperboi < c) { // For hvert ord
+	int iterator = 0;
+	while (iterator < c) { // For hvert ord
 		int p = 0;
-		if (binary_shit[looperboi] == 1) { // Check om det er verbum
-			while (tekst_array[looperboi][p] != '\0') {
-				fprintf(output, "%c", toupper(tekst_array[looperboi][p]));
+		if (binary_shit[iterator] == 1) { // Check om det er verbum
+			while (tekst_array[iterator][p] != '\0') {
+				fprintf(output, "%c", toupper(tekst_array[iterator][p]));
 				p++;	
 			
 			}fprintf(output, " ");
 			} else {
-			while (tekst_array[looperboi][p] != '\0') {
-				fprintf(output, "%c", tekst_array[looperboi][p]);
+			while (tekst_array[iterator][p] != '\0') {
+				fprintf(output, "%c", tekst_array[iterator][p]);
 				p++;	
 			}}
 			fprintf(output, " ");
-		looperboi++;
+		iterator++;
 	}
 	fclose(output);
 return 0;
