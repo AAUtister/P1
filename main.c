@@ -2,6 +2,8 @@
 #include "verb-read.h"
 #include <ctype.h>
 #include <stdio.h>
+#include <string.h>
+
 // Mighty shit
 
 int main() {
@@ -10,7 +12,7 @@ int main() {
 	char ** tekst_array = ReadTextFromFile();
 
 	int c = 0;
-	while (tekst_array[c] != '\0') {
+	while (tekst_array[c] != NULL) {
 		c++;
 	}
 
