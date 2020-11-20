@@ -4,6 +4,20 @@
 
 
 char ** ReadTextFromFile() {
+    FILE *fp;
+   int lenght;
+
+   fp = fopen("tekst1.txt", "r");
+
+   fseek(fp, 0, SEEK_END);
+
+   lenght = ftell(fp);
+
+   fclose(fp);
+
+   printf("Total size of file.txt = %d bytes\n", lenght);
+    
+    
     FILE *file_p = fopen("tekst1.txt", "r");
     int i = 0;
     int x = 0;
