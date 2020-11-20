@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 // Mighty shit
 
@@ -53,5 +54,7 @@ int main() {
 		iterator++;
 	}
 	fclose(output);
+	free(tekst_array);
+	free(verb_array);
 return 0;
 }
