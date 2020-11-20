@@ -20,7 +20,6 @@ char ** ReadTextFromFile() {
     
     FILE *file_p = fopen("tekst1.txt", "r");
     int i = 0;
-    int x = 0;
     char tekst[lenght];
     const char s[4] = " \n";
     char *token;

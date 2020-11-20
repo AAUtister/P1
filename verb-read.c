@@ -6,7 +6,6 @@
 char ** ReadVerbFromFile() {
     FILE *file_p = fopen("verbs_ascii_friendly.txt", "r");
     int i = 0;
-    int x = 0;
     char file_content[600000];
     const char s[3] = "\n";
     char *token;
