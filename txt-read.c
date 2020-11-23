@@ -20,10 +20,10 @@ char ** ReadTextFromFile() {
     
     FILE *file_p = fopen("tekst1.txt", "r");
     int i = 0;
-    char tekst[lenght];
+    char tekst[10000]; // lenght virker ikke ordenligt
     const char s[4] = " \n";
     char *token;
-    char ** tekst_array = malloc(199 * sizeof(char*));
+    char ** tekst_array = calloc(199, sizeof(char*)); // Giver segfault med malloc fordi den ikke garantere at heapen er null ifoelge Anders
 
 
     if (file_p == NULL) {
