@@ -1,5 +1,4 @@
-#include "txt-read.h"
-#include "verb-read.h"
+#include "reader.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
