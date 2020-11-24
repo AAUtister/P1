@@ -8,8 +8,8 @@
 
 int main() {
     int x = 0;
-    char ** verb_array = ReadVerbFromFile();
-    char ** tekst_array = ReadTextFromFile();
+    char ** verb_array = read_from_file("verbs_ascii_friendly.txt", 442292, "\n");
+    char ** tekst_array = read_from_file("tekst1.txt", 199, " \n");
 
     int c = 0;
     while (tekst_array[c] != NULL) {
