@@ -37,7 +37,10 @@ char ** read_from_file(char* _FILENAME_, int bytesize, char* delim){
     /* Split file content into array of words */
     token = strtok(file_content, delim);
     while(token != NULL) {
-        charArr[i++] = token;
+        char *tok = calloc(sizeof(token), sizeof(char));
+
+        strcpy(tok, token);
+        charArr[i++] = tok;
         token = strtok(NULL, delim);
     };
 
