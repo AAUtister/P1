@@ -1,0 +1,1 @@
+char ** rules(char text_array);
