@@ -15,7 +15,6 @@ int main() {
 	while (tekst_array[c] != NULL) {
 		c++;
 	}
-	// HEj
 
 	int binary_shit[c];
 
