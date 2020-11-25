@@ -2,34 +2,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-char **rules(char text_array)
+char ** rules(char **tekst_array)
 {
-    char hv_array = {"hvem", "hvad", "hvornaar", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
+    char *hv_array[10][14] = {"hvem", "hvad", "hvornaar", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
     int c = 0, x = 0;
-    while (text_array[c] != NULL)
+
+    while (tekst_array[c] != NULL)
     {
         c++;
     }
 
     char found_rule[c];
-	while (x <= c - 1)
-	{
-		
-		for (int i = 0; i <= 44233; i++)
-		{
+    while (x <= c - 1)
+    {
 
-			if (strcmp(tekst_array[x], verb_array[i]))
-			{
-				found[x] = 0;
-			}
-			else
-			{
-				printf("\nFundet paa , %d plads, ordet er %s", i, tekst_array[x]);
-				binary_shit[x] = 1;
-				x++;
-			}
-		}
-		x++;
-	}
-    return hv_array;
+        for (int i = 0; i <= c; i++)
+        {
+
+            if (strcmp(tekst_array[x], *hv_array[i]))
+            {
+                found_rule[x] = 0;
+
+            }
+            else
+            {
+                printf("\nFundet paa , %d plads, ordet er %s", i, tekst_array[x]);
+                found_rule[x] = 1;
+                x++;
+            }
+        }
+        x++;
+    }
+    return found_rule;
 }

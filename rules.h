@@ -1,1 +1,1 @@
-char ** rules(char text_array);
+char ** rules(char* tekst_array);
