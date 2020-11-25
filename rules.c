@@ -33,5 +33,5 @@ char ** rules(char **tekst_array)
         }
         x++;
     }
-    return found_rule;
+    return *found_rule;
 }
