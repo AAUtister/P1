@@ -1,5 +1,6 @@
 #include "reader.h"
 // #include "rules.h"
+#include "nexus.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
