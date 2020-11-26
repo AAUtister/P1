@@ -11,7 +11,7 @@ char nexus(char *tekst_array,char *verb_array){
     char egenavn_array[200][20] = {"Karl", "Frederik", "Pelle", "Benjamin", "Mathias", "Antonio", "Johannes"};
     
     int c = 0;
-    while (tekst_array[c] != NULL) {
+    while (tekst_array[c] != EOF) {
         c++;
     }
     int word_class[c];
