@@ -1,5 +1,5 @@
 all: main.c reader.o rules.o
-	gcc -Wall -g -std=gnu11 main.c reader.o rules.o -o program.out
+	gcc -Wall -g -std=gnu11 main.c reader.o nexus.o -o program.out
 
 reader.o: reader.h
 	gcc-10 -Wall -g -std=gnu11 -c reader.c
