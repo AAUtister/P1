@@ -13,6 +13,7 @@ int main()
 	char **tekst_array = ReadTextFromFile();
 	// char **found_rule = rules(*tekst_array);
 	// printf("\n %s", found_rule[0]);
+	char nexus();
 	int c = 0;
 	while (tekst_array[c] != NULL)
 	{
