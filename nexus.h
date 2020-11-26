@@ -1,0 +1,1 @@
+char nexus(char **tekst_array,char **verb_array);

@@ -1,5 +1,10 @@
 #include "reader.h"
+<<<<<<< HEAD
 #include "rules.h"
+=======
+// #include "rules.h"
+#include "nexus.h"
+>>>>>>> 3143de5f4d679d67b2fca39b52064237818b7043
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -10,7 +15,13 @@ int main()
 	int x = 0;
 	char **verb_array = ReadVerbFromFile();	
 	char **tekst_array = ReadTextFromFile();
+<<<<<<< HEAD
 	char *found_rule[100000];
+=======
+	// char **found_rule = rules(*tekst_array);
+	// printf("\n %s", found_rule[0]);
+	char nexus(char **tekst_array,char **verb_array);
+>>>>>>> 3143de5f4d679d67b2fca39b52064237818b7043
 	int c = 0;
 	while (tekst_array[c] != NULL)
 	{

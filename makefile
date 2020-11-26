@@ -1,11 +1,11 @@
-all: main.c reader.o rules.o
-	gcc -Wall -g -std=gnu11 main.c reader.o rules.o -o program.out
+all: main.c reader.o nexus.o
+	gcc -Wall -g -std=gnu11 main.c reader.o nexus.o -o program.out
 
 reader.o: reader.h
-	gcc -Wall -g -std=gnu11 -c reader.c
+	gcc-10 -Wall -g -std=gnu11 -c reader.c
 
-rules.o: rules.h
-	gcc -Wall -g -std=gnu11 -c rules.c
+nexus.o: nexus.h
+	gcc-10 -Wall -g -std=gnu11 -c nexus.c
 
 clean:
 	rm -f *.o *.out
