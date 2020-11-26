@@ -1,4 +1,4 @@
-all: main.c reader.o rules.o
+all: main.c reader.o nexus.o
 	gcc -Wall -g -std=gnu11 main.c reader.o nexus.o -o program.out
 
 reader.o: reader.h
