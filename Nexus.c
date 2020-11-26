@@ -7,8 +7,8 @@ char nexus(char *tekst_array,char *verb_array){
     int x = 0;
     char *token;    
     const char dot [3] = ".";
-    char stedord_array[20] = {"han","hun","jeg","hende", "hans", "deres", }; 
-    char egenavn_array[20] = {"Karl", "Frederik", "Pelle", "Benjamin", "Mathias", "Antonio", "Johannes"};
+    char stedord_array[200][20] = {"han","hun","jeg","hende", "hans", "deres", }; 
+    char egenavn_array[200][20] = {"Karl", "Frederik", "Pelle", "Benjamin", "Mathias", "Antonio", "Johannes"};
     
     int c = 0;
     while (tekst_array[c] != NULL) {
