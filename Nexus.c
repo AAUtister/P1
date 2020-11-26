@@ -10,7 +10,10 @@ char nexus(char *tekst_array,char *verb_array){
     char stedord_array[20] = {"han","hun","jeg","hende", "hans", "deres", }; 
     char egenavn_array[20] = {"Karl", "Frederik", "Pelle", "Benjamin", "Mathias", "Antonio", "Johannes"};
     
-
+    int c = 0;
+    while (tekst_array[c] != NULL) {
+        c++;
+    }
     int word_class[c];
 	int sentence_count = i;
 	for(int i=0;i<=sentence_count;i++){

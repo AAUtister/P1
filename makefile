@@ -4,11 +4,8 @@ all: main.c reader.o rules.o
 reader.o: reader.h
 	gcc-10 -Wall -g -std=gnu11 -c reader.c
 
-rules.o: rules.h
-	gcc-10 -Wall -g -std=gnu11 -c rules.c
-
-rules.o: rules.h
-	gcc -Wall -g -std=gnu11 -c rules.c
+nexus.o: nexus.h
+	gcc-10 -Wall -g -std=gnu11 -c nexus.c
 
 clean:
 	rm -f *.o *.out
