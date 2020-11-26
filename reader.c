@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 char ** read_from_file(char* _FILENAME_, int bytesize, char* delim){
     FILE *fp;
     int length = 0,
