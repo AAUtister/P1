@@ -1,5 +1,5 @@
 #include "reader.h"
-// #include "rules.h"
+#include "rules.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,17 +8,17 @@
 int main()
 {
 	int x = 0;
-	char **verb_array = ReadVerbFromFile();
+	char **verb_array = ReadVerbFromFile();	
 	char **tekst_array = ReadTextFromFile();
-	// char **found_rule = rules(*tekst_array);
-	// printf("\n %s", found_rule[0]);
+	char *found_rule[100000];
 	int c = 0;
 	while (tekst_array[c] != NULL)
 	{
+		*found_rule[c] = **rules(tekst_array[c]);
+		printf("%s and %s\n ", found_rule[c], tekst_array[c]);
 		c++;
 	}
 	// HEj
-
 	int binary_shit[c];
 
 	while (x <= c - 1)
@@ -69,6 +69,5 @@ int main()
 	fclose(output);
 	free(tekst_array);
 	free(verb_array);
-    // free(found_rule);
 	return 0;
 }
