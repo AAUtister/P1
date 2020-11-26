@@ -15,11 +15,6 @@ char nexus(char *tekst_array,char *verb_array){
         c++;
     }
     int word_class[c];
-	int sentence_count = i;
-	for(int i=0;i<=sentence_count;i++){
-		printf("S‘tning: %s",tekst_array[i]);
-    	int word_class[c];
-    }
     //Udsagnsord
     while (x <= c-1){
         for (int i = 0; i <= 44233; i++){
