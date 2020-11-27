@@ -16,22 +16,16 @@ int main() {
     int x = 0;
     char ** verb_array = read_from_file("verbs_ascii_friendly.txt", &length_verb, "\n");
     char ** tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
-	printf("%d",length_verb);
-	for(int i=0;i < 40;i++){
-		printf("\nMain %d: %s",i,tekst_array[i]);
-	}
     int tekst_count = 0;
     
 	while (tekst_array[tekst_count] != NULL) {
         tekst_count ++;
     }
-	printf("\n%d",tekst_count);
 
 	int verb_count = 0;
 	while (verb_array[verb_count] != NULL) {
         verb_count++;
     }
-	printf("\n%d",verb_count);
     
 	int word_class[tekst_count];
 

@@ -23,7 +23,6 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
         exit(EXIT_FAILURE);
     }
 
-    printf("Length: %d",length);
     char* file_content = calloc(length, sizeof(char));
     char *token;
     char ** charArr = calloc(length, sizeof(char*));
@@ -52,7 +51,6 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
         char *tok = (char *) calloc(sizeof(token), sizeof(char)+5);
         strcpy(tok, token);
         charArr[i] = tok;
-        printf("\nReader %d: %s",i,charArr[i]);
         token = strtok(NULL, delim);
         i++;
     };
