@@ -11,19 +11,32 @@ enum {
 };
 
 int main() {
+	int length_verb = 0;
+	int length_tekst = 0;
     int x = 0;
-    char ** verb_array = read_from_file("verbs_ascii_friendly.txt", 442292, "\n");
-    char ** tekst_array = read_from_file("tekst1.txt", 199, " \n");
-
-    int c = 0;
-    while (tekst_array[c] != NULL) {
-        c++;
+    char ** verb_array = read_from_file("verbs_ascii_friendly.txt", &length_verb, "\n");
+    char ** tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
+	printf("%d",length_verb);
+	for(int i=0;i < 40;i++){
+		printf("\nMain %d: %s",i,tekst_array[i]);
+	}
+    int tekst_count = 0;
+    
+	while (tekst_array[tekst_count] != NULL) {
+        tekst_count ++;
     }
+	printf("\n%d",tekst_count);
 
-    int word_class[c];
+	int verb_count = 0;
+	while (verb_array[verb_count] != NULL) {
+        verb_count++;
+    }
+	printf("\n%d",verb_count);
+    
+	int word_class[tekst_count];
 
-    while (x <= c-1){
-        for (int i = 0; i <= 44233; i++){
+    while (x < tekst_count){
+        for (int i = 0; i < verb_count; i++){
 
             if (strcmp(tekst_array[x], verb_array[i])){
                 word_class[x] = 0;
@@ -38,9 +51,8 @@ int main() {
     }
     FILE *output;
     output = fopen("output.txt", "w");
-
     int itr = 0;
-    while (itr < c) { // For hvert ord
+    while (itr < tekst_count) { // For hvert ord
         int p = 0;
         if (word_class[itr] == VERB) {
             while (tekst_array[itr][p] != '\0') {
