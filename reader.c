@@ -23,8 +23,8 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
         exit(EXIT_FAILURE);
     }
 
-    // length virker ikke ordenligt
-    char file_content[length];
+    printf("Length: %d",length);
+    char* file_content = calloc(length, sizeof(char));
     char *token;
     char ** charArr = calloc(length, sizeof(char*));
 
@@ -49,7 +49,7 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
     token = strtok(file_content, delim);
 
     while(token != NULL) {
-        char *tok = (char *) calloc(sizeof(token), sizeof(char));
+        char *tok = (char *) calloc(sizeof(token), sizeof(char)+5);
         strcpy(tok, token);
         charArr[i] = tok;
         printf("\nReader %d: %s",i,charArr[i]);
@@ -58,6 +58,7 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
     };
     
     free(buffer);
+    free(file_content);
 
     return charArr;
 }
