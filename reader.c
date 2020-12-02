@@ -2,88 +2,61 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-char ** ReadTextFromFile() {
+char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
     FILE *fp;
-   int lenght;
+    int length = 0,
+        i = 0;
 
-   fp = fopen("tekst1.txt", "r");
-
-   fseek(fp, 0, SEEK_END);
-
-   lenght = ftell(fp);
-
-   fclose(fp);
-
-   printf("Total size of file.txt = %d bytes\n", lenght);
+    /* Get bytesize of file */
+    fp = fopen(_FILENAME_, "r");
+    fseek(fp, 0, SEEK_END);
+    length = ftell(fp);
+    fclose(fp);
+    printf("Total size of %s = %d bytes\n", _FILENAME_, length);
     
+    *plength = length;
+
+    FILE *file_p = fopen(_FILENAME_, "r");
     
-    FILE *file_p = fopen("tekst1.txt", "r");
-    int i = 0;
-    char tekst[10000]; // lenght virker ikke ordenligt
-    const char s[4] = " \n";
-    char *token;
-    char ** tekst_array = calloc(199, sizeof(char*)); // Giver segfault med malloc fordi den ikke garantere at heapen er null ifoelge Anders
-
-
-    if (file_p == NULL) {
-            printf("Fejl. Filen kunne ikke findes.\n");
-            exit(EXIT_FAILURE);
+    if (file_p == NULL){
+        printf("Fejl. Filen kunne ikke findes.\n");
+        exit(EXIT_FAILURE);
     }
-    
-    char * line = NULL;
-    size_t len = 0;
+
+    char* file_content = calloc(length, sizeof(char));
+    char *token;
+    char ** charArr = calloc(length, sizeof(char*));
+
+    char * buffer;
+    size_t len = length;
     ssize_t read;
 
-    printf("txt before loops \n");
-    while ((read = getline(&line, &len, file_p)) != -1) {
-        strcat(tekst, line);
-    }
-
-
-    fclose(file_p);
+    buffer = (char*)malloc(len *sizeof(char));
     
-    token = strtok(tekst, s);
-
-
-    while(token != NULL) {
-        tekst_array[i++] = token;
-        token = strtok(NULL, s);
-        
-    };
-    printf("end of txt \n");
-    return tekst_array;
-}
-
-char ** ReadVerbFromFile() {
-    FILE *file_p = fopen("verbs_ascii_friendly.txt", "r");
-    int i = 0;
-    char file_content[600000];
-    const char s[3] = "\n";
-    char *token;
-    char ** verb_array = malloc(442292 * sizeof(char*));
-
-    if (file_p == NULL) {
-            printf("Fejl. Filen kunne ikke findes.\n");
-            exit(EXIT_FAILURE);
+    if(buffer == NULL){
+        printf("No space to allocate");
+        return 0;
     }
-   
-    char * line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    printf("verb before loops \n");
-    while ((read = getline(&line, &len, file_p)) != -1) {
-        strcat(file_content, line);
+
+    while ((read = getline(&buffer, &len, file_p)) != -1) {
+        strcat(file_content, buffer);
     }
 
     fclose(file_p);
-    
-    token = strtok(file_content, s);
+
+    /* Split file content into array of words */
+    token = strtok(file_content, delim);
 
     while(token != NULL) {
-        verb_array[i++] = token;
-        token = strtok(NULL, s);
+        char *tok = (char *) calloc(sizeof(token), sizeof(char)+5);
+        strcpy(tok, token);
+        charArr[i] = tok;
+        token = strtok(NULL, delim);
+        i++;
     };
-    printf("end of verb \n");
-    return verb_array;
+    
+    free(buffer);
+    free(file_content);
+
+    return charArr;
 }
