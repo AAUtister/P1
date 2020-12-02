@@ -23,6 +23,8 @@ int main()
 	int tekst_count = 0;
 	while (tekst_array[tekst_count] != NULL)
 	{
+        if(found_array == NULL)
+            exit(EXIT_FAILURE);
 		printf("Found array = %s", found_array[tekst_count]);
 		tekst_count++;
 	}

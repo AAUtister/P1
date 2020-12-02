@@ -26,7 +26,7 @@ char **rules(char *tekst_array[])
     for (int j = 0; j < 10; j++)
     {
 
-        for (int i = 0; i <= c; i++)
+        for (int i = 0; i < c; i++)
         {
 
             int ret = strcmp(tekst_array[i], hv_array[j]);
