@@ -1,5 +1,6 @@
 #include "reader.h"
 #include "rules.h"
+#include "sen_splitter.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -18,15 +19,15 @@ int main()
 	int length_tekst = 0;
 	int x = 0;
 	char **tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
-	char **found_array = rules(tekst_array);
-	char **verb_array = read_from_file("verbs_ascii_friendly.txt", &length_verb, "\n");
+	// char **found_array = rules(tekst_array);
+	char **senten_array = sentence_splitter("tekst1.txt");
+	char **verb_array = read_from_file("verbs_ascii_friendly.txt", &length_verb, " \n");
 	int tekst_count = 0;
 	while (tekst_array[tekst_count] != NULL)
 	{
-		printf("Found array = %s", found_array[tekst_count]);
 		tekst_count++;
 	}
-
+	printf("Array = %s", senten_array[1]);
 	int verb_count = 0;
 	while (verb_array[verb_count] != NULL)
 	{

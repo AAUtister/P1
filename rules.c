@@ -5,7 +5,7 @@
 char **rules(char *tekst_array[])
 {
     char *hv_array[14] = {"hvem", "hvad", "hvornaar", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
-    int c = 0, x = 0;
+    int c = 0;
 
     // while (tekst_array != '\0')
     // {
@@ -22,7 +22,7 @@ char **rules(char *tekst_array[])
         c++;
     }
 
-    int found_rule[c];
+    // int **found_rule = malloc(c);
     for (int j = 0; j < 10; j++)
     {
 
@@ -33,18 +33,18 @@ char **rules(char *tekst_array[])
 
             if (ret == 0)
             {
-                printf("YES ---i = %d and x = %d \n tekst = %s og hv = %s \n", i, j, tekst_array[i], hv_array[j]);
-                found_rule[j] = 0;
+                // printf("\nYES ---i = %d and x = %d \n tekst = %s og hv = %s \n", i, j, tekst_array[i], hv_array[j]);
+                // found_rule[j] = ret;
             }
             else
             {
-                printf("NOPE -------------------i = %d and x = %d \n tekst = %s og hv = %s \n", i, j, tekst_array[i], hv_array[j]);
+                // printf("NOPE -------------------i = %d and x = %d \n tekst = %s og hv = %s \n", i, j, tekst_array[i], hv_array[j]);
                 // printf("nope .---------. i = %d\n ", i);
-                found_rule[j] = 1;
+                // found_rule[j] = ret;
             }
         }
-        printf("LOOP == %d \n \n", j);
+        // printf("LOOP == %d \n \n", j);
     }
 
-    return found_rule;
+    return 0;
 }
