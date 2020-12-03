@@ -22,10 +22,10 @@ void rules(char *tekst_array[], int found_rule[])
             // printf("tekst = %s -- hv_array = %s \n", tekst_array[i], hv_array[j]);
             if (ret == 0)
             {
-                printf("\nYES ---i = %d and j = %d \n tekst = %s og hv = %s \n", i, j, tekst_array[i], hv_array[j]);
+                // printf("\nYES ---i = %d and j = %d \n tekst = %s og hv = %s \n", i, j, tekst_array[i], hv_array[j]);
                 found_rule[i] = ret;
 
-                printf("\n \n yes = %d \n \n", found_rule[i]);
+                // printf("\n \n yes = %d \n \n", found_rule[i]);
                 break;
             }
             else

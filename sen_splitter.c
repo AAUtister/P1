@@ -6,34 +6,42 @@ char **sentence_splitter(char *_FILENAME_)
 {
 
     FILE *fp = fopen(_FILENAME_, "r");
+
     if (fp == NULL)
     {
         printf("Fejl. Filen kunne ikke findes.\n");
         exit(EXIT_FAILURE);
     }
-    const char s[2] = " \n";
+    const char s[3] = ". ";
     char *token;
     int length = 0, i = 0;
     fseek(fp, 0, SEEK_END);
     length = ftell(fp);
+    fclose(fp);
+
+    FILE *file_p = fopen(_FILENAME_, "r");
+
     char *file_content = calloc(length, sizeof(char));
     char **charArr = calloc(length, sizeof(char *));
-    
-    char * buffer;
+    printf("Total size of txt = %d bytes\n", length);
+    char *buffer;
     size_t len = length;
     ssize_t read;
 
-    buffer = (char*)malloc(len *sizeof(char));
-    
-    if(buffer == NULL){
+    buffer = (char*)malloc(len * sizeof(char));
+
+    if (buffer == NULL)
+    {
         printf("No space to allocate");
         return 0;
     }
 
-    while ((read = getline(&buffer, &len, fp)) != -1) {
+    while ((read = getline(&buffer, &len, file_p)) != -1)
+    {
         strcat(file_content, buffer);
     }
 
+    fclose(file_p);
     token = strtok(file_content, s);
 
     while (token != NULL)
@@ -44,6 +52,7 @@ char **sentence_splitter(char *_FILENAME_)
         token = strtok(NULL, s);
         i++;
     };
+    free(buffer);
     free(file_content);
 
     return charArr;
