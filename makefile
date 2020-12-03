@@ -6,8 +6,10 @@ reader.o: reader.h
 
 rules.o: rules.h
 	gcc -Wall -g -std=gnu11 -c rules.c
+
 sen_splitter.o: sen_splitter.h
 	gcc -Wall -g -std=gnu11 -c sen_splitter.c
+	
 clean:
 	rm -f *.o *.out
 
