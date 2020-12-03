@@ -19,7 +19,6 @@ int main()
 	int length_tekst = 0;
 	int x = 0;
 	char **tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
-	// char **found_array = rules(tekst_array);
 	char **senten_array = sentence_splitter("tekst1.txt");
 	char **verb_array = read_from_file("verbs_ascii_friendly.txt", &length_verb, " \n");
 	int tekst_count = 0;
@@ -27,13 +26,21 @@ int main()
 	{
 		tekst_count++;
 	}
-	printf("Array = %s", senten_array[1]);
+	int *found_rule = malloc(tekst_count * sizeof(char));
+	rules(tekst_array, found_rule);
+	printf("Array = %s \n", senten_array[1]);
 	int verb_count = 0;
 	while (verb_array[verb_count] != NULL)
 	{
 		verb_count++;
 	}
 
+	//DET SKAL SLETTES. DER ER BARE FOR AT TJEK OM DET VIRKER.
+	for (int i = 0; i < tekst_count; i++)
+	{
+		printf("tekst = %s --- found_rule = %d \n", tekst_array[i], found_rule[i]);
+	}
+	
 	int word_class[tekst_count];
 
 	while (x < tekst_count)
