@@ -3,7 +3,8 @@
 
 typedef enum {
     VERB,   //vb-artikel
-    SUB     //sb-artikel
+    SUB,    //sb-artikel
+    UNDEFINED
 } wordtype;
 
 typedef struct {

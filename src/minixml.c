@@ -98,7 +98,7 @@ int main() {
     int tekst_count = 0;
     // char array[4][20] = {"øl", "fisse", "og", "hornmusik"};
     int length_tekst = 0;
-    char ** tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
+    char ** tekst_array = read_from_file("../data/input.txt", &length_tekst, " \n");
     // printf("Input ord: \n");
     // scanf("%s", ordet);
     while (tekst_array[tekst_count] != NULL) {
@@ -129,7 +129,7 @@ word functionBoi(char *input, int tree_test) {
     word w1;
     w1.type = 0;
     FILE *fp;
-    fp = fopen("RO12.xml", "r");
+    fp = fopen("../data/RO12.xml", "r");
     mxml_node_t *tree;
     if (tree_test == 0) {
         tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
