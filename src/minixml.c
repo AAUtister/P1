@@ -52,105 +52,87 @@ int GetType(const char *ordklasse) {
     }
 }
 
-
-// struct main() {
-//     FILE *fp;
-//     fp = fopen("RO12.xml", "r");
-//     mxml_node_t *tree;
-//     tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);
-//     fclose(fp);
-//     int i = 0;
-//     mxml_node_t *node;
-//     word a[50];
-    
-
-//     for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
-//         const char *tekst = mxmlGetText(node,0);
-//         const char *att = mxmlElementGetAttr(node, "ordklasse");
-        
-//         if (!(strcmp(tekst,"ringe"))){
-//             printf("Ord: %s\n", tekst);
-//             // printf("%d", i);
-//             printf("Ordklasse: %s\n", att);
-//             strcpy(a[0].word, tekst);
-//             if (a[0].type == GetType(att)) {
-//                 a[0].type = GetType(att);
-//             } else if (a[0].type != 0) {
-//                 a[0].type = GetType(att);    
-//             } else {
-//                 printf("Flere ordklasse, vælg venligst en (0-15): \n");
-//                 scanf("%d", &a[0].type);
-//             }
-            
-//         }
-//         i++;
-
-//     }
-
-// printf("ORD: %s\n", a[0].word);
-// printf("KLASSE: %u\n", a[0].type);
-// return 0;
-// }
-
 int main() {
     setlocale(LC_ALL, "da_DK.UTF-8");
-    // printf("ORD: %s\n", w.word);
-    // printf("KLASSE: %u\n", w.type);
-    // char ordet[20];
     word w_temp;
     int tekst_count = 0;
-    // char array[4][20] = {"øl", "fisse", "og", "hornmusik"};
     int length_tekst = 0;
-    char ** tekst_array = read_from_file(PATH_TO_INPUT_FILE, &length_tekst, " \n");
-    // printf("Input ord: \n");
-    // scanf("%s", ordet);
+    char ** tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
+
     while (tekst_array[tekst_count] != NULL) {
         tekst_count ++;
     }
 
     for (int i = 0; i < tekst_count; i++) {
-        for (int j = 0; j < strlen(tekst_array[i]); j++) {
-            tekst_array[i][j] = tolower(tekst_array[i][j]);
-        }
+        utf8lwr(tekst_array[i]);
     }
 
+    
+
+    printf("FREDERIK MED SMÅT: %s\n", tekst_array[10]);
+
+
+    word wArr[tekst_count];
+
     printf("%d\n", tekst_count);
+    
     for (int i = 0; i < tekst_count; i++) {
         
         w_temp = functionBoi(tekst_array[i], i);
         printf("ORD: %s\n", w_temp.word);
-        printf("KLASSE: %u\n\n", w_temp.type);
+        printf("KLASSE: %u\n", w_temp.type);
 
-        printf("%d\n", i);
+        strcpy(wArr[i].word, w_temp.word);
+        wArr[i].type = w_temp.type;
     }
 
+
+    for (int i = 0; i < tekst_count; i++) {
+        printf("ORD #%d: %s\n", i, wArr[i].word);
+        printf("KLASSE #%d: %u\n", i, wArr[i].type);
+    }
+
+
+
+
+
     return 0;
+
+
 
 }
 
 word functionBoi(char *input, int tree_test) {
+    printf("INPUT: %s\n", input);
     word w1;
     w1.type = 0;
     FILE *fp;
-    fp = fopen(PATH_TO_XML_FILE, "r");
+    fp = fopen("RO12.xml", "r");
     mxml_node_t *tree;
     if (tree_test == 0) {
         tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
     }
     fclose(fp);
+
     mxml_node_t *node;
     // word a[50];
     int ff_count = 0; // Fuldform Count
     int options[15];
 
+    int wl = strlen(input);
+        printf("%d\n", wl);
+        if (input[wl-1] == '.') {
+            input[wl-1] = '\0';
+            printf("PUNKTUM PUNKTUM PUNKTUM: %s\n", input);
+    }
+
+
     for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
         const char *tekst = mxmlGetText(node,0);
         const char *att = mxmlElementGetAttr(node, "ordklasse");
         
+
         if (!(strcmp(tekst, input))){
-            // printf("Ord: %s\n", tekst);
-            // // printf("%d", i);
-            // printf("Ordklasse: %s\n", att);
             options[ff_count] = GetType(att);
             strcpy(w1.word, tekst);
             if (w1.type == GetType(att)) {
@@ -163,7 +145,7 @@ word functionBoi(char *input, int tree_test) {
                 // i++;
             }  
             ff_count++; 
-        }
+        } 
     }
 
     if (ff_count > 1) {
@@ -172,33 +154,12 @@ word functionBoi(char *input, int tree_test) {
         }
         printf("Flere ordklasse for ordet: %s, vælg venligst en: \n", w1.word);
         scanf("%d", &w1.type);
+    } else if (ff_count == 0) {
+        options[ff_count] = 69;
+        strcpy(w1.word, input);
+        w1.type == 69;
+        ff_count++;
     }
 
-    // printf("ORD: %s\n", a[0].word);
-    // printf("KLASSE: %u\n", a[0].type);
     return w1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
