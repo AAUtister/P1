@@ -68,35 +68,17 @@ int main() {
         utf8lwr(tekst_array[i]);
     }
 
-    
-
     printf("FREDERIK MED SMÅT: %s\n", tekst_array[10]);
-
 
     word wArr[tekst_count];
 
     printf("%d\n", tekst_count);
     
-
-
     FILE *fp;
     fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree;
     tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
     
-    
-
-
-
-
-
-
-
-
-
-
-
-
     for (int i = 0; i < tekst_count; i++) {
         
         w_temp = functionBoi(tekst_array[i], tree);
@@ -107,46 +89,20 @@ int main() {
         wArr[i].type = w_temp.type;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     for (int i = 0; i < tekst_count; i++) {
         printf("ORD #%d: %s\n", i, wArr[i].word);
         printf("KLASSE #%d: %u\n", i, wArr[i].type);
     }
 
-
-
     fclose(fp);
 
     return 0;
-
-
-
 }
 
 word functionBoi(char *input, mxml_node_t *tree) {
     printf("INPUT: %s\n", input);
     word w1;
     w1.type = 0;
-    // FILE *fp;
-    // fp = fopen(PATH_TO_XML_FILE, "r");
-    // mxml_node_t *tree;
-    // if (tree_test == 0) {
-    //     tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
-    // }
-    // fclose(fp);
 
     mxml_node_t *node;
     // word a[50];
