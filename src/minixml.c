@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <locale.h>
 #include <wchar.h>
+#include "../lib/utf8.h"
 
 #define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
 #define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
