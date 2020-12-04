@@ -77,15 +77,48 @@ int main() {
 
     printf("%d\n", tekst_count);
     
+
+
+    FILE *fp;
+    fp = fopen(PATH_TO_XML_FILE, "r");
+    mxml_node_t *tree;
+    tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
     for (int i = 0; i < tekst_count; i++) {
         
-        w_temp = functionBoi(tekst_array[i], i);
+        w_temp = functionBoi(tekst_array[i], tree);
         printf("ORD: %s\n", w_temp.word);
         printf("KLASSE: %u\n", w_temp.type);
 
         strcpy(wArr[i].word, w_temp.word);
         wArr[i].type = w_temp.type;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     for (int i = 0; i < tekst_count; i++) {
@@ -95,7 +128,7 @@ int main() {
 
 
 
-
+    fclose(fp);
 
     return 0;
 
@@ -103,17 +136,17 @@ int main() {
 
 }
 
-word functionBoi(char *input, int tree_test) {
+word functionBoi(char *input, mxml_node_t *tree) {
     printf("INPUT: %s\n", input);
     word w1;
     w1.type = 0;
-    FILE *fp;
-    fp = fopen(PATH_TO_XML_FILE, "r");
-    mxml_node_t *tree;
-    if (tree_test == 0) {
-        tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
-    }
-    fclose(fp);
+    // FILE *fp;
+    // fp = fopen(PATH_TO_XML_FILE, "r");
+    // mxml_node_t *tree;
+    // if (tree_test == 0) {
+    //     tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
+    // }
+    // fclose(fp);
 
     mxml_node_t *node;
     // word a[50];
