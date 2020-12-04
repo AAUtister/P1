@@ -8,6 +8,9 @@
 #include <locale.h>
 #include <wchar.h>
 
+#define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
+#define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
+
 word functionBoi();
 
 int GetType(const char *ordklasse) {
@@ -98,7 +101,7 @@ int main() {
     int tekst_count = 0;
     // char array[4][20] = {"øl", "fisse", "og", "hornmusik"};
     int length_tekst = 0;
-    char ** tekst_array = read_from_file("../data/input.txt", &length_tekst, " \n");
+    char ** tekst_array = read_from_file(PATH_TO_INPUT_FILE, &length_tekst, " \n");
     // printf("Input ord: \n");
     // scanf("%s", ordet);
     while (tekst_array[tekst_count] != NULL) {
@@ -129,7 +132,7 @@ word functionBoi(char *input, int tree_test) {
     word w1;
     w1.type = 0;
     FILE *fp;
-    fp = fopen("../data/RO12.xml", "r");
+    fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree;
     if (tree_test == 0) {
         tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
