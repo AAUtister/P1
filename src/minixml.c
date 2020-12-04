@@ -1,13 +1,13 @@
 #include "mxml.h"
 #include "word.h"
+#include "reader.h"
+#include "utf8.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "reader.h"
 #include <ctype.h>
 #include <locale.h>
-#include <wchar.h>
-#include "../lib/utf8.h"
+
 
 #define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
 #define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
@@ -58,7 +58,7 @@ int main() {
     word w_temp;
     int tekst_count = 0;
     int length_tekst = 0;
-    char ** tekst_array = read_from_file("tekst1.txt", &length_tekst, " \n");
+    char ** tekst_array = read_from_file(PATH_TO_INPUT_FILE, &length_tekst, " \n");
 
     while (tekst_array[tekst_count] != NULL) {
         tekst_count ++;
@@ -108,7 +108,7 @@ word functionBoi(char *input, int tree_test) {
     word w1;
     w1.type = 0;
     FILE *fp;
-    fp = fopen("RO12.xml", "r");
+    fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree;
     if (tree_test == 0) {
         tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
@@ -158,7 +158,7 @@ word functionBoi(char *input, int tree_test) {
     } else if (ff_count == 0) {
         options[ff_count] = 69;
         strcpy(w1.word, input);
-        w1.type == 69;
+        w1.type = 69;
         ff_count++;
     }
 
