@@ -14,6 +14,13 @@
 
 word functionBoi();
 
+
+
+int cmpfunc (const void * a, const void * b) {
+    return ( * (int* )a - *(int*)b );
+}
+
+
 int GetType(const char *ordklasse) {
     if (!(strcmp(ordklasse, "adj"))) {
         return 16;
@@ -47,6 +54,8 @@ int GetType(const char *ordklasse) {
         return 14;
     } else if (!(strcmp(ordklasse, "vb"))) {
         return 15;
+    } else if (!(strcmp(ordklasse, "flerord"))) {
+        return 18;
     } else {
         return UNDEFINED;
 
@@ -68,11 +77,7 @@ int main() {
         utf8lwr(tekst_array[i]);
     }
 
-    printf("FREDERIK MED SMÅT: %s\n", tekst_array[10]);
-
     word wArr[tekst_count];
-
-    printf("%d\n", tekst_count);
     
     FILE *fp;
     fp = fopen(PATH_TO_XML_FILE, "r");
@@ -100,7 +105,6 @@ int main() {
 }
 
 word functionBoi(char *input, mxml_node_t *tree) {
-    printf("INPUT: %s\n", input);
     word w1;
     w1.type = 0;
 
@@ -110,45 +114,89 @@ word functionBoi(char *input, mxml_node_t *tree) {
     int options[15];
 
     int wl = strlen(input);
-        printf("%d\n", wl);
-        if (input[wl-1] == '.') {
+    if (input[wl-1] == '.') {
             input[wl-1] = '\0';
-            printf("PUNKTUM PUNKTUM PUNKTUM: %s\n", input);
     }
 
-
+    int nummer = 0;
     for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
-        const char *tekst = mxmlGetText(node,0);
+        const char *tekst = mxmlGetText(node, 0);
         const char *att = mxmlElementGetAttr(node, "ordklasse");
         
 
-        if (!(strcmp(tekst, input))){
-            options[ff_count] = GetType(att);
-            strcpy(w1.word, tekst);
-            if (w1.type == GetType(att)) {
-                w1.type = GetType(att);
-            } else if (w1.type == 0) {
-                w1.type = GetType(att);    
-            } else if (ff_count == 0) {
-                // i++;
-            } else {
-                // i++;
-            }  
-            ff_count++; 
-        } 
+        if (!(utf8cmp(tekst, input))){
+            if (GetType(att) != 18) {
+                options[ff_count] = GetType(att);
+                strcpy(w1.word, tekst);
+                if (w1.type == GetType(att)) {
+                    w1.type = GetType(att);
+                } else if (w1.type == 0) {
+                    w1.type = GetType(att); 
+                }   
+
+                ff_count++; 
+            }
+        }
+        nummer++;
     }
 
     if (ff_count > 1) {
-        for (int q = 0; q < ff_count; q++) {
-        printf("Option: %d\n", options[q]);
+        
+        qsort(options, ff_count, sizeof(int), cmpfunc);
+        int x = 0;
+        // int *arr2;
+        
+        // arr2 = (int*)calloc(1, size(int))
+
+
+        // for (int i = 0; i < ff_count; i++) {
+        //     if (options[i] == 18) {
+        //         continue;
+        //     }
+        //     for (int j = i + 1; j < ff_count; j++) {
+        //         if (i == ff_count-1) {
+        //             x++;
+        //             arr2 = (int*)calloc(x, sizeof(int));
+        //             arr2[x-1] = options[i];
+
+        //         } else if (options[i] != options[j]) {
+        //             x++;
+        //             arr2 = (int*)calloc(x, sizeof(int));
+        //             arr2[x-1] = options[i];
+        //         }
+        //     }
+        // }
+
+        for(int i = 0; i < ff_count; i++) {
+            for(int j = i+1; j < ff_count; ) {
+                if(options[j] == options[i]) {
+                    for(int k = j; k < ff_count; k++) {
+                        options[k] = options[k+1];
+                    }
+                    ff_count--;
+                }
+                else {
+                    j++;
+                }
+            }
         }
-        printf("Flere ordklasse for ordet: %s, vælg venligst en: \n", w1.word);
-        scanf("%d", &w1.type);
-    } else if (ff_count == 0) {
-        options[ff_count] = 69;
+        
+        if (ff_count > 1) {
+            for (int q = 0; q < ff_count; q++) {
+                printf("Option: %d\n", options[q]);
+            }
+            printf("Flere ordklasse for ordet: %s, vælg venligst en: \n", w1.word);
+            scanf("%d", &w1.type);
+        }   else {
+                strcpy(w1.word, input);
+                w1.type = options[0];
+        }
+ 
+    } 
+
+    else if (ff_count == 0) {
         strcpy(w1.word, input);
-        w1.type = 69;
-        ff_count++;
+        w1.type = options[0];
     }
 
     return w1;
