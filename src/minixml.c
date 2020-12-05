@@ -56,6 +56,8 @@ int GetType(const char *ordklasse) {
         return 15;
     } else if (!(strcmp(ordklasse, "flerord"))) {
         return 18;
+    } else if (!(strcmp(ordklasse, "egenavn"))) {
+        return 19;
     } else {
         return UNDEFINED;
 
@@ -144,28 +146,6 @@ word functionBoi(char *input, mxml_node_t *tree) {
         
         qsort(options, ff_count, sizeof(int), cmpfunc);
         int x = 0;
-        // int *arr2;
-        
-        // arr2 = (int*)calloc(1, size(int))
-
-
-        // for (int i = 0; i < ff_count; i++) {
-        //     if (options[i] == 18) {
-        //         continue;
-        //     }
-        //     for (int j = i + 1; j < ff_count; j++) {
-        //         if (i == ff_count-1) {
-        //             x++;
-        //             arr2 = (int*)calloc(x, sizeof(int));
-        //             arr2[x-1] = options[i];
-
-        //         } else if (options[i] != options[j]) {
-        //             x++;
-        //             arr2 = (int*)calloc(x, sizeof(int));
-        //             arr2[x-1] = options[i];
-        //         }
-        //     }
-        // }
 
         for(int i = 0; i < ff_count; i++) {
             for(int j = i+1; j < ff_count; ) {
@@ -196,7 +176,7 @@ word functionBoi(char *input, mxml_node_t *tree) {
 
     else if (ff_count == 0) {
         strcpy(w1.word, input);
-        w1.type = options[0];
+        w1.type = 19;
     }
 
     return w1;
