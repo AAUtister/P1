@@ -12,10 +12,13 @@ void rules(char *tekst_array[], int found_rule[])
         c++;
     }
     printf("%d \n", c);
-    int x = sizeof(hv_array) / sizeof(int);
+
+    int banan = sizeof(hv_array) / sizeof(int);
+    printf("%i\n", banan);
+    int x = 17;
+
     for (int i = 0; i < c; i++)
     {
-
         for (int j = 0; j < x; j++)
         {
             int ret = str_cmp(tekst_array[i], hv_array[j]);

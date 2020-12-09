@@ -31,8 +31,10 @@ int main() {
         i++;
     }
 
-    int *found_rule = malloc(tekst_count * sizeof(char));
+    int *found_rule = malloc(tekst_count * sizeof(int) + 1000);
+
     rules(tekst_array, found_rule);
+    
 
     int verb_count = 0;
     while (verb_array[verb_count] != NULL) {
