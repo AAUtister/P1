@@ -2,10 +2,12 @@
 #include "rules.h"
 #include "word.h"
 #include "sen_splitter.h"
+#include "minixml.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 
 // TODO: Find ud af om det skal vaere hardkodet eller mulighed for begge ting
 #define VERBSFILE "data/verbs_ascii_friendly.txt"
@@ -14,7 +16,18 @@
 // Mighty shit
 // ToDo: Tilfoej flere ordklasser at sortere efter
 
+
+
+
+// word wArr[tekst_count] = minixml();
+
+
+
+
+
+
 int main() {
+    setlocale(LC_ALL, "da_DK.UTF-8");
     int length_verb = 0;
     int length_tekst = 0;
     int x = 0, i = 0;

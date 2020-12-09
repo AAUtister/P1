@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <locale.h>
+
 
 
 #define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
@@ -22,50 +22,86 @@ int cmpfunc (const void * a, const void * b) {
 
 
 int GetType(const char *ordklasse) {
-    if (!(strcmp(ordklasse, "adj"))) {
-        return 16;
-    } else if (!(strcmp(ordklasse, "adv"))) {
-        return 12;
-    } else if (!(strcmp(ordklasse, "art"))) {
-        return 17;
-    } else if (!(strcmp(ordklasse, "fork"))) {
-        return 3;
-    } else if (!(strcmp(ordklasse, "kolon"))) {
-        return 4;
-    } else if (!(strcmp(ordklasse, "konj"))) {
-        return 5;
-    } else if (!(strcmp(ordklasse, "lydord"))) {
-        return 6;
-    } else if (!(strcmp(ordklasse, "pron"))) {
-        return 7;
-    } else if (!(strcmp(ordklasse, "proprium"))) {
-        return 8;
-    } else if (!(strcmp(ordklasse, "præfiks"))) {
-        return 9;
-    } else if (!(strcmp(ordklasse, "præp"))) {
-        return 10;
-    } else if (!(strcmp(ordklasse, "romertal"))) {
-        return 11;
-    } else if (!(strcmp(ordklasse, "sb"))) {
-        return SUB;
-    } else if (!(strcmp(ordklasse, "talord"))) {
-        return 13;
-    } else if (!(strcmp(ordklasse, "udråbsord"))) {
-        return 14;
-    } else if (!(strcmp(ordklasse, "vb"))) {
-        return 15;
-    } else if (!(strcmp(ordklasse, "flerord"))) {
-        return 18;
-    } else if (!(strcmp(ordklasse, "egenavn"))) {
-        return 19;
+    if (!(utf8cmp(ordklasse, "adj"))) {
+        return ADJ;
+    } else if (!(utf8cmp(ordklasse, "adj,præp"))) {
+        return ADJ_PRÆP;
+    } else if (!(utf8cmp(ordklasse, "adv"))) {
+        return ADV;
+    } else if (!(utf8cmp(ordklasse, "adv,konj"))) {
+        return ADV_KONJ;
+    } else if (!(utf8cmp(ordklasse, "adv,udråbsord"))) {
+        return ADV_UDRÅBSORD;
+    } else if (!(utf8cmp(ordklasse, "art"))) {
+        return ART;
+    } else if (!(utf8cmp(ordklasse, "artikel,talord"))) {
+        return ARTIKEL_TALORD;
+    } else if (!(utf8cmp(ordklasse, "flerord"))) {
+        return FLERORD;
+    } else if (!(utf8cmp(ordklasse, "fork"))) {
+        return FORK;
+    } else if (!(utf8cmp(ordklasse, "fsubj"))) {
+        return FSUBJ;
+    } else if (!(utf8cmp(ordklasse, "kolon"))) {
+        return KOLON;
+    } else if (!(utf8cmp(ordklasse, "konj"))) {
+        return KONJ;
+    } else if (!(utf8cmp(ordklasse, "konj,infinitivens.mærke"))) {
+        return KONJ_INFINITIVENS_MÆRKE;
+    } else if (!(utf8cmp(ordklasse, "lydord"))) {
+        return LYDORD;
+    } else if (!(utf8cmp(ordklasse, "pron"))) {
+        return PRON;
+    } else if (!(utf8cmp(ordklasse, "pron,talord"))) {
+        return PRON_TALORD;
+    } else if (!(utf8cmp(ordklasse, "prop"))) {
+        return PROP;
+    } else if (!(utf8cmp(ordklasse, "præfiks"))) {
+        return PRÆFIKS;
+    } else if (!(utf8cmp(ordklasse, "præp"))) {
+        return PRÆP;
+    } else if (!(utf8cmp(ordklasse, "præp,adv"))) {
+        return PRÆP_ADV;
+    } else if (!(utf8cmp(ordklasse, "præp,adv,konj"))) {
+        return PRÆP_ADV_KONJ;
+    } else if (!(utf8cmp(ordklasse, "præp,konj"))) {
+        return PRÆP_KONJ;
+    } else if (!(utf8cmp(ordklasse, "sb"))) {
+        return SB;
+    } else if (!(utf8cmp(ordklasse, "talord"))) {
+        return TALORD;
+    } else if (!(utf8cmp(ordklasse, "udråbsord"))) {
+        return UDRÅBSORD;
+    } else if (!(utf8cmp(ordklasse, "udråbsord,adj"))) {
+        return UDRÅBSORD_ADJ;
+    } else if (!(utf8cmp(ordklasse, "vb"))) {
+        return VB;
     } else {
         return UNDEFINED;
+    }
+}
 
+char *GetTypeString(wordtype t) {
+    switch(t) {
+        case ADJ:       return "Adjektiv (Tilægsord)";      break;
+        case ADV:       return "Adverbium (Biord)";         break;
+        case ART:       return "Artikel (Kendeord)";        break;
+        case FLERORD:   return "Flerord (Flerord)";         break;
+        case FORK:      return "Forkortelse (Forkortelse)"; break;
+        case KONJ:      return "Konjunktion (Bindeord)";    break;
+        case LYDORD:    return "Lydord (Lydord)";           break;
+        case PRON:      return "Pronomen (Stedord)";        break;
+        case PROP:      return "Proprium (Egenavn)";        break;
+        case PRÆP:      return "Præposition (Forholdsord)"; break;
+        case SB:        return "Substantiv (Navneord)";     break;
+        case TALORD:    return "Numerale (Talord)";         break;
+        case UDRÅBSORD: return "Interjektion (Udråbsord)";  break;
+        case VB:        return "Verbum (Udsagnsord)";       break;
+        default:        return "Tisboi";                    break;
     }
 }
 
 int main() {
-    setlocale(LC_ALL, "da_DK.UTF-8");
     word w_temp;
     int tekst_count = 0;
     int length_tekst = 0;
@@ -75,9 +111,9 @@ int main() {
         tekst_count ++;
     }
 
-    for (int i = 0; i < tekst_count; i++) {
-        utf8lwr(tekst_array[i]);
-    }
+    // for (int i = 0; i < tekst_count; i++) {
+    //     utf8lwr(tekst_array[i]);
+    // }
 
     word wArr[tekst_count];
     
@@ -90,16 +126,17 @@ int main() {
         
         w_temp = functionBoi(tekst_array[i], tree);
         printf("ORD: %s\n", w_temp.word);
-        printf("KLASSE: %u\n", w_temp.type);
+        printf("KLASSE: %s\n\n", GetTypeString(w_temp.type));
+
 
         strcpy(wArr[i].word, w_temp.word);
         wArr[i].type = w_temp.type;
     }
 
-    for (int i = 0; i < tekst_count; i++) {
-        printf("ORD #%d: %s\n", i, wArr[i].word);
-        printf("KLASSE #%d: %u\n", i, wArr[i].type);
-    }
+    // for (int i = 0; i < tekst_count; i++) {
+    //     printf("ORD #%d: %s\n", i, wArr[i].word);
+    //     printf("KLASSE #%d: %u\n", i, wArr[i].type);
+    // }
 
     fclose(fp);
 
@@ -108,7 +145,7 @@ int main() {
 
 word functionBoi(char *input, mxml_node_t *tree) {
     word w1;
-    w1.type = 0;
+    w1.type = UNDEFINED;
 
     mxml_node_t *node;
     // word a[50];
@@ -120,24 +157,25 @@ word functionBoi(char *input, mxml_node_t *tree) {
             input[wl-1] = '\0';
     }
 
+    char temp_w[50];
+    strcpy(temp_w, input);
+    utf8lwr(input);
+
     int nummer = 0;
     for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
         const char *tekst = mxmlGetText(node, 0);
         const char *att = mxmlElementGetAttr(node, "ordklasse");
-        
 
-        if (!(utf8cmp(tekst, input))){
-            if (GetType(att) != 18) {
-                options[ff_count] = GetType(att);
-                strcpy(w1.word, tekst);
-                if (w1.type == GetType(att)) {
-                    w1.type = GetType(att);
-                } else if (w1.type == 0) {
-                    w1.type = GetType(att); 
-                }   
+        if (!(utf8cmp(tekst, input)) && (GetType(att) != FLERORD)){
+            options[ff_count] = GetType(att);
+            strcpy(w1.word, temp_w);
+            if (w1.type == GetType(att)) {
+                w1.type = GetType(att);
+            } else if (w1.type == UNDEFINED) {
+                w1.type = GetType(att); 
+            }   
 
-                ff_count++; 
-            }
+            ff_count++;  
         }
         nummer++;
     }
@@ -163,20 +201,20 @@ word functionBoi(char *input, mxml_node_t *tree) {
         
         if (ff_count > 1) {
             for (int q = 0; q < ff_count; q++) {
-                printf("Option: %d\n", options[q]);
+                printf("Option: %s (%d)\n", GetTypeString(options[q]), options[q]);
             }
             printf("Flere ordklasse for ordet: %s, vælg venligst en: \n", w1.word);
             scanf("%d", &w1.type);
         }   else {
-                strcpy(w1.word, input);
+                strcpy(w1.word, temp_w);
                 w1.type = options[0];
         }
  
     } 
 
     else if (ff_count == 0) {
-        strcpy(w1.word, input);
-        w1.type = 19;
+        strcpy(w1.word, temp_w);
+        w1.type = PROP;
     }
 
     return w1;
