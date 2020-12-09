@@ -65,8 +65,12 @@ dkms.conf
 !.vscode/extensions.json
 *.code-workspace
 
+# Local History for Visual Studio Code
+.history/
+
 # End of https://www.toptal.com/developers/gitignore/api/c,vscode
 # Mac bullshit
 .DS_Store
 # Andet
 *.txt
+*.xml
