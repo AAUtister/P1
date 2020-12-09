@@ -224,25 +224,11 @@ word functionBoi(char *input, mxml_node_t *tree) {
                 }
                 printf(">");
                 
-
-                // int n;
-                // do {
-                //     if (!fgets(buf, sizeof buf, stdin)) {
-                //         break;
-                //     }
-
-                //     // remove \n
-                //     buf[strlen(buf) - 1] = 0;
-
-                //     n = strtol(buf, &end, 10);
-
-                // } while (end != buf + strlen(buf));
-
-
                 int n;
                 if (!fgets(buf, sizeof buf, stdin)) {
                     break;
                 }
+                
                 // remove \n
                 buf[strlen(buf) - 1] = 0;
                 n = strtol(buf, &end, 10);
