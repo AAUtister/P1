@@ -19,9 +19,8 @@ int main() {
     int length_tekst = 0;
     int x = 0, i = 0;
     char **verb_array = read_from_file(VERBSFILE, &length_verb, "\n");
-    char **senten_array = sentence_splitter(INPUTFILE);
     char **tekst_array = read_from_file(INPUTFILE, &length_tekst, " \n");
-
+    char **senten_array = sentence_splitter(INPUTFILE);
     int tekst_count = 0;
     while (tekst_array[tekst_count] != NULL) {
         tekst_count ++;

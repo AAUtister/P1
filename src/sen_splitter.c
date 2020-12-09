@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 char **sentence_splitter(char *_FILENAME_)
 {
 
@@ -12,9 +11,9 @@ char **sentence_splitter(char *_FILENAME_)
         printf("Fejl. Filen kunne ikke findes.\n");
         exit(EXIT_FAILURE);
     }
-    const char s[3] = ". ";
+    const char s[3] = ".";
     char *token;
-    int length = 0, i = 0;
+    int length = 0, i = 0;  
     fseek(fp, 0, SEEK_END);
     length = ftell(fp);
     fclose(fp);
@@ -28,7 +27,7 @@ char **sentence_splitter(char *_FILENAME_)
     size_t len = length;
     ssize_t read;
 
-    buffer = (char*)malloc(len * sizeof(char));
+    buffer = (char *)malloc(len * sizeof(char));
 
     if (buffer == NULL)
     {
@@ -51,6 +50,17 @@ char **sentence_splitter(char *_FILENAME_)
         charArr[i] = tok;
         token = strtok(NULL, s);
         i++;
+        int j = 0, k = 0;
+        if (tok[0] == ' ')
+        {
+            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 5);
+            for (j = 0, k = 1; tok[k] != '\0'; j++, k++)
+            {
+                newtok[j] = tok[k];
+            }
+            strcpy(tok, newtok); // toktok
+            j = 0, k = 0;
+        }
     };
     free(buffer);
     free(file_content);
