@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <limits.h>
+
 
 
 
@@ -125,8 +127,8 @@ int main() {
     for (int i = 0; i < tekst_count; i++) {
         
         w_temp = functionBoi(tekst_array[i], tree);
-        printf("ORD: %s\n", w_temp.word);
-        printf("KLASSE: %s\n\n", GetTypeString(w_temp.type));
+        // printf("ORD: %s\n", w_temp.word);
+        // printf("KLASSE: %s\n\n", GetTypeString(w_temp.type));
 
 
         strcpy(wArr[i].word, w_temp.word);
@@ -199,12 +201,58 @@ word functionBoi(char *input, mxml_node_t *tree) {
             }
         }
         
+
+        printf("%d\n", ff_count);
+
+
         if (ff_count > 1) {
-            for (int q = 0; q < ff_count; q++) {
-                printf("Option: %s (%d)\n", GetTypeString(options[q]), options[q]);
+            // printf("Flere ordklasser for ordet: \"%s\", vælg venligst en: \n", w1.word);
+            // for (int q = 0; q < ff_count; q++) {
+            //     printf("(%d) %s\n", q+1, GetTypeString(options[q]));
+            // }
+            
+            int valg = 0;
+            char *end;
+            char buf[LINE_MAX];
+
+            while (valg <= 0 || valg > ff_count/*' || (isdigit(valg) == 0)*/) {
+                
+                printf("Flere ordklasser for ordet: \"%s\", vælg venligst en: \n", w1.word);
+                
+                for (int q = 0; q < ff_count; q++) {
+                    printf("(%d) %s\n", q+1, GetTypeString(options[q]));
+                }
+                printf(">");
+                
+
+                // int n;
+                // do {
+                //     if (!fgets(buf, sizeof buf, stdin)) {
+                //         break;
+                //     }
+
+                //     // remove \n
+                //     buf[strlen(buf) - 1] = 0;
+
+                //     n = strtol(buf, &end, 10);
+
+                // } while (end != buf + strlen(buf));
+
+
+                int n;
+                if (!fgets(buf, sizeof buf, stdin)) {
+                    break;
+                }
+                // remove \n
+                buf[strlen(buf) - 1] = 0;
+                n = strtol(buf, &end, 10);
+                printf("%d\n", n);
+                valg = n;
+                
             }
-            printf("Flere ordklasse for ordet: %s, vælg venligst en: \n", w1.word);
-            scanf("%d", &w1.type);
+
+            w1.type = options[valg-1];
+
         }   else {
                 strcpy(w1.word, temp_w);
                 w1.type = options[0];
