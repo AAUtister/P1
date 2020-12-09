@@ -45,7 +45,7 @@ char **sentence_splitter(char *_FILENAME_)
 
     while (token != NULL)
     {
-        char *tok = (char *)calloc(sizeof(token), sizeof(char) + 5);
+        char *tok = (char *)calloc(sizeof(token), sizeof(char) + 1000);
         strcpy(tok, token);
         charArr[i] = tok;
         token = strtok(NULL, s);
@@ -53,7 +53,7 @@ char **sentence_splitter(char *_FILENAME_)
         int j = 0, k = 0;
         if (tok[0] == ' ')
         {
-            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 5);
+            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 1000);
             for (j = 0, k = 1; tok[k] != '\0'; j++, k++)
             {
                 newtok[j] = tok[k];
