@@ -78,18 +78,8 @@ int main() {
     int itr = 0;
     while (itr < tekst_count) { // For hvert ord
         int p = 0;
-        // if (word_class[itr] == VB) {
-        //     while (tekst_array[itr][p] != '\0') {
-        //         fprintf(output, "%c", toupper(tekst_array[itr][p]));
-        //         p++;	
-
-        //     }fprintf(output, " ");
         if (found_rule[itr+1] == 0) {
-            if (!(strlen(tekst_array[itr+1]) == 0)) {
-            // int len = strlen(tekst_array[itr]);
-            // char dest[len+1]
-            // memmove(tekst_array[itr]+1, tekst_array[itr], len+1);
-            // tekst_array[itr][len+1] = ',';
+            if (itr != tekst_count - 1) {
 
             while (tekst_array[itr][p] != '\0') {
                 fprintf(output, "%c", tekst_array[itr][p]);
