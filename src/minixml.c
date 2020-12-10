@@ -113,10 +113,6 @@ int main() {
         tekst_count ++;
     }
 
-    // for (int i = 0; i < tekst_count; i++) {
-    //     utf8lwr(tekst_array[i]);
-    // }
-
     word wArr[tekst_count];
     
     FILE *fp;
@@ -202,7 +198,7 @@ word functionBoi(char *input, mxml_node_t *tree) {
         }
         
 
-        printf("%d\n", ff_count);
+        // printf("%d\n", ff_count);
 
 
         if (ff_count > 1) {
