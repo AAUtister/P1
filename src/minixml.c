@@ -27,13 +27,13 @@ int GetType(const char *ordklasse) {
     if (!(utf8cmp(ordklasse, "adj"))) {
         return ADJ;
     } else if (!(utf8cmp(ordklasse, "adj,præp"))) {
-        return ADJ_PRÆP;
+        return ADJ_PRAEP;
     } else if (!(utf8cmp(ordklasse, "adv"))) {
         return ADV;
     } else if (!(utf8cmp(ordklasse, "adv,konj"))) {
         return ADV_KONJ;
     } else if (!(utf8cmp(ordklasse, "adv,udråbsord"))) {
-        return ADV_UDRÅBSORD;
+        return ADV_UDRAABSORD;
     } else if (!(utf8cmp(ordklasse, "art"))) {
         return ART;
     } else if (!(utf8cmp(ordklasse, "artikel,talord"))) {
@@ -49,7 +49,7 @@ int GetType(const char *ordklasse) {
     } else if (!(utf8cmp(ordklasse, "konj"))) {
         return KONJ;
     } else if (!(utf8cmp(ordklasse, "konj,infinitivens.mærke"))) {
-        return KONJ_INFINITIVENS_MÆRKE;
+        return KONJ_INFINITIVENS_MAERKE;
     } else if (!(utf8cmp(ordklasse, "lydord"))) {
         return LYDORD;
     } else if (!(utf8cmp(ordklasse, "pron"))) {
@@ -59,23 +59,23 @@ int GetType(const char *ordklasse) {
     } else if (!(utf8cmp(ordklasse, "prop"))) {
         return PROP;
     } else if (!(utf8cmp(ordklasse, "præfiks"))) {
-        return PRÆFIKS;
+        return PRAEFIKS;
     } else if (!(utf8cmp(ordklasse, "præp"))) {
-        return PRÆP;
+        return PRAEP;
     } else if (!(utf8cmp(ordklasse, "præp,adv"))) {
-        return PRÆP_ADV;
+        return PRAEP_ADV;
     } else if (!(utf8cmp(ordklasse, "præp,adv,konj"))) {
-        return PRÆP_ADV_KONJ;
+        return PRAEP_ADV_KONJ;
     } else if (!(utf8cmp(ordklasse, "præp,konj"))) {
-        return PRÆP_KONJ;
+        return PRAEP_KONJ;
     } else if (!(utf8cmp(ordklasse, "sb"))) {
         return SB;
     } else if (!(utf8cmp(ordklasse, "talord"))) {
         return TALORD;
     } else if (!(utf8cmp(ordklasse, "udråbsord"))) {
-        return UDRÅBSORD;
+        return UDRAABSORD;
     } else if (!(utf8cmp(ordklasse, "udråbsord,adj"))) {
-        return UDRÅBSORD_ADJ;
+        return UDRAABSORD_ADJ;
     } else if (!(utf8cmp(ordklasse, "vb"))) {
         return VB;
     } else {
@@ -94,10 +94,10 @@ char *GetTypeString(wordtype t) {
         case LYDORD:    return "Lydord (Lydord)";           break;
         case PRON:      return "Pronomen (Stedord)";        break;
         case PROP:      return "Proprium (Egenavn)";        break;
-        case PRÆP:      return "Præposition (Forholdsord)"; break;
+        case PRAEP:      return "Præposition (Forholdsord)"; break;
         case SB:        return "Substantiv (Navneord)";     break;
         case TALORD:    return "Numerale (Talord)";         break;
-        case UDRÅBSORD: return "Interjektion (Udråbsord)";  break;
+        case UDRAABSORD: return "Interjektion (Udråbsord)";  break;
         case VB:        return "Verbum (Udsagnsord)";       break;
         default:        return "Tisboi";                    break;
     }
