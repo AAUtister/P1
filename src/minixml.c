@@ -99,46 +99,45 @@ char *GetTypeString(wordtype t) {
         case TALORD:    return "Numerale (Talord)";         break;
         case UDRAABSORD:return "Interjektion (Udråbsord)";  break;
         case VB:        return "Verbum (Udsagnsord)";       break;
-        default:        return "";                    break;
+        default:        return "Stor fed default pik";              break;
     }
 }
 
-int main() {
+void wArr_maker(char ** tekstArr, word * wArr) {
     word w_temp;
-    int tekst_count = 0;
+    int t_count = 0;
     int length_tekst = 0;
-    char ** tekst_array = read_from_file(PATH_TO_INPUT_FILE, &length_tekst, " \n");
 
-    while (tekst_array[tekst_count] != NULL) {
-        tekst_count ++;
+    while (tekstArr[t_count] != NULL) {
+        t_count ++;
     }
 
-    word wArr[tekst_count];
+    // wArr = malloc(t_count * sizeof(word));
     
     FILE *fp;
     fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree;
     tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
     
-    for (int i = 0; i < tekst_count; i++) {
+    for (int i = 0; i < t_count; i++) {
         
-        w_temp = functionBoi(tekst_array[i], tree);
+        w_temp = functionBoi(tekstArr[i], tree);
         // printf("ORD: %s\n", w_temp.word);
         // printf("KLASSE: %s\n\n", GetTypeString(w_temp.type));
 
-
         strcpy(wArr[i].word, w_temp.word);
         wArr[i].type = w_temp.type;
+        strcpy(wArr[i].word_org, w_temp.word_org);
     }
 
-    // for (int i = 0; i < tekst_count; i++) {
+    // for (int i = 0; i < t_count; i++) {
     //     printf("ORD #%d: %s\n", i, wArr[i].word);
     //     printf("KLASSE #%d: %u\n", i, wArr[i].type);
     // }
 
     fclose(fp);
 
-    return 0;
+    // return *wArr;
 }
 
 word functionBoi(char *input, mxml_node_t *tree) {
@@ -150,13 +149,23 @@ word functionBoi(char *input, mxml_node_t *tree) {
     int ff_count = 0; // Fuldform Count
     int options[15];
 
+    int dot_test = 0;
     int wl = strlen(input);
-    if (input[wl-1] == '.') {
-            input[wl-1] = '\0';
-    }
 
     char temp_w[50];
+    char temp_w_dot[50];
+    strcpy(w1.word_org, input);
+
+    if (input[wl-1] == '.') {
+            input[wl-1] = '\0';
+            dot_test = 1;
+    }
+
+
+   
     strcpy(temp_w, input);
+    
+
     utf8lwr(input);
 
     int nummer = 0;
@@ -181,7 +190,7 @@ word functionBoi(char *input, mxml_node_t *tree) {
     if (ff_count > 1) {
         
         qsort(options, ff_count, sizeof(int), cmpfunc);
-        int x = 0;
+        // int x = 0;
 
         for(int i = 0; i < ff_count; i++) {
             for(int j = i+1; j < ff_count; ) {
@@ -246,6 +255,8 @@ word functionBoi(char *input, mxml_node_t *tree) {
         strcpy(w1.word, temp_w);
         w1.type = PROP;
     }
+
+
 
     return w1;
 }

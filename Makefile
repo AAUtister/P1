@@ -3,8 +3,8 @@ CFLAGS	= -Wall -g -std=gnu11
 LDLIBS	= -lmxml
 MXML = $(shell pwd)/lib/mxml-3.2
 
-all: src/main.c reader.o rules.o sen_splitter.o src/utf8.h
-	$(CC) -o program.out $(CFLAGS) src/main.c reader.o rules.o sen_splitter.o
+all: src/main.c reader.o rules.o sen_splitter.o minixml.o src/utf8.h src/minixml.h
+	$(CC) -o program.out $(CFLAGS) src/main.c reader.o rules.o sen_splitter.o minixml.o $(LDLIBS)
 
 reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
@@ -14,6 +14,9 @@ rules.o: src/rules.h src/utf8.h
 
 sen_splitter.o: src/sen_splitter.h
 	$(CC) -c $(CFLAGS) src/sen_splitter.c
+
+minixml.o: src/minixml.h
+	$(CC) -c $(CFLAGS) src/minixml.c $(LDLIBS)
 
 # Compile & Run xml stuff only with `make minixml && ./minixml.out`
 minixml: src/minixml.c reader.o src/word.h src/utf8.h mxml

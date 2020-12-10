@@ -1,0 +1,1 @@
+void wArr_maker(char ** tekstArr, word * wArr);

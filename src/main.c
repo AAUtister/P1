@@ -3,6 +3,7 @@
 #include "word.h"
 #include "sen_splitter.h"
 #include "minixml.h"
+#include "mxml.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,12 +25,30 @@ int main() {
     int length_tekst = 0;
     int x = 0;
     int i = 0;
+
+
     char **verb_array = read_from_file(VERBSFILE, &length_verb, "\n");
     char **tekst_array = read_from_file(INPUTFILE, &length_tekst, " \n");
     char **senten_array = sentence_splitter(INPUTFILE);
+
+  
+
     int tekst_count = 0;
     while (tekst_array[tekst_count] != NULL) {
-        tekst_count ++;
+        tekst_count++;
+    }
+    
+    int fake_tekst_count = tekst_count;    
+    
+    word * wArr;
+    // wArr = malloc(fake_tekst_count * sizeof(word)+10000);
+    wArr = (word *) calloc(sizeof(wArr), sizeof(word) + 1000);
+    // calloc(wArr, fake_tekst_count * sizeof(word)+10000);
+    wArr_maker(tekst_array, wArr);
+
+    for (int i = 0; i < tekst_count; i++) {
+        printf("ORD #%d: %s\n", i, wArr[i].word);
+        printf("KLASSE #%d: %u\n", i, wArr[i].type);
     }
 
     while (senten_array[i] != NULL){
@@ -71,7 +90,6 @@ int main() {
 
 
 
-
     /* Skriv output til fil */
     FILE *output;
     output = fopen("output.txt", "w");
@@ -81,15 +99,15 @@ int main() {
         if (found_rule[itr+1] == 0) {
             if (itr != tekst_count - 1) {
 
-            while (tekst_array[itr][p] != '\0') {
-                fprintf(output, "%c", tekst_array[itr][p]);
+            while (wArr[itr].word_org[p] != '\0') {
+                fprintf(output, "%c", wArr[itr].word_org[p]);
                 p++;    
             }
             fprintf(output, "%c", ',');
             }
         } else {
-            while (tekst_array[itr][p] != '\0') {
-                fprintf(output, "%c", tekst_array[itr][p]);
+            while (wArr[itr].word_org[p] != '\0') {
+                fprintf(output, "%c", wArr[itr].word_org[p]);
                 p++;	
             }
         }
@@ -97,13 +115,15 @@ int main() {
         itr++;
     }
     fclose(output);
-    
+
 
 
 
 
 
     /* Free memory */
+    free(wArr);
+    free(found_rule);
     free(tekst_array);
     free(verb_array);
     return 0;
