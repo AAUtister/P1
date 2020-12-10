@@ -25,7 +25,7 @@ char **sentence_splitter(char *_FILENAME_)
     size_t len = length;
     ssize_t read;
 
-    buffer = (char *)malloc(len * sizeof(char) + 5000);
+    buffer = (char *)malloc(len * sizeof(char) + 1000);
 
     if (buffer == NULL)
     {
@@ -39,11 +39,17 @@ char **sentence_splitter(char *_FILENAME_)
         strcat(file_content, buffer);
     }
     fclose(fp);
+
     token = strtok(file_content, s);
 
     while (token != NULL)
     {
-        char *tok = (char *)calloc(sizeof(token), sizeof(char) + 2000);
+        int b = 0;
+        while (token[b]) {
+            b++;
+        }
+        printf("Sætningens længde: %d\n", b);
+        char *tok = (char *)calloc(b, sizeof(char) * 4);
         strcpy(tok, token);
         charArr[i] = tok;
         token = strtok(NULL, s);
@@ -51,7 +57,7 @@ char **sentence_splitter(char *_FILENAME_)
         int j = 0, k = 0;
         if (tok[0] == ' ' /*|| tok[0] == '\n'*/)
         {
-            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 2000);
+            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 1000);
             for (j = 0, k = 1; tok[k] != '\0'; j++, k++)
             {
                 newtok[j] = tok[k];
@@ -59,7 +65,10 @@ char **sentence_splitter(char *_FILENAME_)
             strcpy(tok, newtok); // toktok
             j = 0, k = 0;
         }
+        printf("SIZE OF TOKEN: %lu\n", sizeof(token));
     };
+
+
     free(buffer);
     free(file_content);
 

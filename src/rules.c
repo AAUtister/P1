@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utf8.h"
+
+
 int str_cmp(const char *str1, const char *str2);
 void rules(char *tekst_array[], int found_rule[])
 {
@@ -11,10 +14,10 @@ void rules(char *tekst_array[], int found_rule[])
     {
         c++;
     }
-    printf("%d \n", c);
+    printf("Antal ord i tekst_array: %d \n", c);
 
-    int banan = sizeof(hv_array) / sizeof(int);
-    printf("%i\n", banan);
+    // int banan = sizeof(hv_array) / sizeof(int);
+    // printf("%i\n", banan);
     int x = 17;
 
     for (int i = 0; i < c; i++)

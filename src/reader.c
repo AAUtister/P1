@@ -13,7 +13,7 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
     length = ftell(fp);
     fclose(fp);
     printf("Total size of %s = %d bytes\n", _FILENAME_, length);
-    
+
     *plength = length;
 
     FILE *file_p = fopen(_FILENAME_, "r");
@@ -23,15 +23,15 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
         exit(EXIT_FAILURE);
     }
 
-    char* file_content = calloc(length, sizeof(char));
-    char *token;
-    char ** charArr = calloc(length, sizeof(char*));
+    char *  file_content = calloc(length, sizeof(char) + 1000);
+    char *  token;
+    char ** charArr = calloc(length, sizeof(char*) + 1000);
 
-    char * buffer;
-    size_t len = length;
+    char *  buffer;
+    size_t  len = length;
     ssize_t read;
 
-    buffer = (char*)malloc(len *sizeof(char));
+    buffer = (char*)malloc(len *sizeof(char) + 1000);
     
     if(buffer == NULL){
         printf("No space to allocate");
@@ -48,7 +48,7 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
     token = strtok(file_content, delim);
 
     while(token != NULL) {
-        char *tok = (char *) calloc(sizeof(token), sizeof(char)+5);
+        char *tok = (char *) calloc(sizeof(token), sizeof(char) + 1000);
         strcpy(tok, token);
         charArr[i] = tok;
         token = strtok(NULL, delim);

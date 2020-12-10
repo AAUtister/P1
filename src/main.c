@@ -8,6 +8,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <locale.h>
+#include "utf8.h"
+
 
 // TODO: Find ud af om det skal vaere hardkodet eller mulighed for begge ting
 #define VERBSFILE "data/verbs_ascii_friendly.txt"
@@ -16,21 +18,12 @@
 // Mighty shit
 // ToDo: Tilfoej flere ordklasser at sortere efter
 
-
-
-
-// word wArr[tekst_count] = minixml();
-
-
-
-
-
-
 int main() {
     setlocale(LC_ALL, "da_DK.UTF-8");
     int length_verb = 0;
     int length_tekst = 0;
-    int x = 0, i = 0;
+    int x = 0;
+    int i = 0;
     char **verb_array = read_from_file(VERBSFILE, &length_verb, "\n");
     char **tekst_array = read_from_file(INPUTFILE, &length_tekst, " \n");
     char **senten_array = sentence_splitter(INPUTFILE);
@@ -44,7 +37,7 @@ int main() {
         i++;
     }
 
-    int *found_rule = malloc(tekst_count * sizeof(int) + 1000);
+    int *found_rule = malloc(tekst_count * sizeof(int) * 8);
 
     rules(tekst_array, found_rule);
     
@@ -74,6 +67,10 @@ int main() {
         }
         x++;
     }
+
+
+
+
 
     /* Skriv output til fil */
     FILE *output;
@@ -111,6 +108,11 @@ int main() {
     }
     fclose(output);
     
+
+
+
+
+
     /* Free memory */
     free(tekst_array);
     free(verb_array);
