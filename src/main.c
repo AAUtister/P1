@@ -3,7 +3,6 @@
 #include "word.h"
 #include "sen_splitter.h"
 #include "minixml.h"
-#include "mxml.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -37,13 +36,9 @@ int main() {
     while (tekst_array[tekst_count] != NULL) {
         tekst_count++;
     }
-    
-    int fake_tekst_count = tekst_count;    
-    
+        
     word * wArr;
-    // wArr = malloc(fake_tekst_count * sizeof(word)+10000);
     wArr = (word *) calloc(sizeof(wArr), sizeof(word) + 1000);
-    // calloc(wArr, fake_tekst_count * sizeof(word)+10000);
     wArr_maker(tekst_array, wArr);
 
     for (int i = 0; i < tekst_count; i++) {
@@ -96,15 +91,12 @@ int main() {
     int itr = 0;
     while (itr < tekst_count) { // For hvert ord
         int p = 0;
-        if (found_rule[itr+1] == 0) {
-            if (itr != tekst_count - 1) {
-
+        if ((found_rule[itr+1] == 0) && (itr != tekst_count - 1)) {
             while (wArr[itr].word_org[p] != '\0') {
                 fprintf(output, "%c", wArr[itr].word_org[p]);
                 p++;    
             }
-            fprintf(output, "%c", ',');
-            }
+            fprintf(output, "%c", ','); 
         } else {
             while (wArr[itr].word_org[p] != '\0') {
                 fprintf(output, "%c", wArr[itr].word_org[p]);
@@ -114,8 +106,8 @@ int main() {
         fprintf(output, " ");
         itr++;
     }
-    fclose(output);
 
+    fclose(output);
 
 
 

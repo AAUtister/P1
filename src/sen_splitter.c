@@ -48,7 +48,7 @@ char **sentence_splitter(char *_FILENAME_)
         while (token[b]) {
             b++;
         }
-        printf("Sætningens længde: %d\n", b);
+        // printf("Sætningens længde: %d\n", b);
         char *tok = (char *)calloc(b, sizeof(char) * 4);
         strcpy(tok, token);
         charArr[i] = tok;
@@ -65,7 +65,6 @@ char **sentence_splitter(char *_FILENAME_)
             strcpy(tok, newtok); // toktok
             j = 0, k = 0;
         }
-        printf("SIZE OF TOKEN: %lu\n", sizeof(token));
     };
 
 

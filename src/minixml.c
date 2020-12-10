@@ -99,14 +99,13 @@ char *GetTypeString(wordtype t) {
         case TALORD:    return "Numerale (Talord)";         break;
         case UDRAABSORD:return "Interjektion (Udråbsord)";  break;
         case VB:        return "Verbum (Udsagnsord)";       break;
-        default:        return "Stor fed default pik";              break;
+        default:        return "Stor fed default pik";      break;
     }
 }
 
 void wArr_maker(char ** tekstArr, word * wArr) {
     word w_temp;
     int t_count = 0;
-    int length_tekst = 0;
 
     while (tekstArr[t_count] != NULL) {
         t_count ++;
@@ -149,16 +148,13 @@ word functionBoi(char *input, mxml_node_t *tree) {
     int ff_count = 0; // Fuldform Count
     int options[15];
 
-    int dot_test = 0;
     int wl = strlen(input);
 
     char temp_w[50];
-    char temp_w_dot[50];
     strcpy(w1.word_org, input);
 
     if (input[wl-1] == '.') {
             input[wl-1] = '\0';
-            dot_test = 1;
     }
 
 
