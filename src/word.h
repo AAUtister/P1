@@ -19,7 +19,7 @@ typedef enum {
 	PRON,
 	PRON_TALORD,
 	PROP,
-	PRÆFIKS,
+	PRAEFIKS,
 	PRAEP,
 	PRAEP_ADV,
 	PRAEP_ADV_KONJ,
