@@ -25,7 +25,7 @@ char **sentence_splitter(char *_FILENAME_)
     size_t len = length;
     ssize_t read;
 
-    buffer = (char *)malloc(len * sizeof(char) + 1000);
+    buffer = (char *)malloc(len * sizeof(char) + 5000);
 
     if (buffer == NULL)
     {

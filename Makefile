@@ -1,9 +1,9 @@
 CC		= gcc
-CFLAG	= -Wall -g -std=gnu11
+CFLAGS	= -Wall -g -std=gnu11
 LDLIBS	= -lmxml
 
 all: src/main.c reader.o rules.o sen_splitter.o
-	$(CC) -o program.out src/main.c reader.o rules.o sen_splitter.o
+	$(CC) -o program.out $(CFLAGS) src/main.c reader.o rules.o sen_splitter.o
 
 reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
