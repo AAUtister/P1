@@ -228,7 +228,7 @@ word functionBoi(char *input, mxml_node_t *tree) {
                 // remove \n
                 buf[strlen(buf) - 1] = 0;
                 n = strtol(buf, &end, 10);
-                printf("%d\n", n);
+                // printf("%d\n", n);
                 valg = n;
                 
             }
