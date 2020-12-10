@@ -73,3 +73,5 @@ dkms.conf
 # Andet
 *.txt
 *.xml
+mxml-3.2.tar.gz
+lib/mxml-3.2/*

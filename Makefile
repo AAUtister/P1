@@ -1,6 +1,7 @@
 CC		= gcc
 CFLAGS	= -Wall -g -std=gnu11
 LDLIBS	= -lmxml
+MXML = $(shell pwd)/lib/mxml-3.2
 
 all: src/main.c reader.o rules.o sen_splitter.o src/utf8.h
 	$(CC) -o program.out $(CFLAGS) src/main.c reader.o rules.o sen_splitter.o
@@ -15,8 +16,20 @@ sen_splitter.o: src/sen_splitter.h
 	$(CC) -c $(CFLAGS) src/sen_splitter.c
 
 # Compile & Run xml stuff only with `make minixml && ./minixml.out`
-minixml: src/minixml.c reader.o src/word.h src/utf8.h
-	$(CC) -o minixml.out $(CFLAGS) src/minixml.c reader.o $(LDLIBS)
+minixml: src/minixml.c reader.o src/word.h src/utf8.h mxml
+	$(CC) -o minixml.out $(CFLAGS) src/minixml.c reader.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
 
 clean:
 	rm -f *.o *.out output.txt
+
+#############################
+#	Minixml-3.2 Make stuff	#
+#############################
+mxml: mxml-config
+	make -C lib/mxml-3.2/ install
+mxml-config: mxml-extract
+	cd lib/mxml-3.2 && ./configure --prefix=$(shell pwd)/lib/mxml-3.2
+mxml-extract:
+	tar -xvf mxml-3.2.tar.gz -C lib/
+clean-mxml:
+	rm -r lib/mxml-3.2
