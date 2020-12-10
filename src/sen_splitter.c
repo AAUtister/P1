@@ -14,20 +14,18 @@ char **sentence_splitter(char *_FILENAME_)
     const char s[3] = ".";
     char *token;
     int length = 0, i = 0;  
-    fseek(fp, 0, SEEK_END);
+    fseek(fp, SEEK_SET, SEEK_END);
     length = ftell(fp);
-    fclose(fp);
+    fseek(fp, 0, SEEK_SET);
 
-    FILE *file_p = fopen(_FILENAME_, "r");
-
-    char *file_content = calloc(length, sizeof(char));
-    char **charArr = calloc(length, sizeof(char *));
+    char *file_content = calloc(length, sizeof(char) + 1000);
+    char **charArr = calloc(length, sizeof(char *) + 1000);
     printf("Total size of txt = %d bytes\n", length);
     char *buffer;
     size_t len = length;
     ssize_t read;
 
-    buffer = (char *)malloc(len * sizeof(char));
+    buffer = (char *)malloc(len * sizeof(char) + 1000);
 
     if (buffer == NULL)
     {
@@ -35,25 +33,25 @@ char **sentence_splitter(char *_FILENAME_)
         return 0;
     }
 
-    while ((read = getline(&buffer, &len, file_p)) != -1)
+    while ((read = getline(&buffer, &len, fp)) != -1)
     {
+        buffer[strcspn(buffer, "\n")] = 0;
         strcat(file_content, buffer);
     }
-
-    fclose(file_p);
+    fclose(fp);
     token = strtok(file_content, s);
 
     while (token != NULL)
     {
-        char *tok = (char *)calloc(sizeof(token), sizeof(char) + 1000);
+        char *tok = (char *)calloc(sizeof(token), sizeof(char) + 2000);
         strcpy(tok, token);
         charArr[i] = tok;
         token = strtok(NULL, s);
         i++;
         int j = 0, k = 0;
-        if (tok[0] == ' ')
+        if (tok[0] == ' ' /*|| tok[0] == '\n'*/)
         {
-            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 1000);
+            char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 2000);
             for (j = 0, k = 1; tok[k] != '\0'; j++, k++)
             {
                 newtok[j] = tok[k];

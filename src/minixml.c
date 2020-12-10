@@ -94,12 +94,12 @@ char *GetTypeString(wordtype t) {
         case LYDORD:    return "Lydord (Lydord)";           break;
         case PRON:      return "Pronomen (Stedord)";        break;
         case PROP:      return "Proprium (Egenavn)";        break;
-        case PRAEP:      return "Præposition (Forholdsord)"; break;
+        case PRAEP:     return "Præposition (Forholdsord)"; break;
         case SB:        return "Substantiv (Navneord)";     break;
         case TALORD:    return "Numerale (Talord)";         break;
-        case UDRAABSORD: return "Interjektion (Udråbsord)";  break;
+        case UDRAABSORD:return "Interjektion (Udråbsord)";  break;
         case VB:        return "Verbum (Udsagnsord)";       break;
-        default:        return "Tisboi";                    break;
+        default:        return "";                    break;
     }
 }
 
