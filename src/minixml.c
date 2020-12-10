@@ -8,20 +8,14 @@
 #include <ctype.h>
 #include <limits.h>
 
-
-
-
 #define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
 #define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
 
 word functionBoi();
 
-
-
 int cmpfunc (const void * a, const void * b) {
     return ( * (int* )a - *(int*)b );
 }
-
 
 int GetType(const char *ordklasse) {
     if (!(utf8cmp(ordklasse, "adj"))) {
@@ -110,33 +104,19 @@ void wArr_maker(char ** tekstArr, word * wArr) {
     while (tekstArr[t_count] != NULL) {
         t_count ++;
     }
-
-    // wArr = malloc(t_count * sizeof(word));
     
-    FILE *fp;
-    fp = fopen(PATH_TO_XML_FILE, "r");
-    mxml_node_t *tree;
-    tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
+    
+    FILE *fp = fopen(PATH_TO_XML_FILE, "r");
+    mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
     
     for (int i = 0; i < t_count; i++) {
-        
         w_temp = functionBoi(tekstArr[i], tree);
-        // printf("ORD: %s\n", w_temp.word);
-        // printf("KLASSE: %s\n\n", GetTypeString(w_temp.type));
-
         strcpy(wArr[i].word, w_temp.word);
         wArr[i].type = w_temp.type;
         strcpy(wArr[i].word_org, w_temp.word_org);
     }
 
-    // for (int i = 0; i < t_count; i++) {
-    //     printf("ORD #%d: %s\n", i, wArr[i].word);
-    //     printf("KLASSE #%d: %u\n", i, wArr[i].type);
-    // }
-
     fclose(fp);
-
-    // return *wArr;
 }
 
 word functionBoi(char *input, mxml_node_t *tree) {
@@ -144,12 +124,9 @@ word functionBoi(char *input, mxml_node_t *tree) {
     w1.type = UNDEFINED;
 
     mxml_node_t *node;
-    // word a[50];
     int ff_count = 0; // Fuldform Count
     int options[15];
-
     int wl = strlen(input);
-
     char temp_w[50];
     strcpy(w1.word_org, input);
 
@@ -157,14 +134,9 @@ word functionBoi(char *input, mxml_node_t *tree) {
             input[wl-1] = '\0';
     }
 
-
-   
     strcpy(temp_w, input);
-    
-
     utf8lwr(input);
 
-    int nummer = 0;
     for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
         const char *tekst = mxmlGetText(node, 0);
         const char *att = mxmlElementGetAttr(node, "ordklasse");
@@ -172,21 +144,19 @@ word functionBoi(char *input, mxml_node_t *tree) {
         if (!(utf8cmp(tekst, input)) && (GetType(att) != FLERORD)){
             options[ff_count] = GetType(att);
             strcpy(w1.word, temp_w);
-            if (w1.type == GetType(att)) {
-                w1.type = GetType(att);
-            } else if (w1.type == UNDEFINED) {
-                w1.type = GetType(att); 
-            }   
-
+            w1.type = GetType(att);
             ff_count++;  
         }
-        nummer++;
+
     }
 
+
+
+
+// I tilfælde af flere ordklasser:
     if (ff_count > 1) {
         
         qsort(options, ff_count, sizeof(int), cmpfunc);
-        // int x = 0;
 
         for(int i = 0; i < ff_count; i++) {
             for(int j = i+1; j < ff_count; ) {
@@ -202,21 +172,12 @@ word functionBoi(char *input, mxml_node_t *tree) {
             }
         }
         
-
-        // printf("%d\n", ff_count);
-
-
         if (ff_count > 1) {
-            // printf("Flere ordklasser for ordet: \"%s\", vælg venligst en: \n", w1.word);
-            // for (int q = 0; q < ff_count; q++) {
-            //     printf("(%d) %s\n", q+1, GetTypeString(options[q]));
-            // }
-            
             int valg = 0;
             char *end;
             char buf[LINE_MAX];
 
-            while (valg <= 0 || valg > ff_count/*' || (isdigit(valg) == 0)*/) {
+            while (valg <= 0 || valg > ff_count) {
                 
                 printf("Flere ordklasser for ordet: \"%s\", vælg venligst en: \n", w1.word);
                 
@@ -251,8 +212,6 @@ word functionBoi(char *input, mxml_node_t *tree) {
         strcpy(w1.word, temp_w);
         w1.type = PROP;
     }
-
-
 
     return w1;
 }
