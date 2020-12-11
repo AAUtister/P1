@@ -4,7 +4,7 @@ LDLIBS	= -lmxml
 MXML = $(shell pwd)/lib/mxml-3.2
 
 all: src/main.c reader.o rules.o sen_splitter.o minixml.o src/utf8.h src/minixml.h src/word.h
-	$(CC) -o program.out $(CFLAGS) $(LDLIBS) src/main.c reader.o rules.o sen_splitter.o minixml.o
+	$(CC) -o program.out $(CFLAGS) src/main.c reader.o rules.o sen_splitter.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
 
 reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
@@ -16,7 +16,7 @@ sen_splitter.o: src/sen_splitter.h
 	$(CC) -c $(CFLAGS) src/sen_splitter.c
 
 minixml.o: src/minixml.h 
-	$(CC) -c $(CFLAGS) src/minixml.c 
+	$(CC) -c $(CFLAGS) src/minixml.c -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
 
 # Compile & Run xml stuff only with `make minixml && ./minixml.out`
 minixml: src/minixml.c reader.o src/word.h src/utf8.h mxml
