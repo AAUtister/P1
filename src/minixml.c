@@ -164,8 +164,6 @@ word functionBoi(char *input, mxml_node_t *tree) {
     }
 
 
-
-
 // I tilfælde af flere ordklasser:
     if (ff_count > 1) {
         
