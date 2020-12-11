@@ -79,21 +79,34 @@ int GetType(const char *ordklasse) {
 
 char *GetTypeString(wordtype t) {
     switch(t) {
-        case ADJ:       return "Adjektiv (Tilægsord)";      break;
-        case ADV:       return "Adverbium (Biord)";         break;
-        case ART:       return "Artikel (Kendeord)";        break;
-        case FLERORD:   return "Flerord (Flerord)";         break;
-        case FORK:      return "Forkortelse (Forkortelse)"; break;
-        case KONJ:      return "Konjunktion (Bindeord)";    break;
-        case LYDORD:    return "Lydord (Lydord)";           break;
-        case PRON:      return "Pronomen (Stedord)";        break;
-        case PROP:      return "Proprium (Egenavn)";        break;
-        case PRAEP:     return "Præposition (Forholdsord)"; break;
-        case SB:        return "Substantiv (Navneord)";     break;
-        case TALORD:    return "Numerale (Talord)";         break;
-        case UDRAABSORD:return "Interjektion (Udråbsord)";  break;
-        case VB:        return "Verbum (Udsagnsord)";       break;
-        default:        return "Stor fed default pik";      break;
+        case ADJ:                          return "Adjektiv (Tilægsord)";                                               break;
+        case ADJ_PRAEP:                    return "Adjektiv, Præposition (Tillægsord, Forholdsord)";                    break;
+        case ADV:                          return "Adverbium (Biord)";                                                  break;
+        case ADV_KONJ:                     return "Adverbium, Konjunktion (Biord, Bindeord)";                           break;
+        case ADV_UDRAABSORD:               return "Adverbium, Udråbsord (Biord, Udråbsord)";                            break;
+        case ART:                          return "Artikel (Kendeord)";                                                 break;
+        case ARTIKEL_TALORD:               return "Artikel, Talord (Artikel, Talord)";                                  break;
+        case FLERORD:                      return "Flerord (Flerord)";                                                  break;
+        case FORK:                         return "Forkortelse (Forkortelse)";                                          break;
+        case FSUBJ:                        return "Fsubj (Formelt subjekt)";                                            break;
+        case KOLON:                        return "Kolon (Kolon)";                                                      break;
+        case KONJ:                         return "Konjunktion (Bindeord)";                                             break;
+        case KONJ_INFINITIVENS_MAERKE:     return "Konjunktion, Infinitiv (Navneord, Navnemåde)";                       break;
+        case LYDORD:                       return "Lydord (Lydord)";                                                    break;
+        case PRON:                         return "Pronomen (Stedord)";                                                 break;
+        case PRON_TALORD:                  return "Pronomen, Talord (Stedord, Talord)";                                 break;
+        case PROP:                         return "Proprium (Egenavn)";                                                 break;
+        case PRAEFIKS:                     return "Præfiks (Præfiks)";                                                  break;
+        case PRAEP:                        return "Præposition (Forholdsord)";                                          break;
+        case PRAEP_ADV:                    return "Præposition, Adverbium (Forholdsord, Biord)";                        break;
+        case PRAEP_ADV_KONJ:               return "Præposition, Adverbium, Konjunktion (Forholdsord, Biord, Bindeord)"; break;
+        case PRAEP_KONJ:                   return "Præposition, Konjunktion (Forholdsord, Bindeord)";                   break;
+        case SB:                           return "Substantiv (Navneord)";                                              break;
+        case TALORD:                       return "Numerale (Talord)";                                                  break;
+        case UDRAABSORD:                   return "Interjektion (Udråbsord)";                                           break;
+        case UDRAABSORD_ADJ:               return "Udråbsord, Adjektiv (Udråbsord, Tillægsord)";                        break;
+        case VB:                           return "Verbum (Udsagnsord)";                                                break;
+        default:                           return "Udefineret ordklasse";                                               break;
     }
 }
 
