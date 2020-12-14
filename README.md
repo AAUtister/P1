@@ -29,15 +29,8 @@ Programmet er testet til at virke på Linux, ~~Mac og en LiveUSB af Ubuntu~~
 2. Kør `make prepare` som udpakker, konfiguerer og installerer Mini-XML til **lib/** mappen.
 3. Kør `make all` som kompilerer hele projektet.
 4. Kør `./program.out` på en af de to følgende måder.
-    - 
-    ```
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/lib/mxml-3.2/lib
-    ./program.out
-    ```
-    - 
-    ```
-    LD_LIBRARY_PATH=lib/mxml-3.2 ./program.out
-    ```
+    - `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/lib/mxml-3.2/lib` derefter `./program.out`
+    - `LD_LIBRARY_PATH=lib/mxml-3.2 ./program.out`
 
 ### Regler
 Programmet bruger **STARTKOMMA** i `rules.c`
