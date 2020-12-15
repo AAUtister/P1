@@ -43,7 +43,7 @@ int main() {
 
     for (int i = 0; i < tekst_count; i++) {
         printf("ORD #%d: %s\n", i, wArr[i].word);
-        printf("KLASSE #%d: %u\n", i, wArr[i].type);
+        printf("KLASSE #%d: %s\n", i, GetTypeString(wArr[i].type));
     }
 
     while (senten_array[i] != NULL){

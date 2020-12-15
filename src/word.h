@@ -30,7 +30,6 @@ typedef enum {
 	UDRAABSORD_ADJ,
 	VB,
 	UNDEFINED = -1
-
 } wordtype;
 
 typedef struct {
