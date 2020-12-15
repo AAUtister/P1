@@ -12,6 +12,7 @@
 #define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
 
 word functionBoi();
+int * returnClasses();
 
 int cmpfunc (const void * a, const void * b) {
     return ( * (int* )a - *(int*)b );
@@ -79,21 +80,21 @@ int GetType(const char *ordklasse) {
 
 char *GetTypeString(wordtype t) {
     switch(t) {
-        case ADJ:                          return "Adjektiv (Tilægsord)";                                               break;
-        case ADJ_PRAEP:                    return "Adjektiv, Præposition (Tillægsord, Forholdsord)";                    break;
-        case ADV:                          return "Adverbium (Biord)";                                                  break;
-        case ADV_KONJ:                     return "Adverbium, Konjunktion (Biord, Bindeord)";                           break;
-        case ADV_UDRAABSORD:               return "Adverbium, Udråbsord (Biord, Udråbsord)";                            break;
-        case ART:                          return "Artikel (Kendeord)";                                                 break;
-        case ARTIKEL_TALORD:               return "Artikel, Talord (Artikel, Talord)";                                  break;
-        case FLERORD:                      return "Flerord (Flerord)";                                                  break;
-        case FORK:                         return "Forkortelse (Forkortelse)";                                          break;
-        case FSUBJ:                        return "Fsubj (Formelt subjekt)";                                            break;
-        case KOLON:                        return "Kolon (Kolon)";                                                      break;
-        case KONJ:                         return "Konjunktion (Bindeord)";                                             break;
-        case KONJ_INFINITIVENS_MAERKE:     return "Konjunktion, Infinitiv (Navneord, Navnemåde)";                       break;
-        case LYDORD:                       return "Lydord (Lydord)";                                                    break;
-        case PRON:                         return "Pronomen (Stedord)";                                                 break;
+            case ADJ:                          return "Adjektiv (Tilægsord)";                                               break;
+            case ADJ_PRAEP:                    return "Adjektiv, Præposition (Tillægsord, Forholdsord)";                    break;
+            case ADV:                          return "Adverbium (Biord)";                                                  break;
+            case ADV_KONJ:                     return "Adverbium, Konjunktion (Biord, Bindeord)";                           break;
+            case ADV_UDRAABSORD:               return "Adverbium, Udråbsord (Biord, Udråbsord)";                            break;
+            case ART:                          return "Artikel (Kendeord)";                                                 break;
+            case ARTIKEL_TALORD:               return "Artikel, Talord (Artikel, Talord)";                                  break;
+            case FLERORD:                      return "Flerord (Flerord)";                                                  break;
+            case FORK:                         return "Forkortelse (Forkortelse)";                                          break;
+            case FSUBJ:                        return "Fsubj (Formelt subjekt)";                                            break;
+            case KOLON:                        return "Kolon (Kolon)";                                                      break;
+            case KONJ:                         return "Konjunktion (Bindeord)";                                             break;
+            case KONJ_INFINITIVENS_MAERKE:     return "Konjunktion, Infinitiv (Navneord, Navnemåde)";                       break;
+            case LYDORD:                       return "Lydord (Lydord)";                                                    break;
+            case PRON:                         return "Pronomen (Stedord)";                                                 break;
         case PRON_TALORD:                  return "Pronomen, Talord (Stedord, Talord)";                                 break;
         case PROP:                         return "Proprium (Egenavn)";                                                 break;
         case PRAEFIKS:                     return "Præfiks (Præfiks)";                                                  break;
@@ -122,14 +123,48 @@ void wArr_maker(char ** tekstArr, word * wArr) {
     FILE *fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
     
-    for (int i = 0; i < t_count; i++) {
-        w_temp = functionBoi(tekstArr[i], tree);
-        strcpy(wArr[i].word, w_temp.word);
-        wArr[i].type = w_temp.type;
-        strcpy(wArr[i].word_org, w_temp.word_org);
+    // for (int i = 0; i < t_count; i++) {
+    //     w_temp = functionBoi(tekstArr[i], tree);
+    //     strcpy(wArr[i].word, w_temp.word);
+    //     wArr[i].type = w_temp.type;
+    //     strcpy(wArr[i].word_org, w_temp.word_org);
+    // }
+    printf("Ordet: %s\n", tekstArr[1]);
+    int * test = returnClasses(tekstArr[1], tree);
+    printf("Antal ordklasser: %d\n", test[0]);
+    for (int i = 1; i <= test[0]; i++){
+        printf("GOT THE TYPE STRING: %s\n", GetTypeString(test[i]));
     }
-
+    
+    
     fclose(fp);
+}
+
+int * returnClasses(char *input, mxml_node_t *tree) {
+    mxml_node_t *node;
+    int ff_count = 0;
+    int options[30];
+    int wl = strlen(input);
+    if (input[wl-1] == '.') {
+            input[wl-1] = '\0';
+    }
+    utf8lwr(input);
+    for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
+        const char *tekst = mxmlGetText(node, 0);
+        const char *att = mxmlElementGetAttr(node, "ordklasse");
+
+        if (!(utf8cmp(tekst, input)) && (GetType(att) != FLERORD)){
+            options[ff_count] = GetType(att);            
+            ff_count++;  
+        }
+
+    }
+    static int options_new[15];
+    options_new[0] = ff_count;
+    for (int i = 0; i <= ff_count; i++) {
+        options_new[i+1] = options[i];
+    }
+    return options_new;
 }
 
 word functionBoi(char *input, mxml_node_t *tree) {
@@ -162,7 +197,6 @@ word functionBoi(char *input, mxml_node_t *tree) {
         }
 
     }
-
 
 // I tilfælde af flere ordklasser:
     if (ff_count > 1) {
