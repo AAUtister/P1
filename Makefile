@@ -6,11 +6,14 @@ MXML = $(shell pwd)/lib/mxml-3.2
 ##############################
 #   Default Make Target      #
 ##############################
-all: src/main.c reader.o rules.o sen_splitter.o minixml.o src/utf8.h src/minixml.h src/word.h
-	$(CC) -o program.out $(CFLAGS) src/main.c reader.o rules.o sen_splitter.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
+all: src/main.c reader.o rules.o sen_splitter.o minixml.o src/utf8.h src/minixml.h src/word.h achievements.o
+	$(CC) -o program.out $(CFLAGS) src/main.c reader.o achievements.o rules.o sen_splitter.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
 
 reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
+
+achievements.o: src/achievements.h
+	$(CC) -c $(CFLAGS) src/achievements.c
 
 rules.o: src/rules.h src/utf8.h
 	$(CC) -c $(CFLAGS) src/rules.c

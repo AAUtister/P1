@@ -1,6 +1,7 @@
 #include "mxml.h"
 #include "word.h"
 #include "reader.h"
+#include "achievements.h"
 #include "utf8.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -134,21 +135,23 @@ void wArr_maker(char ** tekstArr, word * wArr) {
     
     FILE *fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
-    
-	oArr_maker(tekstArr, oArr, wordCount, tree);
 
+	char * input;
 
-	for (int i = 0; i < wordCount; i++) {
+	for (int i = 0; i < wordCount; i++) { 
 	    int wl = strlen(tekstArr[i]);
-	    char * input = malloc(wl * sizeof(char) + 1000);
+	    input = malloc(wl * sizeof(char) + 1000);
 	    strcpy(input, tekstArr[i]);
+	    strcpy(wArr[i].word_org, tekstArr[i]);
 	    if (tekstArr[i][wl-1] == '.') {
             input[wl-1] = '\0';
     	}
-
         strcpy(wArr[i].word, input);
-        printf("Index %d: %s\n", i, wArr[i].word);
+        free(input);
 	}
+	
+	oArr_maker(tekstArr, oArr, wordCount, tree);
+
 
 	// REGLER
 	for (int i = 0; i < wordCount; i++) {
@@ -156,6 +159,8 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 			if (i > 0 && wArr[i-1].type == PROP) {
 				if (i < wordCount && wArr[i+1].type == SB) {
 					wArr[i].type = VB;
+				} else {
+					promptType(&wArr[i], &oArr[i]);
 				}
 			} else {
 				promptType(&wArr[i], &oArr[i]);
@@ -174,7 +179,6 @@ void promptType(word * WP, options * OP) {
         int valg = 0;
         char *end;
         char buf[LINE_MAX];
-
         while (valg <= 0 || valg > OP->count) {
             
             printf("Flere ordklasser for ordet: \"%s\", vælg venligst en: \n", WP->word);
@@ -195,7 +199,8 @@ void promptType(word * WP, options * OP) {
             n = strtol(buf, &end, 10);
             valg = n;
             
-        }          	
+        }  
+        achievements();        	
 }
 
 
@@ -227,7 +232,7 @@ void oArr_maker(char ** tekstArr, options * oArr, int wc, mxml_node_t * tree) {
 	        	}
 	    	}
     	} else if (o_temp.count == 0) {
-    		o_temp.type[0] = UNDEFINED;
+    		o_temp.type[0] = PROP;
     		o_temp.count = 1;
     	}
 		
