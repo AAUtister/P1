@@ -8,7 +8,7 @@ int str_cmp(const char *str1, const char *str2);
 void rules(char *tekst_array[], int found_rule[])
 {
     int x = 11;
-    char *hv_array[x] = {"hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
+    char *hv_array[11] = {"hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
     int c = 0;
 
     while (tekst_array[c] != NULL)
