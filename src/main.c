@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include "utf8.h"
+#include "nexus.h"
 
 
 // TODO: Find ud af om det skal vaere hardkodet eller mulighed for begge ting
@@ -24,7 +25,8 @@ int main() {
     int length_tekst = 0;
     int x = 0;
     int i = 0;
-
+    int * found_nexus;
+    
     char **tekst_array = read_from_file(INPUTFILE, &length_tekst, " \n");
     char **senten_array = sentence_splitter(INPUTFILE);
 
@@ -41,7 +43,12 @@ int main() {
     int *found_rule = malloc(tekst_count * sizeof(int) * 8);
 
     rules(tekst_array, found_rule);
-
+     x = 0;
+    found_nexus = nexus(wArr, *senten_array, tekst_count);
+    for(i = 0; i < tekst_count;i++){
+        printf("\n FOUND NEXUS: %d \n",found_nexus[i]);
+    }
+    
     /* Skriv output til fil */
     FILE *output;
     output = fopen("output.txt", "w");
@@ -78,5 +85,6 @@ int main() {
     free(wArr);
     free(found_rule);
     free(tekst_array);
+    free(found_nexus);
     return 0;
 }
