@@ -1,1 +1,1 @@
-char nexus(char **tekst_array,char **verb_array);
+int * nexus(word *wArr, char *senten_array, int tekst_count);
