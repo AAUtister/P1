@@ -15,7 +15,7 @@ void rules(char *tekst_array[], int found_rule[])
     {
         c++;
     }
-    printf("Antal ord i tekst_array: %d \n", c);
+
     for (int i = 0; i < c; i++)
     {
         for (int j = 0; j < x; j++)
