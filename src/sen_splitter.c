@@ -8,7 +8,7 @@ char **sentence_splitter(char *_FILENAME_)
 
     if (fp == NULL)
     {
-        printf("Fejl. Filen kunne ikke findes.\n");
+        printf("1Fejl. Filen kunne ikke findes.\n");
         exit(EXIT_FAILURE);
     }
     const char s[3] = ".";
