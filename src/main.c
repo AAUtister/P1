@@ -48,7 +48,7 @@ int main() {
     found_nexus = nexus(wArr, tekst_count, length_tekst);
     
     for(int i = 0; i < tekst_count;i++){
-        printf("\n FOUND NEXUS: %d \n",found_nexus[i]);
+        printf("\n%s - FOUND NEXUS: %d \n", wArr[i].word_org, found_nexus[i]);
     }
 
     komma_function(found_nexus, found_rule, tekst_count, wArr);

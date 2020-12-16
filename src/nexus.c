@@ -22,6 +22,7 @@ int * nexus(word *wArr, int tekst_count, int length_tekst){
 
     //Loop
     int x = 0;
+    int first = 0;
     for(i = 0; i < tekst_count; i++){
         
         int wl = strlen(wArr[i].word_org);
@@ -36,15 +37,7 @@ int * nexus(word *wArr, int tekst_count, int length_tekst){
                 sentence_words[i] = GRUNDLED;
                 count_grundled++;
             } 
-        } 
-
-
-        // Finde konjunktion
-        else if(wArr[i].type == KONJ){
-            sentence_words[i] = KONJUNKTION;
-            count_konjunktion++;
-
-        } 
+        }        
 
         //Finde udsagnsled
         else if(wArr[i].type == VB){
@@ -56,17 +49,33 @@ int * nexus(word *wArr, int tekst_count, int length_tekst){
                 count_udsagnsled++;
             } 
         } 
+        
+        // Finde konjunktion
+        else if(wArr[i].type == KONJ){
+            sentence_words[i] = KONJUNKTION;
+            count_konjunktion++;
+            if (count_grundled > 0 && count_udsagnsled > 0) { //Første del er god nok
+                first++;
+                count_grundled = 0;
+                count_udsagnsled = 0;
+            }
+        } 
+
 
         // Default
         else {
             sentence_words[i] = 0;
         }
+
+
         printf("Grundled: %d - %s\n", count_grundled, wArr[i].word_org);
         printf("Udsagnsled: %d - %s\n", count_udsagnsled, wArr[i].word_org);   
         if (wArr[i].word_org[wl-1] == '.') { // Tjekker for punktum
             // Finde NEXUS og finde plads til komma (konjunktion)
             while (x < i) {
-                if(count_grundled > 1 && count_udsagnsled > 1 && sentence_words[x] == KONJUNKTION){
+                printf("GRUNDLED: %d - %s\n", count_grundled, wArr[x].word_org);
+                printf("UDSAGNSLED: %d - %s\n", count_udsagnsled, wArr[x].word_org);
+                if(count_grundled > 0 && count_udsagnsled > 0 && sentence_words[x] == KONJUNKTION && first == count_konjunktion){
                     found_nexus[x] = 1;
 
                 } else {
@@ -75,7 +84,9 @@ int * nexus(word *wArr, int tekst_count, int length_tekst){
                 x++;
             }
             count_grundled = 0;
-            count_udsagnsled = 0;  
+            count_udsagnsled = 0;
+            count_konjunktion = 0;
+            first = 0;  
         }
      
     }
