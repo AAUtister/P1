@@ -11,7 +11,6 @@
 #include "utf8.h"
 #include "nexus.h"
 
-
 // TODO: Find ud af om det skal vaere hardkodet eller mulighed for begge ting
 #define VERBSFILE "data/verbs_ascii_friendly.txt"
 #define INPUTFILE "data/input.txt"

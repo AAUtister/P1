@@ -166,9 +166,6 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 				promptType(&wArr[i], &oArr[i]);
 			}
 
-
-
-
         // Hvis der er 1 eller færre ordklasser
 		} else {
             
@@ -181,17 +178,6 @@ void wArr_maker(char ** tekstArr, word * wArr) {
                 wArr[i].type = oArr[i].type[0];
             }
         }
-
-
-
-
-
-
-
-
-
-
-
 	}
 
     fclose(fp);
