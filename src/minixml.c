@@ -131,6 +131,7 @@ void wArr_maker(char ** tekstArr, word * wArr) {
         wordCount ++;
     }
     
+
     FILE *fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
 
@@ -226,7 +227,7 @@ void oArr_maker(char ** tekstArr, options * oArr, int wc, mxml_node_t * tree) {
 		o_temp = returnClasses(tekstArr[i], tree); // Får klasse-array og count
 		
 
-		// Filterer for dupliketter
+		// Filtrerer for dupliketter
 	    if (o_temp.count > 1) {
 		    qsort(o_temp.type, o_temp.count, sizeof(int), cmpfunc);
 		    for(int i = 0; i < o_temp.count; i++) {
@@ -247,6 +248,18 @@ void oArr_maker(char ** tekstArr, options * oArr, int wc, mxml_node_t * tree) {
     		o_temp.count = 1;
     	}
 		
+        // Vælger nogle ordklasser random (NEXUS)
+        // if (o_temp.count > 1) {
+        //     for(int i = 0; i < o_temp.count; i++) {
+        //         if (o_temp.type[i] != PROP && o_temp.type[i] != PRON && o_temp.type[i] != SB) {
+        //             break;
+        //         } else {
+        //             o_temp.count = 1;
+        //         }
+        //     }
+        // }
+
+
 		// Indsætter i oArr
 		for (int y = 0; y < o_temp.count; y++) {
 			oArr[i].type[y] = o_temp.type[y];

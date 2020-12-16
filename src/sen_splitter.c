@@ -38,33 +38,45 @@ char **sentence_splitter(char *_FILENAME_)
         buffer[strcspn(buffer, "\n")] = 0;
         strcat(file_content, buffer);
     }
+
     fclose(fp);
 
     token = strtok(file_content, s);
 
-    while (token != NULL)
-    {
+    while (token != NULL) {
         int b = 0;
+        
         while (token[b]) {
             b++;
         }
-        // printf("Sætningens længde: %d\n", b);
+        
         char *tok = (char *)calloc(b, sizeof(char) * 4);
+        
         strcpy(tok, token);
-        charArr[i] = tok;
-        token = strtok(NULL, s);
-        i++;
+        
+
+        
         int j = 0, k = 0;
-        if (tok[0] == ' ' /*|| tok[0] == '\n'*/)
-        {
+        
+        if (tok[0] == ' ' /*|| tok[0] == '\n'*/) {
+            
             char *newtok = (char *)calloc(sizeof(token), sizeof(char) + 1000);
-            for (j = 0, k = 1; tok[k] != '\0'; j++, k++)
-            {
+            
+            for (j = 0, k = 1; tok[k] != '\0'; j++, k++) {
                 newtok[j] = tok[k];
             }
+            
             strcpy(tok, newtok); // toktok
+            free(newtok);
+
             j = 0, k = 0;
         }
+        charArr[i] = tok;
+        printf("%s\n", charArr[i]);
+
+        i++;
+        token = strtok(NULL, s);
+        free(tok);
     };
 
 

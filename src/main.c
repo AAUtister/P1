@@ -26,7 +26,7 @@ int main() {
     int * found_nexus;
     
     char **tekst_array = read_from_file(INPUTFILE, &length_tekst, " \n");
-    char **senten_array = sentence_splitter(INPUTFILE);
+
 
     int tekst_count = 0;
     while (tekst_array[tekst_count] != NULL) {
@@ -45,14 +45,15 @@ int main() {
 
     rules(tekst_array, found_rule);
 
-    found_nexus = nexus(wArr, *senten_array, tekst_count, length_tekst);
+    found_nexus = nexus(wArr, tekst_count, length_tekst);
     
     for(int i = 0; i < tekst_count;i++){
         printf("\n FOUND NEXUS: %d \n",found_nexus[i]);
     }
 
     komma_function(found_nexus, found_rule, tekst_count, wArr);
-    
+
+
     free(tekst_array);
     
     return 0;
