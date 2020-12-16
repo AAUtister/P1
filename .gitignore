@@ -75,3 +75,6 @@ dkms.conf
 *.xml
 mxml-3.2.tar.gz
 lib/mxml-3.2/*
+# Savegames i git? Nej Tak :-)
+savegame.csv
+savegame.txt
