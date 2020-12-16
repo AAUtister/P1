@@ -23,12 +23,12 @@ void rules(char *tekst_array[], int found_rule[])
             int ret = str_cmp(tekst_array[i], hv_array[j]);
             if (ret == 0)
             {
-                found_rule[i] = ret;
+                found_rule[i] = 1;
                 break;
             }
             else
             {
-                found_rule[i] = ret;
+                found_rule[i] = 0;
             }
         }
     }
