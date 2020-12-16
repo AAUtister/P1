@@ -13,12 +13,12 @@ void achievements() {
 	FILE *fp = fopen("savegame.csv", "r");
 	
 	if (fp == NULL){
-        printf("Fejl. Filen kunne ikke findes.\n");
-        exit(EXIT_FAILURE);
-        FILE *fp = fopen("savegame.csv", "w+");
+        printf("Savegame kunne ikke findes. Opretter savegame...\n");
+        fp = fopen("savegame.csv", "w+");
         fprintf(fp, "%d", 0);
         fclose(fp);
-        FILE *fp = fopen("savegame.csv", "r");
+        fp = fopen("savegame.csv", "r");
+        printf("Savegame oprettet!\n");
     }
 
     profile player;
