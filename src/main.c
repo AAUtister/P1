@@ -1,6 +1,6 @@
 #include "reader.h"
-#include "rules.h"
 #include "word.h"
+#include "rules.h"
 #include "sen_splitter.h"
 #include "minixml.h"
 #include <ctype.h>
@@ -43,7 +43,7 @@ int main() {
 
     int *found_rule = malloc(tekst_count * sizeof(int) * 8);
 
-    rules(tekst_array, found_rule);
+    rules(tekst_array, found_rule, wArr);
 
     found_nexus = nexus(wArr, tekst_count, length_tekst);
     
@@ -52,7 +52,6 @@ int main() {
     }
 
     komma_function(found_nexus, found_rule, tekst_count, wArr);
-
 
     free(tekst_array);
     
@@ -75,7 +74,7 @@ void komma_function(int *found_nexus, int *found_rule, int tekst_count, word *wA
             }
             fprintf(output, "%c", ','); 
         
-        } else if((found_nexus[itr+1] == 1) && (itr != tekst_count - 1)){
+        } else if((found_nexus[itr+1] == 1) && (itr != tekst_count - 1) && (found_rule[itr+1] != 2)){
             while (wArr[itr].word_org[p] != '\0') {
                 fprintf(output, "%c", wArr[itr].word_org[p]);
                 p++;    

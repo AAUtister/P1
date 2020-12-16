@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "word.h"
-#include "sen_splitter.h"
+
 
 #define UDSAGNSLED 1
 #define GRUNDLED 2
