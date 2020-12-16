@@ -122,12 +122,10 @@ char *GetTypeString(wordtype t) {
 }
 
 void wArr_maker(char ** tekstArr, word * wArr) {
-    word w_temp;
     int wordCount = 0;
-	
 	options * oArr;
     oArr = (options *) calloc(sizeof(oArr), sizeof(options) + 1000);
-  	options o_temp;
+  	
 
     while (tekstArr[wordCount] != NULL) {
         wordCount ++;
@@ -155,7 +153,9 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 
 	// REGLER
 	for (int i = 0; i < wordCount; i++) {
-		if (oArr[i].count > 1) {
+		
+        // Hvis der er flere ordklasser
+        if (oArr[i].count > 1) {
 			if (i > 0 && wArr[i-1].type == PROP) {
 				if (i < wordCount && wArr[i+1].type == SB) {
 					wArr[i].type = VB;
@@ -166,9 +166,31 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 				promptType(&wArr[i], &oArr[i]);
 			}
 
+
+
+
+        // Hvis der er 1 eller færre ordklasser
 		} else {
-			wArr[i].type = oArr[i].type[0];
-		}
+            
+            if (utf8isupper(wArr[i].word_org[0]) && (oArr[i].type[0] == SB)) {
+                int wl = strlen(wArr[i-1].word_org);
+                if (i > 0 && (wArr[i-1].word_org[wl-1]) != '.' ) {
+                    wArr[i].type = PROP;
+                }
+            } else {
+                wArr[i].type = oArr[i].type[0];
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
 	}
 
@@ -199,7 +221,10 @@ void promptType(word * WP, options * OP) {
             n = strtol(buf, &end, 10);
             valg = n;
             
-        }  
+        }
+
+        WP->type = OP->type[valg-1];
+
         achievements();        	
 }
 
@@ -249,7 +274,6 @@ void oArr_maker(char ** tekstArr, options * oArr, int wc, mxml_node_t * tree) {
 
 
 
-
 options returnClasses(char *input, mxml_node_t *tree) {
     options o;
     mxml_node_t *node;
@@ -259,15 +283,54 @@ options returnClasses(char *input, mxml_node_t *tree) {
             input[wl-1] = '\0';
     }
     utf8lwr(input);
+    
     for (node = mxmlFindElement(tree, tree, "ff", NULL, NULL, MXML_DESCEND); node != NULL; node = mxmlFindElement(node, tree, "ff", NULL, NULL, MXML_DESCEND)) {
         const char *tekst = mxmlGetText(node, 0);
         const char *att = mxmlElementGetAttr(node, "ordklasse");
 
         if (!(utf8cmp(tekst, input)) && (GetType(att) != FLERORD)){
-            o.type[o.count] = GetType(att);            
-            o.count++;  
-        }
-    }
+            switch(GetType(att)) {
+                case ADJ_PRAEP:
+                    o.type[o.count++] = ADJ;
+                    o.type[o.count++] = PRAEP;
+                    break;
+                case ADV_KONJ:
+                    o.type[o.count++] = ADV;
+                    o.type[o.count++] = KONJ;
+                    break;
+                case ADV_UDRAABSORD:
+                    o.type[o.count++] = ADV;
+                    o.type[o.count++] = UDRAABSORD;
+                    break;
+                case ARTIKEL_TALORD:
+                    o.type[o.count++] = ART;
+                    o.type[o.count++] = TALORD;
+                    break;
+                case PRON_TALORD:
+                    o.type[o.count++] = PRON;
+                    o.type[o.count++] = TALORD;
+                    break;
+                case PRAEP_ADV:
+                    o.type[o.count++] = PRAEP;
+                    o.type[o.count++] = ADV;
+                    break;
+                case PRAEP_ADV_KONJ:
+                    o.type[o.count++] = PRAEP;
+                    o.type[o.count++] = ADV;
+                    o.type[o.count++] = KONJ;
+                    break;
+                case UDRAABSORD_ADJ:
+                    o.type[o.count++] = UDRAABSORD;
+                    o.type[o.count++] = ADJ;
+                    break;
+                case KONJ_INFINITIVENS_MAERKE: // Følger default (Kun ordet "at")
+                default:
+                    o.type[o.count++] = GetType(att);            
+                    break;  
+            }
+            
+        }   
+    }   
 
     return o;
 }

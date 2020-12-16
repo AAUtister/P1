@@ -21,10 +21,7 @@
 
 int main() {
     setlocale(LC_ALL, "da_DK.UTF-8");
-    int length_verb = 0;
     int length_tekst = 0;
-    int x = 0;
-    int i = 0;
     int * found_nexus;
     
     char **tekst_array = read_from_file(INPUTFILE, &length_tekst, " \n");
@@ -39,13 +36,16 @@ int main() {
     word * wArr;
     wArr = (word *) calloc(sizeof(wArr), sizeof(word) + 1000);
     wArr_maker(tekst_array, wArr);
+    for (int i = 0; i < tekst_count; i++) {
+    	printf("Ord: %s - Ordklase: %d\n", wArr[i].word_org, wArr[i].type);
+    }
+  
 
     int *found_rule = malloc(tekst_count * sizeof(int) * 8);
 
     rules(tekst_array, found_rule);
-     x = 0;
     found_nexus = nexus(wArr, *senten_array, tekst_count);
-    for(i = 0; i < tekst_count;i++){
+    for(int i = 0; i < tekst_count;i++){
         printf("\n FOUND NEXUS: %d \n",found_nexus[i]);
     }
     
