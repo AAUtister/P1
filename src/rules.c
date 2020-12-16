@@ -173,7 +173,19 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                 q++;
             }
         }
+    }
 
+// REGEL 6: Der sættes komma foran fordiog men.
+    /*
+    Hvis ordet er "fordi" eller "men":
+        Der sættes komma foran ordet
+    */
+    for (int i = 0; i < c; i++) {
+        int fordi_check = utf8cmp(wArr[i].word, "fordi");
+        int men_check = utf8cmp(wArr[i].word, "men");
+        if (fordi_check == 0 || men_check == 0) {
+            found_rule[i] = 1;
+        }
 
     }
 
@@ -182,6 +194,27 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
 
 
+
+
+
+
+
+
+
+
+    // REGEL 8: Der sættes komma foran at.
+    /*
+    Hvis ordet er at og næste ord ikke er VB:
+        Der sættes komma foran at
+    */
+
+    for (int i = 0; i < c; i++) {
+        int at_check = utf8cmp(wArr[i].word, "at");
+        if (at_check == 0 && wArr[i+1].type != VB) {
+            found_rule[i] = 1;
+        }
+
+    }
 
 
 
