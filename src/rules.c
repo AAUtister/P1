@@ -84,7 +84,15 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
 
     /// REGEL 3: Der sættes komma ved opremsning.
+    /*
+    Når der kommer et substantiv:
+        Tjek frem til næste punktum:
+            Er der ingen verbum:
+            Er der et "og"/"eller":
+            Er der minimum 2 substanstiver
 
+
+    */
     for (int i = 0; i < c; i++) {
         if (wArr[i].type == SB) {
             int x = i;
@@ -139,15 +147,37 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
 
 
+  
+    // REGEL 5: Der sættes komma ved navnetillæg.
     /*
-    Når der kommer et substantiv:
-        Tjek frem til næste punktum:
-            Er der ingen verbum:
-            Er der et "og"/"eller":
-            Er der minimum 2 substanstiver
-
+    Hvis substantiv efterfulgt af egennavn:
+        Der sættes komma foran første egennavn
+        Der sættes komma efter sidste efterfølgende egenavn i træk
 
     */
+    for (int i = 0; i < c; i++) {
+        int x = i;
+        int wc = strlen(wArr[x].word_org);
+        while (wArr[x].word_org[wc-1] != '.') {
+            x++;
+            wc = strlen(wArr[x].word_org);
+        }
+
+        if (wArr[i].type == SB && wArr[i+1].type == PROP) {
+            int q = i+1;
+            found_rule[i+1] = 1;
+            while (q < x) {
+                if (wArr[q].type != PROP) {
+                    found_rule[q] = 1;
+                }
+                q++;
+            }
+        }
+
+
+    }
+
+
 
 
 
