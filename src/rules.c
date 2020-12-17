@@ -4,9 +4,11 @@
 #include "utf8.h"
 #include "word.h"
 
+#define HV_ARRAY_LEN 11
+
 void rules(char *tekst_array[], int found_rule[], word *wArr) {
-    int x = 11;
-    char *hv_array[11] = {"hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
+
+    char *hv_array[HV_ARRAY_LEN] = {"hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
     int c = 0;
 
     while (tekst_array[c] != NULL) {
@@ -18,7 +20,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
     for (int i = 0; i < c; i++) {
         
-        for (int j = 0; j < x; j++) {
+        for (int j = 0; j < HV_ARRAY_LEN; j++) {
             int ret = utf8cmp(tekst_array[i], hv_array[j]);
             if (ret == 0) {
                 found_rule[i] = 1;
@@ -33,7 +35,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
     
 
 
-    ////// Regel 2: Der sættes komma omkringindskudtesætninger.
+    ////// Regel 2: Der sættes komma omkring indskudte sætninger.
     int i = 0;
     int z;
     int seneste_punktum = -1;
@@ -144,6 +146,40 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
             }
         }
     }
+
+
+
+
+
+    // REGEL 4: Der sættes komma, hvis somog derkan skiftes ud med hinanden.
+    /*    
+    Hvis ordet er som/der:
+        Hvis der ikke er et HV-ord foran ordet
+            Er ordet efterfulgt af adverbium ELLER verbum?
+                Sæt komma foran ordet
+    */
+
+    for (int i = 0; i < c; i++) {
+
+        int som = utf8cmp(wArr[i].word, "som");
+        int der = utf8cmp(wArr[i].word, "der");
+        if (som == 0 || der == 0) {
+            int hv_positiv = 0;
+            for (int z = 0; z < HV_ARRAY_LEN; z++) {
+                int hv_test = utf8cmp(wArr[i-1].word, hv_array[z]);
+                if (hv_test == 0) {
+                    hv_positiv = 1;
+                }
+            }
+            if (hv_positiv == 0) {
+                if (wArr[i].type == VB || wArr[i].type == ADV) {
+                    found_rule[i] = 1;
+                }
+            }
+
+        }
+    }
+
 
 
 
