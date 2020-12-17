@@ -1,5 +1,5 @@
 CC		= gcc
-CFLAGS	= -Wall -g -std=gnu11
+CFLAGS	= -Wall -g -std=gnu11 -fsanitize=address
 LDLIBS	= -lmxml
 MXML = $(shell pwd)/lib/mxml-3.2
 

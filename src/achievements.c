@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <limits.h>
 
-void achievements() {
+void achievements(int point) {
 	typedef struct {
 		int score;
 	} profile;
@@ -25,8 +25,8 @@ void achievements() {
 
     fscanf(fp, "%d", &player.score);
 	
-	player.score = player.score + 1;
-	if (player.score == 50) {
+	player.score = player.score + point;
+	if (player.score > 50) {
 		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", player.score);
 	}
     // printf("%d\n", player.score);

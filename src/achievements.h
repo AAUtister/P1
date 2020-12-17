@@ -1,1 +1,1 @@
-void achievements();
+void achievements(int point);

@@ -212,7 +212,7 @@ void promptType(word * WP, options * OP) {
 
         WP->type = OP->type[valg-1];
 
-        achievements();        	
+        achievements(1);        	
 }
 
 
