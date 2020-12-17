@@ -33,9 +33,9 @@ typedef enum {
 } wordtype;
 
 typedef struct {
-    wordtype type;      //Tal som bestemmer klassen
-    char word[50];      //ordet i sig selv
-    char word_org[50];
+    wordtype type;      // Tal som bestemmer klassen
+    char word[50];      // Ordet i Lowercase
+    char word_org[50];	// Ordet som det originalt står i input filen.
 } word;
 
 #endif
