@@ -12,7 +12,6 @@ char ** read_from_file(char* _FILENAME_, int *plength, char* delim){
     fseek(fp, 0, SEEK_END);
     length = ftell(fp);
     fclose(fp);
-    printf("Total size of %s = %d bytes\n", _FILENAME_, length);
 
     *plength = length;
 
