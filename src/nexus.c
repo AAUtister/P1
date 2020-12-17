@@ -7,8 +7,8 @@
 #define UDSAGNSLED 1
 #define GRUNDLED 2
 #define KONJUNKTION 3
-
-int * nexus(word *wArr, int tekst_count, int length_tekst){
+void user_prompt(int *found_nexus, int *found_rule, char *user_input[], int tekst_count, int i, int m, word *wArr);
+int * nexus(word *wArr, int tekst_count, int length_tekst, int *found_rule){
     int i = 0;
     int count_grundled = 0;
     int count_udsagnsled = 0;
@@ -91,11 +91,88 @@ int * nexus(word *wArr, int tekst_count, int length_tekst){
      
     }
       
+    for (int i = 0; i < tekst_count; i++)
+    {
+        printf("%s", wArr[i].word_org);
 
+        if (sentence_words[i] == 2)
+        {
+            printf("(X) ");
+        }
+        else if (sentence_words[i] == 1)
+        {
+            printf("(O) ");
+        }
+        else
+        {
+            printf(" ");
+        }
 
+        int v = strlen(wArr[i].word_org);
+        if (wArr[i].word_org[v - 1] == '.')
+        {
+            printf("INDSAET KOMMA EFTER ORDET \n");
 
-
-
-     
+            printf("\n");
+        }
+    }
+    char **user_input = malloc(50 * sizeof(char *));
+    i = 0;
+    int m = 0;
+    user_prompt(found_nexus, found_rule, user_input, tekst_count, i, m, wArr);
     return found_nexus;
+}
+
+void user_prompt(int *found_nexus, int *found_rule, char *user_input[], int tekst_count, int i, int m, word *wArr)
+{
+    int forkert_svar = 0;
+    // int c = sizeof(wArr->word_org) / sizeof(wArr[0].word_org);
+    for (int z = 0; z < 10; z++)
+    {
+        printf("Efter hvilket ord skal der v‘re komma? \n");
+
+        for (int x = m; x < tekst_count; x++)
+        {
+            int v = strlen(wArr[x].word_org);
+            printf("%s ", wArr[x].word_org);
+            if (wArr[x].word_org[v - 1] == '.')
+            {
+                x++;
+                m = x;
+                break;
+            }
+        }
+        printf("\n");
+        scanf("%s", user_input[z]);
+        printf("%s \n", user_input[z]);
+        for (int b = i; b < m; b++)
+        {
+            forkert_svar = 0;
+            for (int n = 0; n < tekst_count; n++)
+            {
+                printf("%d\n", forkert_svar);
+                if (found_nexus[n] == 1 || found_rule[n] == 1)
+                {
+                    if (strcmp(wArr[b].word_org, user_input[z]) == 0)
+                    {
+
+                        printf("DU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n");
+                        break;
+                        // user_prompt(found_nexus, found_rule, user_input, tekst_count, i, m, wArr);
+                    }
+                    else
+                    {
+                        forkert_svar++;
+                        // printf("Forkert svar pr›v igen \n");
+                        // user_prompt(found_nexus, found_rule, user_input, tekst_count, i, m, wArr);
+                    }
+                }
+            }
+            if (forkert_svar == 30)
+            {
+                printf("Forkert svar pr›v igen \n");
+                break;
+            }
+        }
+    }
 }
