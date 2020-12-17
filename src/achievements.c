@@ -4,9 +4,13 @@
 #include <ctype.h>
 #include <limits.h>
 
-void achievements(int point) {
+void achievements(int point, int scoretype) {
 	typedef struct {
-		int score;
+		int ordklasse;
+		int komma;
+		int test;
+		int ekstra;
+
 	} profile;
 
 	FILE *fp = fopen("savegame.csv", "r");
@@ -14,7 +18,7 @@ void achievements(int point) {
 	if (fp == NULL){
         printf("Savegame kunne ikke findes. Opretter savegame...\n");
         fp = fopen("savegame.csv", "w+");
-        fprintf(fp, "%d", 0);
+        fprintf(fp, "%d,%d,%d,%d", 0, 0, 0, 0);
         fclose(fp);
         fp = fopen("savegame.csv", "r");
         printf("Savegame oprettet!\n");
@@ -22,15 +26,43 @@ void achievements(int point) {
 
     profile player;
 
-    fscanf(fp, "%d", &player.score);
+    fscanf(fp, "%d,%d,%d,%d", &player.ordklasse, &player.komma, &player.test, &player.ekstra);
+
+    switch(scoretype) {
+    	case 0: 
+    		player.ordklasse = player.ordklasse + point;
+    		break;
+    	case 1: 
+    		player.komma = player.komma + point;
+    		break;		
+    	case 2: 
+    		player.test = player.test + point;
+    		break;	
+    	case 3: 
+    		player.ekstra = player.ekstra + point;
+    		break;
+    }
+
+    
+
 	
-	player.score = player.score + point;
-	if (player.score > 0 && !(player.score % 50)) {
-		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", player.score);
+	if (player.ordklasse > 0 && !(player.ordklasse % 50)) {
+		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", player.ordklasse);
+		printf("           .--._.--.\n");
+		printf("          ( O     O )\n");
+		printf("          /   . .   \\\n");
+		printf("         .`._______.'.\n");
+		printf("        /(           )\\\n");
+		printf("      _/  \\  \\   /  /  \\_\n");
+		printf("   .~   `  \\  \\ /  /  '   ~.\n");
+		printf("  {    -.   \\  V  /   .-    }\n");
+		printf("_ _`.    \\  |  |  |  /    .'_ _\n");
+		printf(">_       _} |  |  | {_       _<\n");
+		printf("         '-'|/   \\|`-`\n");
 	}
 		
 	freopen(NULL, "w+", fp);
-	fprintf(fp, "%d", player.score);
+	fprintf(fp, "%d,%d,%d,%d", player.ordklasse, player.komma, player.test, player.ekstra);
 
 	fclose(fp);
 }

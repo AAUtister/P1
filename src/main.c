@@ -9,9 +9,10 @@
 #include <locale.h>
 #include "utf8.h"
 #include "nexus.h"
+#include "achievements.h"
 
 #define INPUTFILE "data/input.txt"
-
+void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr, int *sentence_words);
 void komma_function(int *found_nexus, int *found_rule, int tekst_count, word *wArr);
 
 int main() {
@@ -33,10 +34,13 @@ int main() {
     int *found_rule = malloc(tekst_count * sizeof(int) * 8);
 
     rules(tekst_array, found_rule, wArr);
-
-    found_nexus = nexus(wArr, tekst_count, length_tekst, found_rule);
+    
+    int sentence_words[tekst_count];
+    found_nexus = nexus(wArr, tekst_count, length_tekst, found_rule, sentence_words);
 
     komma_function(found_nexus, found_rule, tekst_count, wArr);
+   
+    user_prompt(found_nexus, found_rule, tekst_count, wArr, sentence_words);
 
     free(tekst_array);
     
@@ -80,4 +84,95 @@ void komma_function(int *found_nexus, int *found_rule, int tekst_count, word *wA
     free(wArr);
     free(found_rule);
     free(found_nexus);
+}
+
+void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr, int *sentence_words)
+{
+    int m = 0, antal_sen = 0, b = 0, comma_in_sentence = 0;
+    for (int i = 0; i < tekst_count; i++)
+    {
+
+        int v = strlen(wArr[i].word_org);
+        if (wArr[i].word_org[v - 1] == '.' || wArr[i].word_org[v - 1] == '?' || wArr[i].word_org[v - 1] == '!')
+        {
+            antal_sen++;
+        }
+    }
+
+    char user_input[100];
+    int o = 0;
+    for (int z = 0; z < antal_sen; z++)
+    {   
+        comma_in_sentence = 0;
+        
+        for (int x = b; x < tekst_count; x++) {
+            int v = strlen(wArr[x].word_org);
+            if (found_nexus[x] == 1 || found_rule[x] == 1) {
+                comma_in_sentence = 1;
+            }
+            if (wArr[x].word_org[v - 1] == '.')
+            {
+                x++;
+                b = x;
+                break;
+            }
+
+
+        } 
+        
+        if (comma_in_sentence == 1) {
+            printf("Før hvilket ord skal der være komma? \n\n");
+
+            for (int x = m; x < tekst_count; x++)
+            {
+                int v = strlen(wArr[x].word_org);
+                printf("%s", wArr[x].word_org);
+
+                if (sentence_words[x] == 2)
+                {
+                    printf("(X) ");
+                }
+                else if (sentence_words[x] == 1)
+                {
+                    printf("(O) ");
+                }
+                else
+                {
+                    printf(" ");
+                }
+
+                if (wArr[x].word_org[v - 1] == '.')
+                {
+                    x++;
+                    m = x;
+                    break;
+                }
+            }
+            printf("\n\n>");
+            scanf("%s", user_input);
+            
+            for (int n = o; n < m - 1; n++)
+            {
+                if (found_nexus[n] == 1 || found_rule[n] == 1)
+                {
+                    if (utf8cmp(wArr[n].word_org, user_input) == 0)
+                    {
+
+                        printf("DU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n\n");
+                        achievements(10, 1);
+                        break;
+                    }
+                    else
+                    {
+                        printf("Forkert svar 0 POINT \n\n");
+                        break;
+                    }
+                }
+            }
+            printf("==================================================\n");
+            o = m;
+        } else {
+            printf("Der var ingen komma(er) i sætning nr. %d\n", z+1);
+        }
+    }
 }

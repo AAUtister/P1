@@ -1,1 +1,1 @@
-void achievements(int point);
+void achievements(int point, int scoretype);

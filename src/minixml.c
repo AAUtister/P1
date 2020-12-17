@@ -207,7 +207,7 @@ void promptType(word * WP, options * OP) {
 
         WP->type = OP->type[valg-1];
 
-        achievements(1);        	
+        achievements(1, 0);        	
 }
 
 // Giver et array af "Options" structs tilbage

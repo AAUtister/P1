@@ -7,8 +7,7 @@
 #define UDSAGNSLED 1
 #define GRUNDLED 2
 #define KONJUNKTION 3
-void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr, int *sentence_words);
-int *nexus(word *wArr, int tekst_count, int length_tekst, int *found_rule)
+int *nexus(word *wArr, int tekst_count, int length_tekst, int *found_rule, int *sentence_words)
 {
     int i = 0;
     int count_grundled = 0;
@@ -17,7 +16,7 @@ int *nexus(word *wArr, int tekst_count, int length_tekst, int *found_rule)
 
     int *found_nexus = malloc(tekst_count * sizeof(int) * 8);
 
-    int sentence_words[tekst_count]; // S‘tningsled ( 1 = Udsagnsled, 2 = Grundled, 3 = Bindeord)
+    // int sentence_words[tekst_count]; // S‘tningsled ( 1 = Udsagnsled, 2 = Grundled, 3 = Bindeord)
 
     //Loop
     int x = 0;
@@ -99,76 +98,6 @@ int *nexus(word *wArr, int tekst_count, int length_tekst, int *found_rule)
         }
     }
 
-    user_prompt(found_nexus, found_rule, tekst_count, wArr, sentence_words);
     return found_nexus;
 }
 
-void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr, int *sentence_words)
-{
-    int m = 0, antal_sen = 0;
-    for (int i = 0; i < tekst_count; i++)
-    {
-
-        int v = strlen(wArr[i].word_org);
-        if (wArr[i].word_org[v - 1] == '.' || wArr[i].word_org[v - 1] == '?' || wArr[i].word_org[v - 1] == '!')
-        {
-            antal_sen++;
-        }
-    }
-
-    char user_input[100];
-    int o = 0;
-    for (int z = 0; z < antal_sen; z++)
-    {
-        printf("Før hvilket ord skal der være komma? \n\n");
-
-        for (int x = m; x < tekst_count; x++)
-        {
-            int v = strlen(wArr[x].word_org);
-            printf("%s", wArr[x].word_org);
-
-            if (sentence_words[x] == 2)
-            {
-                printf("(X) ");
-            }
-            else if (sentence_words[x] == 1)
-            {
-                printf("(O) ");
-            }
-            else
-            {
-                printf(" ");
-            }
-
-            if (wArr[x].word_org[v - 1] == '.')
-            {
-                x++;
-                m = x;
-                break;
-            }
-        }
-        printf("\n\n>");
-        scanf("%s", user_input);
-        
-        for (int n = o; n < m - 1; n++)
-        {
-            if (found_nexus[n] == 1 || found_rule[n] == 1)
-            {
-                if (utf8cmp(wArr[n].word_org, user_input) == 0)
-                {
-
-                    printf("DU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n\n");
-                    achievements(10);
-                    break;
-                }
-                else
-                {
-                    printf("Forkert svar 0 POINT \n\n");
-                    break;
-                }
-            }
-        }
-        printf("==================================================\n");
-        o = m;
-    }
-}

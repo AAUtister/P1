@@ -77,17 +77,9 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         i++;
     }
 
-<<<<<<< HEAD
 
 
-    /// REGEL 3: Der sættes komma ved opremsning.
-    /*
-    Når der kommer et substantiv:
-        Tjek frem til næste punktum:
-            Er der ingen verbum:
-            Er der et "og"/"eller":
-            Er der minimum 2 substanstiver
-=======
+
    /*******************************************************
     * REGEL 3: Der sættes komma ved opremsning.
     *   Når der kommer et substantiv:
@@ -96,7 +88,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
     *       Er der et "og"/"eller":
     *       Er der minimum 2 substanstiver
     *
->>>>>>> 984492fa156c1fbeb4f84c00c70381ae8d1f0dc5
     */
     for (int i = 0; i < c; i++) {
         if (wArr[i].type == SB) {
