@@ -45,7 +45,7 @@ int main() {
 
     rules(tekst_array, found_rule, wArr);
 
-    found_nexus = nexus(wArr, tekst_count, length_tekst);
+    found_nexus = nexus(wArr, tekst_count, length_tekst, found_rule);
     
     for(int i = 0; i < tekst_count;i++){
         printf("\n%s - FOUND NEXUS: %d \n", wArr[i].word_org, found_nexus[i]);
