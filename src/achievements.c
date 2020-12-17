@@ -9,7 +9,6 @@ void achievements(int point) {
 		int score;
 	} profile;
 
-
 	FILE *fp = fopen("savegame.csv", "r");
 	
 	if (fp == NULL){
@@ -26,12 +25,10 @@ void achievements(int point) {
     fscanf(fp, "%d", &player.score);
 	
 	player.score = player.score + point;
-	if (player.score > 50) {
+	if (player.score > 0 && !(player.score % 50)) {
 		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", player.score);
 	}
-    // printf("%d\n", player.score);
-	
-	
+		
 	freopen(NULL, "w+", fp);
 	fprintf(fp, "%d", player.score);
 

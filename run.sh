@@ -5,7 +5,8 @@ if [[ ! -f mxml-3.2.tar.gz ]]; then
     curl -L -O https://github.com/michaelrsweet/mxml/releases/download/v3.2/mxml-3.2.tar.gz
 fi
 
-if [[ ! -d lib/mxml-3.2 ]]; then
+if [[ ! -f lib/mxml-3.2/include/mxml.h ]]; then
+    [ -d lib ] || mkdir lib
     echo "Mini-XML er ikke konfigureret"
     echo "Konfigurere Mini-XML nu..."
     make prepare

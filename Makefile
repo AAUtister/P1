@@ -1,13 +1,13 @@
 CC		= gcc
-CFLAGS	= -Wall -g -std=gnu11 -fsanitize=address
+CFLAGS	= -Wall -g -std=gnu11
 LDLIBS	= -lmxml
 MXML = $(shell pwd)/lib/mxml-3.2
 
 ##############################
 #   Default Make Target      #
 ##############################
-all: src/main.c reader.o rules.o sen_splitter.o minixml.o nexus.o src/utf8.h src/minixml.h src/word.h achievements.o
-	$(CC) -o program.out $(CFLAGS) src/main.c reader.o nexus.o achievements.o rules.o sen_splitter.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
+all: src/main.c reader.o rules.o minixml.o nexus.o src/utf8.h src/minixml.h src/word.h achievements.o
+	$(CC) -o program.out $(CFLAGS) src/main.c reader.o nexus.o achievements.o rules.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
 
 reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
@@ -21,15 +21,8 @@ nexus.o: src/nexus.h
 rules.o: src/rules.h src/utf8.h
 	$(CC) -c $(CFLAGS) src/rules.c
 
-sen_splitter.o: src/sen_splitter.h
-	$(CC) -c $(CFLAGS) src/sen_splitter.c
-
 minixml.o: src/minixml.h 
 	$(CC) -c $(CFLAGS) src/minixml.c -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
-
-# Compile & Run xml stuff only with `make minixml && ./minixml.out`
-minixml: src/minixml.c reader.o src/word.h src/utf8.h
-	$(CC) -o minixml.out $(CFLAGS) src/minixml.c reader.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
 
 ##############################
 #   Minixml-3.2 Make Target  #

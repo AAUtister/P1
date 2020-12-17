@@ -9,12 +9,11 @@
 #include <ctype.h>
 #include <limits.h>
 
-#define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
-#define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
-
+#define PATH_TO_XML_FILE    "data/RO12.xml"
+#define PATH_TO_INPUT_FILE  "data/input.txt"
 
 typedef struct {
-    wordtype type[28];      //Tal som bestemmer klassen
+    wordtype type[28];      // Array af mulige ordklasser for et ord.
     int count;
 } options;
 
@@ -22,7 +21,6 @@ word functionBoi();
 options returnClasses();
 void oArr_maker();
 void promptType();
-
 
 int cmpfunc (const void * a, const void * b) {
     return ( * (int* )a - *(int*)b );
@@ -125,12 +123,10 @@ void wArr_maker(char ** tekstArr, word * wArr) {
     int wordCount = 0;
 	options * oArr;
     oArr = (options *) calloc(sizeof(oArr), sizeof(options) + 1000);
-  	
 
     while (tekstArr[wordCount] != NULL) {
         wordCount ++;
     }
-    
 
     FILE *fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
@@ -150,7 +146,6 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 	}
 	
 	oArr_maker(tekstArr, oArr, wordCount, tree);
-
 
 	// REGLER
 	for (int i = 0; i < wordCount; i++) {
@@ -215,17 +210,11 @@ void promptType(word * WP, options * OP) {
         achievements(1);        	
 }
 
-
-
-
-
-
 // Giver et array af "Options" structs tilbage
 void oArr_maker(char ** tekstArr, options * oArr, int wc, mxml_node_t * tree) {
 	options o_temp;
 	for (int i = 0; i < wc; i++) { //Køre igennem hvert ord
-		o_temp = returnClasses(tekstArr[i], tree); // Får klasse-array og count
-		
+		o_temp = returnClasses(tekstArr[i], tree); // Får klasse-array og count	
 
 		// Filtrerer for dupliketter
 	    if (o_temp.count > 1) {
@@ -247,31 +236,14 @@ void oArr_maker(char ** tekstArr, options * oArr, int wc, mxml_node_t * tree) {
     		o_temp.type[0] = PROP;
     		o_temp.count = 1;
     	}
-		
-        // Vælger nogle ordklasser random (NEXUS)
-        // if (o_temp.count > 1) {
-        //     for(int i = 0; i < o_temp.count; i++) {
-        //         if (o_temp.type[i] != PROP && o_temp.type[i] != PRON && o_temp.type[i] != SB) {
-        //             break;
-        //         } else {
-        //             o_temp.count = 1;
-        //         }
-        //     }
-        // }
-
 
 		// Indsætter i oArr
 		for (int y = 0; y < o_temp.count; y++) {
 			oArr[i].type[y] = o_temp.type[y];
 		}
 		oArr[i].count = o_temp.count;
-	
 	}
-
 }
-
-
-
 
 options returnClasses(char *input, mxml_node_t *tree) {
     options o;

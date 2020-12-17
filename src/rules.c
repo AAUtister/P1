@@ -7,16 +7,14 @@
 #define HV_ARRAY_LEN 11
 
 void rules(char *tekst_array[], int found_rule[], word *wArr) {
-
-    char *hv_array[HV_ARRAY_LEN] = {"hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor", "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
+    char *hv_array[HV_ARRAY_LEN] = {
+        "hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor",
+        "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
     int c = 0;
 
     while (tekst_array[c] != NULL) {
-        printf("String: %s\n", tekst_array[c]);
         c++;
     }
-    printf("C: %d\n", c);
-
 
     for (int i = 0; i < c; i++) {
         
@@ -33,9 +31,9 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
     }
     
-
-
-    ////// Regel 2: Der sættes komma omkring indskudte sætninger.
+   /*******************************************************
+    * Regel 2: Der sættes komma omkring indskudte sætninger.
+    */
     int i = 0;
     int z;
     int seneste_punktum = -1;
@@ -76,24 +74,17 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                 } 
             }
         }
-
-
-
-
         i++;
     }
 
-
-
-    /// REGEL 3: Der sættes komma ved opremsning.
-    /*
-    Når der kommer et substantiv:
-        Tjek frem til næste punktum:
-            Er der ingen verbum:
-            Er der et "og"/"eller":
-            Er der minimum 2 substanstiver
-
-
+   /*******************************************************
+    * REGEL 3: Der sættes komma ved opremsning.
+    *   Når der kommer et substantiv:
+    *   Tjek frem til næste punktum:
+    *       Er der ingen verbum:
+    *       Er der et "og"/"eller":
+    *       Er der minimum 2 substanstiver
+    *
     */
     for (int i = 0; i < c; i++) {
         if (wArr[i].type == SB) {
@@ -147,18 +138,13 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         }
     }
 
-
-
-
-
-    // REGEL 4: Der sættes komma, hvis somog derkan skiftes ud med hinanden.
-    /*    
-    Hvis ordet er som/der:
-        Hvis der ikke er et HV-ord foran ordet
-            Er ordet efterfulgt af adverbium ELLER verbum?
-                Sæt komma foran ordet
+   /*******************************************************
+    * REGEL 4: Der sættes komma, hvis somog derkan skiftes ud med hinanden.    
+    *   Hvis ordet er som/der:
+    *   Hvis der ikke er et HV-ord foran ordet
+    *   Er ordet efterfulgt af adverbium ELLER verbum?
+    *   Sæt komma foran ordet
     */
-
     for (int i = 0; i < c; i++) {
 
         int som = utf8cmp(wArr[i].word, "som");
@@ -180,16 +166,13 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         }
     }
 
-
-
-
-  
-    // REGEL 5: Der sættes komma ved navnetillæg.
-    /*
-    Hvis substantiv efterfulgt af egennavn:
-        Der sættes komma foran første egennavn
-        Der sættes komma efter sidste efterfølgende egenavn i træk
-
+   /*******************************************************
+    * REGEL 5: Der sættes komma ved navnetillæg.
+    *
+    *   Hvis substantiv efterfulgt af egennavn:
+    *       Der sættes komma foran første egennavn.
+    *       Der sættes komma efter sidste efterfølgende egenavn i træk.
+    *
     */
     for (int i = 0; i < c; i++) {
         int x = i;
@@ -211,10 +194,11 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         }
     }
 
-// REGEL 6: Der sættes komma foran fordiog men.
-    /*
-    Hvis ordet er "fordi" eller "men":
-        Der sættes komma foran ordet
+   /*******************************************************
+    * REGEL 6: Der sættes komma foran fordiog men.
+    *
+    *   Hvis ordet er "fordi" eller "men":
+    *       Der sættes komma foran ordet.
     */
     for (int i = 0; i < c; i++) {
         int fordi_check = utf8cmp(wArr[i].word, "fordi");
@@ -225,35 +209,16 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // REGEL 8: Der sættes komma foran at.
-    /*
-    Hvis ordet er at og næste ord ikke er VB:
-        Der sættes komma foran at
+   /*******************************************************
+    * REGEL 8: Der sættes komma foran at.
+    *
+    *   Hvis ordet er "at" og næste ord ikke er et Verb:
+    *       Der sættes komma foran at.
     */
-
     for (int i = 0; i < c; i++) {
         int at_check = utf8cmp(wArr[i].word, "at");
         if (at_check == 0 && wArr[i+1].type != VB) {
             found_rule[i] = 1;
         }
-
     }
-
-
-
-
-
 }
