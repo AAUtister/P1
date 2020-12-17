@@ -41,29 +41,32 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
     int seneste_punktum = -1;
     int vb_test = 0;
     while (i < c) {
+        // Finder næste punktum og nulstiller vb_test
         int wl = strlen(wArr[i].word_org);
-
-
         if (wArr[i].word_org[wl-1] == '.') {
             seneste_punktum = i;
             vb_test = 0;
         }
 
+        // Sammenligner der/som med nuværende ord
         int som = utf8cmp(wArr[i].word, "som");
         int der = utf8cmp(wArr[i].word, "der");
 
+        // Tjekker om ordet er som/der, hvorefter den tjekker om næste ord er VB
         if (som == 0 || der == 0) {
             if (wArr[i+1].type == VB) {
+                // Starter ved næste sætning og tjekker om der er VB
                 for (z = seneste_punktum+1; z < i; z++) {
                     if (wArr[z].type == VB) {
                         vb_test = 1;
                     }
                 } 
-
+                // Hvis der ikke var et VB, sættes første komma
                 if (vb_test == 0) {
                     found_rule[i] = 1;
                     int vb_counter = 0;
                     int n = i;
+                    // Her finder den næste sted at sætte komma (ved andet VB)
                     while (vb_counter <= 2) {
                         if (wArr[n].type == VB) {
                             vb_counter++;
@@ -89,30 +92,23 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
     /*
     Når der kommer et substantiv:
         Tjek frem til næste punktum:
-            Er der ingen verbum:
-            Er der et "og"/"eller":
-            Er der minimum 2 substanstiver
-
-
+            Er der max 1 "og"/"eller":
+            Er der minimum 2 substanstiver efter det første SB
     */
     for (int i = 0; i < c; i++) {
+        int x = i;
+        int wc = strlen(wArr[x].word_org);
+        int z = i;
+        int sb_check = 0;
+        int oe_check = 0;
+
         if (wArr[i].type == SB) {
-            int x = i;
-            int wc = strlen(wArr[x].word_org);
             while (wArr[x].word_org[wc-1] != '.') {
                 x++;
                 wc = strlen(wArr[x].word_org);
             }
 
-            int z = i;
-            int vb_check = 1;
-            int sb_check = 0;
-            int oe_check = 0;
             while (z < x) {
-                if (wArr[z].type == VB){
-                    vb_check = 1;
-                }
-                
                 int og = utf8cmp(wArr[z].word, "og");
                 int eller = utf8cmp(wArr[z].word, "eller");
 
@@ -125,23 +121,23 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                 }
                 z++;
             }
-            if (sb_check > 2 && vb_check == 1 && oe_check == 1) {
-                for (int fr = i; fr < x-1; fr++) {
-                    int o_next = utf8cmp(wArr[fr+1].word, "og");
-                    int e_next = utf8cmp(wArr[fr+1].word, "eller");
-                    if (wArr[fr].type == SB && o_next != 0) {
-                        found_rule[fr+1] = 1;
-                    } else if (wArr[fr].type == SB && e_next != 0) {
-                        found_rule[fr+1] = 1;
-                    }
-                    // HVIS DER ER OG/ELLER SOM NÆSTE:
-                    if (wArr[fr].type == SB && o_next == 0) {
-                        found_rule[fr+1] = 2;
-                    } else if (wArr[fr].type == SB && e_next == 0) {
-                        found_rule[fr+1] = 2;
-                    }
+        }
 
-
+        // Der bliver tjekket om der er minimum 3 SB og at KUN 1 og/eller
+        if (sb_check > 2 && oe_check == 1) {
+            for (int fr = i; fr < x-1; fr++) {
+                int o_next = utf8cmp(wArr[fr+1].word, "og");
+                int e_next = utf8cmp(wArr[fr+1].word, "eller");
+                if (wArr[fr].type == SB && o_next != 0) {
+                    found_rule[fr+1] = 1;
+                } else if (wArr[fr].type == SB && e_next != 0) {
+                    found_rule[fr+1] = 1;
+                }
+                // HVIS DER ER OG/ELLER SOM NÆSTE:
+                if (wArr[fr].type == SB && o_next == 0) {
+                    found_rule[fr+1] = 2;
+                } else if (wArr[fr].type == SB && e_next == 0) {
+                    found_rule[fr+1] = 2;
                 }
             }
         }
@@ -158,7 +154,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
             Er ordet efterfulgt af adverbium ELLER verbum?
                 Sæt komma foran ordet
     */
-
     for (int i = 0; i < c; i++) {
 
         int som = utf8cmp(wArr[i].word, "som");
@@ -211,6 +206,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         }
     }
 
+
 // REGEL 6: Der sættes komma foran fordiog men.
     /*
     Hvis ordet er "fordi" eller "men":
@@ -225,19 +221,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // REGEL 8: Der sættes komma foran at.
     /*
     Hvis ordet er at og næste ord ikke er VB:
@@ -251,9 +234,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         }
 
     }
-
-
-
 
 
 }

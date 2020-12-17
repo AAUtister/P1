@@ -8,6 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
+#include "gtk/gtk.h"
 
 #define PATH_TO_XML_FILE    "data/RO12.xml" // TODO: Fix this hardcoded shit
 #define PATH_TO_INPUT_FILE  "data/input.txt" // TODO: Fix me plz.
@@ -121,7 +122,10 @@ char *GetTypeString(wordtype t) {
     }
 }
 
+
+
 void wArr_maker(char ** tekstArr, word * wArr) {
+
     int wordCount = 0;
 	options * oArr;
     oArr = (options *) calloc(sizeof(oArr), sizeof(options) + 1000);
@@ -194,6 +198,7 @@ void promptType(word * WP, options * OP) {
             
             for (int q = 0; q < OP->count; q++) {
                 printf("(%d) %s\n", q+1, GetTypeString(OP->type[q]));
+
             }
             printf(">");
             

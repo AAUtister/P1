@@ -10,6 +10,8 @@
 #include <locale.h>
 #include "utf8.h"
 #include "nexus.h"
+#include "gtk/gtk.h"
+
 
 // TODO: Find ud af om det skal vaere hardkodet eller mulighed for begge ting
 #define VERBSFILE "data/verbs_ascii_friendly.txt"
@@ -20,8 +22,83 @@
 
 void komma_function(int *found_nexus, int *found_rule, int tekst_count, word *wArr);
 
+// called when window is closed
+void on_windowBoi_destroy() {
+    gtk_main_quit();
+}
+
+int i = 0;
+
+GtkBuilder * builder; 
+GtkWidget * window;
+GtkWidget *tissemand;
+void on_buttonBoi_clicked() {
+    
+    char pik[100];
+    char test[6][10] = {"penis", "diller", "tissemand", "pik", "schnell", "tisboi"};
+    strcat(pik, test[i]);
+    strcat(pik, "hest");
+    gtk_label_set_text(GTK_LABEL(tissemand), pik);
+    i++;
+    if (i > 6) {
+        gtk_widget_hide(window);
+        gtk_main_quit();
+    }
+}
+
+
 int main() {
     setlocale(LC_ALL, "da_DK.UTF-8");
+    
+
+    
+
+    gtk_init(NULL, NULL);
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "windowBoi.glade", NULL);
+
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "windowBoi"));
+    gtk_builder_connect_signals(builder, NULL);
+
+    tissemand = GTK_WIDGET(gtk_builder_get_object(builder, "tissemand"));
+
+
+
+    g_object_unref(builder);
+
+    gtk_widget_show(window);                
+
+
+
+    gtk_main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     int length_tekst = 0;
     int * found_nexus;
     
@@ -50,6 +127,9 @@ int main() {
     for(int i = 0; i < tekst_count;i++){
         printf("\n%s - FOUND NEXUS: %d \n", wArr[i].word_org, found_nexus[i]);
     }
+
+
+ 
 
     komma_function(found_nexus, found_rule, tekst_count, wArr);
 
