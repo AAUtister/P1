@@ -64,7 +64,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                     found_rule[i] = 1;
                     int vb_counter = 0;
                     int n = i;
-                    while (vb_counter <= 2) {
+                    while (vb_counter <= 2 && n <= seneste_punktum) {
                         if (wArr[n].type == VB) {
                             vb_counter++;
                             if (vb_counter == 2) {
@@ -92,8 +92,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
             Er der ingen verbum:
             Er der et "og"/"eller":
             Er der minimum 2 substanstiver
-
-
     */
     for (int i = 0; i < c; i++) {
         if (wArr[i].type == SB) {
@@ -104,14 +102,10 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                 wc = strlen(wArr[x].word_org);
             }
 
-            int z = i;
-            int vb_check = 1;
+            int z = i; 
             int sb_check = 0;
             int oe_check = 0;
             while (z < x) {
-                if (wArr[z].type == VB){
-                    vb_check = 1;
-                }
                 
                 int og = utf8cmp(wArr[z].word, "og");
                 int eller = utf8cmp(wArr[z].word, "eller");
@@ -125,7 +119,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                 }
                 z++;
             }
-            if (sb_check > 2 && vb_check == 1 && oe_check == 1) {
+            if (sb_check > 2 && oe_check == 1) {
                 for (int fr = i; fr < x-1; fr++) {
                     int o_next = utf8cmp(wArr[fr+1].word, "og");
                     int e_next = utf8cmp(wArr[fr+1].word, "eller");
