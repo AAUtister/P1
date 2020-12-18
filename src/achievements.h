@@ -1,5 +1,3 @@
-void achievements(int point, int scoretype);
-
 typedef struct {
 		int ordklasse;
 		int komma;
@@ -9,4 +7,5 @@ typedef struct {
 
 } profile;
 
-profile player;
+void achievements(int point, int scoretype);
+int getScores(int scoretype);

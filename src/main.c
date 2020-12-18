@@ -75,9 +75,8 @@ int main() {
     user_prompt(found_nexus, found_rule, tekst_count, wArr, sentence_words);
     
 
-
     printf("Spillet er slut!\n");
-    printf("Din highscore er lige nu: %d\n", player.ordklasse);
+    printf("Din highscore er lige nu: %d\n", getScores(2));
 
 
 
@@ -164,9 +163,9 @@ void menu() {
                 printf("\nKOMMER SNART\n");
                 break;
             case 51:
-                printf("\nKommascore: %d\n", player.komma); 
-                printf("Ordklassescore: %d\n", player.ordklasse);
-                printf("Hjælp brugt: %d\n", player.help);
+                printf("\nKommascore: %d\n", getScores(2)); 
+                printf("Ordklassescore: %d\n", getScores(1));
+                printf("Hjælp brugt: %d\n", getScores(3));
 
                 break;
             case 52:

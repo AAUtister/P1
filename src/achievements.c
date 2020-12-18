@@ -13,8 +13,34 @@
 
 #define PRINT_TIME 1
 
-void achievements(int point, int scoretype) {
+static profile p;
 
+int getScores(int scoretype) {
+	FILE *fp = fopen("savegame.csv", "r");
+	
+	if (fp == NULL){
+        printf("Savegame kunne ikke findes. Opretter savegame...\n");
+        fp = fopen("savegame.csv", "w+");
+        fprintf(fp, "%d,%d,%d,%d", 0, 0, 0, 0);
+        fclose(fp);
+        fp = fopen("savegame.csv", "r");
+        printf("Savegame oprettet!\n");
+    }
+
+    fscanf(fp, "%d,%d,%d,%d", &p.ordklasse, &p.komma, &p.help, &p.ekstra);
+    switch(scoretype) {
+    	case 1:
+    		return p.ordklasse;
+    		break;
+		default:
+			return 0;
+			break;
+    }
+    
+}
+
+
+void achievements(int point, int scoretype) {
 
 	FILE *fp = fopen("savegame.csv", "r");
 	
@@ -28,28 +54,28 @@ void achievements(int point, int scoretype) {
     }
 
 
-    fscanf(fp, "%d,%d,%d,%d", &player.ordklasse, &player.komma, &player.help, &player.ekstra);
+    fscanf(fp, "%d,%d,%d,%d", &p.ordklasse, &p.komma, &p.help, &p.ekstra);
 
     switch(scoretype) {
     	case 0: 
-    		player.ordklasse = player.ordklasse + point;
+    		p.ordklasse = p.ordklasse + point;
     		break;
     	case 1: 
-    		player.komma = player.komma + point;
+    		p.komma = p.komma + point;
     		break;		
     	case 2: 
-    		player.help = player.help + point;
+    		p.help = p.help + point;
     		break;	
     	case 3: 
-    		player.ekstra = player.ekstra + point;
+    		p.ekstra = p.ekstra + point;
     		break;
     }
 
     
 
 	
-	if (player.ordklasse > 0 && !(player.ordklasse % 50)) {
-		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", player.ordklasse);
+	if (p.ordklasse > 0 && !(p.ordklasse % 50)) {
+		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", p.ordklasse);
 		sleep(PRINT_TIME);
 		printf("           .--._.--.\n");
 		sleep(PRINT_TIME);
@@ -75,7 +101,7 @@ void achievements(int point, int scoretype) {
 	}
 		
 	freopen(NULL, "w+", fp);
-	fprintf(fp, "%d,%d,%d,%d", player.ordklasse, player.komma, player.help, player.ekstra);
+	fprintf(fp, "%d,%d,%d,%d", p.ordklasse, p.komma, p.help, p.ekstra);
 
 	fclose(fp);
 }
