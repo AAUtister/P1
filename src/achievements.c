@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
+#include "achievements.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -13,13 +14,7 @@
 #define PRINT_TIME 1
 
 void achievements(int point, int scoretype) {
-	typedef struct {
-		int ordklasse;
-		int komma;
-		int test;
-		int ekstra;
 
-	} profile;
 
 	FILE *fp = fopen("savegame.csv", "r");
 	
@@ -32,9 +27,8 @@ void achievements(int point, int scoretype) {
         printf("Savegame oprettet!\n");
     }
 
-    profile player;
 
-    fscanf(fp, "%d,%d,%d,%d", &player.ordklasse, &player.komma, &player.test, &player.ekstra);
+    fscanf(fp, "%d,%d,%d,%d", &player.ordklasse, &player.komma, &player.help, &player.ekstra);
 
     switch(scoretype) {
     	case 0: 
@@ -44,7 +38,7 @@ void achievements(int point, int scoretype) {
     		player.komma = player.komma + point;
     		break;		
     	case 2: 
-    		player.test = player.test + point;
+    		player.help = player.help + point;
     		break;	
     	case 3: 
     		player.ekstra = player.ekstra + point;
@@ -81,7 +75,7 @@ void achievements(int point, int scoretype) {
 	}
 		
 	freopen(NULL, "w+", fp);
-	fprintf(fp, "%d,%d,%d,%d", player.ordklasse, player.komma, player.test, player.ekstra);
+	fprintf(fp, "%d,%d,%d,%d", player.ordklasse, player.komma, player.help, player.ekstra);
 
 	fclose(fp);
 }

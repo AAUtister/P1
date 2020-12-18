@@ -9,6 +9,7 @@
 #include <ctype.h>
 #include <limits.h>
 
+
 #define PATH_TO_XML_FILE    "data/RO12.xml"
 #define PATH_TO_INPUT_FILE  "data/input.txt"
 
@@ -21,7 +22,7 @@ word functionBoi();
 options returnClasses();
 void oArr_maker();
 void promptType();
-
+char getche(void);
 int cmpfunc (const void * a, const void * b) {
     return ( * (int* )a - *(int*)b );
 }
@@ -130,7 +131,7 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 
     FILE *fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
-
+    //printf("TEST TEST TEST TEST TEST\n");
 	char * input;
 
 	for (int i = 0; i < wordCount; i++) { 
@@ -145,8 +146,9 @@ void wArr_maker(char ** tekstArr, word * wArr) {
         free(input);
 	}
 	
-	oArr_maker(tekstArr, oArr, wordCount, tree);
 
+	oArr_maker(tekstArr, oArr, wordCount, tree);
+    printf("Filerne blev indlæst succesfuldt!\n\n");
 	// REGLER
 	for (int i = 0; i < wordCount; i++) {
 		
@@ -181,27 +183,29 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 
 void promptType(word * WP, options * OP) {
         int valg = 0;
-        char *end;
-        char buf[LINE_MAX];
+        // char *end;
+        // char buf[LINE_MAX];
         while (valg <= 0 || valg > OP->count) {
             
-            printf("Flere ordklasser for ordet: \"%s\", vælg venligst en: \n", WP->word);
+            printf("\nFlere ordklasser for ordet: \"%s\", vælg venligst en: \n", WP->word);
             
             for (int q = 0; q < OP->count; q++) {
                 printf("(%d) %s\n", q+1, GetTypeString(OP->type[q]));
             }
             printf(">");
             
-            int n;
-            if (!fgets(buf, sizeof buf, stdin)) {
-                break;
-            }
+            // int n;
+            // if (!fgets(buf, sizeof buf, stdin)) {
+            //     break;
+            // }
             
-            // remove \n
-            buf[strlen(buf) - 1] = 0;
+            // // remove \n
+            // buf[strlen(buf) - 1] = 0;
 
-            n = strtol(buf, &end, 10);
-            valg = n;
+            // n = strtol(buf, &end, 10);
+            // valg = n;
+            valg = getche() - 48;
+
             
         }
 

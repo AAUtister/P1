@@ -6,7 +6,7 @@
 
 #define HV_ARRAY_LEN 11
 
-void rules(char *tekst_array[], int found_rule[], word *wArr) {
+void rules(char *tekst_array[], int found_rule[], word *wArr, int rule_used[]) {
     char *hv_array[HV_ARRAY_LEN] = {
         "hvem", "hvad", "hvornår", "hvorfor", "hvordan", "hvor",
         "hvilken", "hvorfra", "hvorhen", "hvilket", "hvilke"};
@@ -22,6 +22,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
             int ret = utf8cmp(tekst_array[i], hv_array[j]);
             if (ret == 0) {
                 found_rule[i] = 1;
+                rule_used[i] = 7;
                 break;
             }
             else {
@@ -60,6 +61,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
 
                 if (vb_test == 0) {
                     found_rule[i] = 1;
+                    rule_used[i] = 2;
                     int vb_counter = 0;
                     int n = i;
                     while (vb_counter <= 2 && n <= seneste_punktum) {
@@ -67,6 +69,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                             vb_counter++;
                             if (vb_counter == 2) {
                                 found_rule[n] = 1;
+                                rule_used[i] = 2;
                             }
                         }
                         n++;
@@ -121,8 +124,10 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
                     int e_next = utf8cmp(wArr[fr+1].word, "eller");
                     if (wArr[fr].type == SB && o_next != 0) {
                         found_rule[fr+1] = 1;
+                        rule_used[fr+1] = 3;
                     } else if (wArr[fr].type == SB && e_next != 0) {
                         found_rule[fr+1] = 1;
+                        rule_used[fr+1] = 3;
                     }
                     // HVIS DER ER OG/ELLER SOM NÆSTE:
                     if (wArr[fr].type == SB && o_next == 0) {
@@ -159,6 +164,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
             if (hv_positiv == 0) {
                 if (wArr[i].type == VB || wArr[i].type == ADV) {
                     found_rule[i] = 1;
+                    rule_used[i] = 4;
                 }
             }
 
@@ -184,9 +190,11 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         if (wArr[i].type == SB && wArr[i+1].type == PROP) {
             int q = i+1;
             found_rule[i+1] = 1;
+            rule_used[i+1] = 5;
             while (q < x) {
                 if (wArr[q].type != PROP) {
                     found_rule[q] = 1;
+                    rule_used[q] = 5;
                 }
                 q++;
             }
@@ -204,6 +212,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         int men_check = utf8cmp(wArr[i].word, "men");
         if (fordi_check == 0 || men_check == 0) {
             found_rule[i] = 1;
+            rule_used[i] = 6;
         }
 
     }
@@ -218,6 +227,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr) {
         int at_check = utf8cmp(wArr[i].word, "at");
         if (at_check == 0 && wArr[i+1].type != VB) {
             found_rule[i] = 1;
+            rule_used[i] = 8;
         }
     }
 }

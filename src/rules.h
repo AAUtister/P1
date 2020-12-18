@@ -1,1 +1,1 @@
-void rules(char *tekst_array[], int found_rule[], word * wArr);
+void rules(char *tekst_array[], int found_rule[], word * wArr, int rule_used[]);
