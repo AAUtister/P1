@@ -71,7 +71,7 @@ int main() {
     user_prompt(found_nexus, found_rule, tekst_count, wArr, sentence_words);
     
     printf("Spillet er slut!\n");
-    printf("Din highscore er lige nu: %d\n", getScores(KOMMA));
+    printf("Din totale highscore er lige nu: %d\n", getScores(KOMMA));
 
     /* Free memory */
     free(found_rule);
@@ -308,6 +308,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
 
                         printf("\nDU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n\n");
                         achievements(10, KOMMA);
+                        achievements(10, EKSTRA);
                         for (int q = n+1; q < m; q++) {
                              if (found_nexus[q] == 1 || found_rule[q] == 1) {
                                 printf("Der er et yderligere komma! Foran hvilket ord skal næste komma være?\n");
@@ -316,12 +317,14 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                                 if (utf8cmp(wArr[q].word_org, user_input) == 0) {
                                     printf("\nDU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n\n");
                                     achievements(10, KOMMA);
+                                    achievements(10, EKSTRA);
                                 } else if(utf8cmp(user_input, "menu") == 0) {
                                     menu();
                                     printf("\n>");
                                     scanf("%s", user_input);
                                 } else {
                                     printf("\nForkert svar 0 POINT \n\n");
+                                    achievements(10, EKSTRA);
                                     break;
                                 }
                              }
@@ -333,6 +336,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                     else
                     {
                         printf("\nForkert svar 0 POINT \n\n");
+                        achievements(10, EKSTRA);
                         break;
                     }
                 }

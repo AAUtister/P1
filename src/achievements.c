@@ -28,6 +28,7 @@ int getScores(int scoretype) {
     }
 
     fscanf(fp, "%d,%d,%d,%d", &p.ordklasse, &p.komma, &p.help, &p.ekstra);
+    
     switch(scoretype) {
     	case ORDKLASSE:
     		return p.ordklasse;
