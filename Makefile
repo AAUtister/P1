@@ -15,7 +15,7 @@ reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
 
 achievements.o: src/achievements.h
-	$(CC) -c $(CFLAGS) src/achievements.c
+	$(CC) -c $(CFLAGS) src/achievements.cc
 	
 nexus.o: src/nexus.h
 	$(CC) -c $(CFLAGS) src/nexus.c
