@@ -26,7 +26,6 @@ int main() {
     while (tekst_array[tekst_count] != NULL) {
         tekst_count++;
     }
-        
     word * wArr;
     wArr = (word *) calloc(sizeof(wArr), sizeof(word) + 1000);
     wArr_maker(tekst_array, wArr);
