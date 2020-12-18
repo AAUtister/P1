@@ -35,14 +35,12 @@ MENU:
 Exited menu..
 
 >help
-Der sættes komma omkring indskudte sætninger.
+Der sættes komma mellem sætninger som har både udsagnsled (O) og grundled (X)
 
 >for
 
 DU HAR SAT ET RIGTIGT KOMMA + 10 POINT
 ```
-
-DU HAR SAT ET RIGTIGT KOMMA + 10 POINT
 
 ## Instrukser Kompilering
 Der er 2 metoder til at kompilere og køre programmet, manuelt ved gennemgang af trin og automatisk ved et simpelt script.
