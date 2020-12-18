@@ -64,7 +64,7 @@ void rules(char *tekst_array[], int found_rule[], word *wArr, int rule_used[]) {
                     rule_used[i] = 2;
                     int vb_counter = 0;
                     int n = i;
-                    while (vb_counter <= 2 && n <= seneste_punktum) {
+                    while (vb_counter <= 2 /*&& n <= seneste_punktum*/) {
                         if (wArr[n].type == VB) {
                             vb_counter++;
                             if (vb_counter == 2) {
