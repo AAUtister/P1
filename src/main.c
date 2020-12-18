@@ -204,7 +204,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
             if (found_nexus[x] == 1 || found_rule[x] == 1) {
                 comma_in_sentence = 1;
             }
-            if (wArr[x].word_org[v - 1] == '.')
+            if (wArr[x].word_org[v - 1] == '.'||wArr[x].word_org[v - 1] == '?' || wArr[x].word_org[v - 1] == '!')
             {
                 x++;
                 b = x;
