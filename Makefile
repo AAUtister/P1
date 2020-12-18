@@ -42,5 +42,5 @@ mxml-extract:
 clean:
 	rm -f *.o *.out output.txt
 clean-libs:
-	rm -r lib/mxml-3.2 mxml-3.2.tar.gz
+	rm -r lib/mxml-3.2 mxml-3.2.tar.gz savegame.csv
 purge: clean clean-libs
