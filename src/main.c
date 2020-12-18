@@ -57,8 +57,6 @@ int main() {
     wArr = (word *) calloc(sizeof(wArr), sizeof(word) + 1000);
     wArr_maker(tekst_array, wArr);
 
-
-
     rule_used = malloc(tekst_count * sizeof(int) * 8);
     for (int i = 0; i < tekst_count; i++) rule_used[i] = 0;
     int *found_rule = malloc(tekst_count * sizeof(int) * 8);
@@ -72,7 +70,6 @@ int main() {
    
     user_prompt(found_nexus, found_rule, tekst_count, wArr, sentence_words);
     
-
     printf("Spillet er slut!\n");
     printf("Din highscore er lige nu: %d\n", getScores(KOMMA));
 

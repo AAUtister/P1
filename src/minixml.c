@@ -184,21 +184,16 @@ void promptType(word * WP, options * OP) {
         int valg = 0;
 
         while (valg <= 0 || valg > OP->count) {
-            
             printf("\nFlere ordklasser for ordet: \"%s\", vælg venligst en: \n", WP->word);
             
             for (int q = 0; q < OP->count; q++) {
                 printf("(%d) %s\n", q+1, GetTypeString(OP->type[q]));
             }
             printf(">");
-            
-            valg = getche() - 48;
-
-            
+    
+            valg = getche() - 48;  
         }
-
         WP->type = OP->type[valg-1];
-
         achievements(1, ORDKLASSE);        	
 }
 

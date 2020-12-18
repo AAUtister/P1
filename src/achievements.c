@@ -48,7 +48,6 @@ int getScores(int scoretype) {
     
 }
 
-
 void achievements(int point, int scoretype) {
 
 	FILE *fp = fopen("savegame.csv", "r");
@@ -61,7 +60,6 @@ void achievements(int point, int scoretype) {
         fp = fopen("savegame.csv", "r");
         printf("Savegame oprettet!\n");
     }
-
 
     fscanf(fp, "%d,%d,%d,%d", &p.ordklasse, &p.komma, &p.help, &p.ekstra);
 
@@ -80,9 +78,6 @@ void achievements(int point, int scoretype) {
     		break;
     }
 
-    
-
-	
 	if (p.ordklasse > 0 && !(p.ordklasse % 50)) {
 		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", p.ordklasse);
 		sleep(PRINT_TIME);
@@ -111,6 +106,5 @@ void achievements(int point, int scoretype) {
 		
 	freopen(NULL, "w+", fp);
 	fprintf(fp, "%d,%d,%d,%d", p.ordklasse, p.komma, p.help, p.ekstra);
-
 	fclose(fp);
 }
