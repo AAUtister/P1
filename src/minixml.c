@@ -131,7 +131,6 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 
     FILE *fp = fopen(PATH_TO_XML_FILE, "r");
     mxml_node_t *tree = mxmlLoadFile(NULL, fp, MXML_TEXT_CALLBACK);    
-    //printf("TEST TEST TEST TEST TEST\n");
 	char * input;
 
 	for (int i = 0; i < wordCount; i++) { 
@@ -183,8 +182,7 @@ void wArr_maker(char ** tekstArr, word * wArr) {
 
 void promptType(word * WP, options * OP) {
         int valg = 0;
-        // char *end;
-        // char buf[LINE_MAX];
+
         while (valg <= 0 || valg > OP->count) {
             
             printf("\nFlere ordklasser for ordet: \"%s\", vælg venligst en: \n", WP->word);
@@ -194,16 +192,6 @@ void promptType(word * WP, options * OP) {
             }
             printf(">");
             
-            // int n;
-            // if (!fgets(buf, sizeof buf, stdin)) {
-            //     break;
-            // }
-            
-            // // remove \n
-            // buf[strlen(buf) - 1] = 0;
-
-            // n = strtol(buf, &end, 10);
-            // valg = n;
             valg = getche() - 48;
 
             

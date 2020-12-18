@@ -16,8 +16,15 @@ void rules(char *tekst_array[], int found_rule[], word *wArr, int rule_used[]) {
         c++;
     }
 
+
+
+
+
+
+   /*******************************************************
+    * Regel 7: Der sættes komma foran HV-ord.
+    */
     for (int i = 0; i < c; i++) {
-        
         for (int j = 0; j < HV_ARRAY_LEN; j++) {
             int ret = utf8cmp(tekst_array[i], hv_array[j]);
             if (ret == 0) {

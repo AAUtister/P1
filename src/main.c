@@ -43,8 +43,6 @@ int main() {
     printf("Indlæser filer...\n");
     printf("\n");
     
-    //fflush(stdout);
-
     setlocale(LC_ALL, "da_DK.UTF-8");
     int length_tekst = 0;
     int * found_nexus;
@@ -77,8 +75,6 @@ int main() {
 
     printf("Spillet er slut!\n");
     printf("Din highscore er lige nu: %d\n", getScores(KOMMA));
-
-
 
     /* Free memory */
     free(found_rule);
@@ -128,8 +124,7 @@ int in_menu = 0;
 int menu_check;
 void menu() {
     int valg = 0;
-    // char *end;
-    // char buf[LINE_MAX];
+
     printf("MENU:\n");
     printf("\t(1) EXIT MENU:\n");
     printf("\t(2) OPTIONS:\n");
@@ -138,17 +133,6 @@ void menu() {
     while (valg != 27) {
         
         printf(">");
-        
-        // int n;
-        // if (!fgets(buf, sizeof buf, stdin)) {
-        //     break;
-        // }
-        
-        // // remove \n
-        // buf[strlen(buf) - 1] = 0;
-
-        // n = strtol(buf, &end, 10);
-        // valg = n;
 
         valg = getch();
 
@@ -223,21 +207,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                 int v = strlen(wArr[x].word_org);
                 printf("%s", wArr[x].word_org);
 
-                if (sentence_words[x] == 2)
-                {
-                    //printf("(X) ");
-                    printf(" ");
-                }
-                else if (sentence_words[x] == 1)
-                {
-                    //printf("(O) ");
-                    printf(" ");
-                }
-                else
-                {
-                    printf(" ");
-                }
-
+                printf(" ");
                 if (wArr[x].word_org[v - 1] == '.')
                 {
                     x++;
@@ -247,7 +217,6 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
             }
             
             if (nexus_in_sentence == 1) {
-                //////////////
                 printf("\n");
                 for (int x = e; x < tekst_count; x++)
                 {
@@ -257,11 +226,8 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                     } else {
                         v = utf8len(wArr[x].word_org);
                     }
+                    
                     int dotBoi = strlen(wArr[x].word_org);
-                    
-
-                   
-                    
                     
                     if (sentence_words[x] == 2)
                     {
@@ -270,10 +236,6 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                     else if (sentence_words[x] == 1)
                     {
                         printf("O");
-                    }
-                    else
-                    {
-                        //printf(" ");
                     }
 
                     for (int i = 0; i < v; i++) {
@@ -288,23 +250,8 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                         break;
                     }
                 }
-                /////////////////
+                
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             printf("\n\n>");
 
@@ -322,7 +269,9 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                     if (found_nexus[n] == 1 || found_rule[n] == 1) {
                         int rule = rule_used[n];
                         switch(rule) {
+                            case 0:
                             case 1:
+                                printf("Der sættes komma mellem sætninger som har både udsagnsled (O) og grundled (X)\n");
                                 break;
                             case 2:
                                 printf("Der sættes komma omkring indskudte sætninger.\n");
@@ -331,7 +280,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                                 printf("Der sættes komma ved opremsning.\n");
                                 break;
                             case 4:
-                                printf("Der sættes komma, hvis somog derkan skiftes ud med hinanden.\n");
+                                printf("Der sættes komma, hvis som og der kan skiftes ud med hinanden.\n");
                                 break;
                             case 5:
                                 printf("Der sættes komma ved navnetillæg.\n");
@@ -340,10 +289,10 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                                 printf("Der sættes komma foran fordi og men.\n");
                                 break;
                             case 7:
-                                printf("Der sættes komma foran at.\n");
+                                printf("Der sættes komma foran HV-ord.\n");
                                 break;
                             case 8:
-                                //printf("\n");
+                                printf("Der sættes komma foran at.\n");
                                 break;
                         }
                     }
@@ -351,10 +300,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                 achievements(1, HELP);
                 printf("\n>");
                 scanf("%s", user_input);
-            }
-            
-                
-            
+            }            
 
             for (int n = o; n < m - 1; n++)
             {
