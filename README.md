@@ -2,6 +2,7 @@
 :shipit:
 ## Funktioner
 Ved kørsel af programmet, promptes brugeren for ordklasser af ord programmet ikke kunne definere automatisk.
+Brugeren vælger ved at trykke på numrerne på keyboard.
 ```
 Flere ordklasser for ordet: "Om", vælg venligst en:
 (1) Adverbium (Biord)
