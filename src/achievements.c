@@ -4,6 +4,14 @@
 #include <ctype.h>
 #include <limits.h>
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
+#define PRINT_TIME 1
+
 void achievements(int point, int scoretype) {
 	typedef struct {
 		int ordklasse;
@@ -48,16 +56,27 @@ void achievements(int point, int scoretype) {
 	
 	if (player.ordklasse > 0 && !(player.ordklasse % 50)) {
 		printf("ACHIEVEMENT UNLOCKED - DEFINE %d ORDKLASSER!\n", player.ordklasse);
+		sleep(PRINT_TIME);
 		printf("           .--._.--.\n");
+		sleep(PRINT_TIME);
 		printf("          ( O     O )\n");
+		sleep(PRINT_TIME);
 		printf("          /   . .   \\\n");
+		sleep(PRINT_TIME);
 		printf("         .`._______.'.\n");
+		sleep(PRINT_TIME);
 		printf("        /(           )\\\n");
+		sleep(PRINT_TIME);
 		printf("      _/  \\  \\   /  /  \\_\n");
+		sleep(PRINT_TIME);
 		printf("   .~   `  \\  \\ /  /  '   ~.\n");
+		sleep(PRINT_TIME);
 		printf("  {    -.   \\  V  /   .-    }\n");
+		sleep(PRINT_TIME);
 		printf("_ _`.    \\  |  |  |  /    .'_ _\n");
+		sleep(PRINT_TIME);
 		printf(">_       _} |  |  | {_       _<\n");
+		sleep(PRINT_TIME);
 		printf("         '-'|/   \\|`-`\n");
 	}
 		
