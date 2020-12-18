@@ -10,12 +10,59 @@
 #include "utf8.h"
 #include "nexus.h"
 #include "achievements.h"
+#include "gtk/gtk.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 #define INPUTFILE "data/input.txt"
+
 void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr, int *sentence_words);
 void komma_function(int *found_nexus, int *found_rule, int tekst_count, word *wArr);
+void on_windowBoi_destroy() {
+    gtk_main_quit();
+}
+GtkBuilder * builder; 
+GtkWidget * window;
+GtkWidget * loading;
+GtkWidget * popup;
+
+void on_dansk_clicked() {
+    //sleep(1);
+    gtk_widget_hide(window);
+    gtk_main_quit();
+}
+
+void on_norsk_clicked() {
+    for (int i = 0; i < 5; i++) {
+        system("xdg-open https://www.youtube.com/watch?v=oHg5SJYRHA0");
+    }
+}
+
 
 int main() {
+    
+    // UI code
+    gtk_init(NULL, NULL);
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "windowBoi.glade", NULL);
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "windowBoi"));
+    loading = GTK_WIDGET(gtk_builder_get_object(builder, "loadingBoi"));
+
+    popup = GTK_WIDGET(gtk_builder_get_object(builder, "dialog"));
+
+    gtk_builder_connect_signals(builder, NULL);
+    g_object_unref(builder);
+    //gtk_widget_show(loading);
+    gtk_widget_show(window);                
+    gtk_main();
+
+
+
+
+    // Standard code
     setlocale(LC_ALL, "da_DK.UTF-8");
     int length_tekst = 0;
     int * found_nexus;

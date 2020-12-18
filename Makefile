@@ -2,12 +2,14 @@ CC		= gcc
 CFLAGS	= -Wall -g -std=gnu11
 LDLIBS	= -lmxml
 MXML = $(shell pwd)/lib/mxml-3.2
+GTK_FLAGS = -rdynamic -pthread -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/fribidi -I/usr/include/harfbuzz -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/uuid -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+GTK_LIBS = -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0
 
 ##############################
 #   Default Make Target      #
 ##############################
 all: src/main.c reader.o rules.o minixml.o nexus.o src/utf8.h src/minixml.h src/word.h achievements.o
-	$(CC) -o program.out $(CFLAGS) src/main.c reader.o nexus.o achievements.o rules.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(LDLIBS)
+	$(CC) -o program.out $(CFLAGS) $(GTK_FLAGS) src/main.c reader.o nexus.o achievements.o rules.o minixml.o -I$(MXML)/include -L$(MXML)/lib $(GTK_LIBS) $(LDLIBS)
 
 reader.o: src/reader.h
 	$(CC) -c $(CFLAGS) src/reader.c
