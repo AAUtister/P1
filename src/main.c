@@ -138,7 +138,6 @@ void menu() {
             case 49:
                 printf("\nExited menu..\n");
                 valg = 27;
-                //in_menu = 0;
                 break;
             case 50:
                 printf("\nKOMMER SNART\n");
