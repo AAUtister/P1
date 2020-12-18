@@ -76,7 +76,7 @@ int main() {
     
 
     printf("Spillet er slut!\n");
-    printf("Din highscore er lige nu: %d\n", getScores(2));
+    printf("Din highscore er lige nu: %d\n", getScores(KOMMA));
 
 
 
@@ -181,7 +181,7 @@ void menu() {
 
 void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr, int *sentence_words)
 {
-    int m = 0, antal_sen = 0, b = 0, comma_in_sentence = 0;
+    int m = 0, antal_sen = 0, b = 0, comma_in_sentence = 0, nexus_in_sentence = 0;
     for (int i = 0; i < tekst_count; i++)
     {
 
@@ -198,10 +198,14 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
     for (int z = 0; z < antal_sen; z++)
     {   
         comma_in_sentence = 0;
+        nexus_in_sentence = 0;
         for (int x = b; x < tekst_count; x++) {
             int v = strlen(wArr[x].word_org);
             if (found_nexus[x] == 1 || found_rule[x] == 1) {
                 comma_in_sentence = 1;
+            }
+            if (found_nexus[x] == 1) {
+                nexus_in_sentence = 1;
             }
             if (wArr[x].word_org[v - 1] == '.'||wArr[x].word_org[v - 1] == '?' || wArr[x].word_org[v - 1] == '!')
             {
@@ -209,13 +213,11 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                 b = x;
                 break;
             }
-
-
         } 
         
         if (comma_in_sentence == 1) {
             printf("\nFør hvilket ord skal der være komma? \n\n");
-
+            int e = m;
             for (int x = m; x < tekst_count; x++)
             {
                 int v = strlen(wArr[x].word_org);
@@ -223,11 +225,13 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
 
                 if (sentence_words[x] == 2)
                 {
-                    printf("(X) ");
+                    //printf("(X) ");
+                    printf(" ");
                 }
                 else if (sentence_words[x] == 1)
                 {
-                    printf("(O) ");
+                    //printf("(O) ");
+                    printf(" ");
                 }
                 else
                 {
@@ -242,6 +246,66 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                 }
             }
             
+            if (nexus_in_sentence == 1) {
+                //////////////
+                printf("\n");
+                for (int x = e; x < tekst_count; x++)
+                {
+                    int v;
+                    if (sentence_words[x] == 2 || sentence_words[x] == 1) {
+                        v = utf8len(wArr[x].word_org) - 1;
+                    } else {
+                        v = utf8len(wArr[x].word_org);
+                    }
+                    int dotBoi = strlen(wArr[x].word_org);
+                    
+
+                   
+                    
+                    
+                    if (sentence_words[x] == 2)
+                    {
+                        printf("X");
+                    }
+                    else if (sentence_words[x] == 1)
+                    {
+                        printf("O");
+                    }
+                    else
+                    {
+                        //printf(" ");
+                    }
+
+                    for (int i = 0; i < v; i++) {
+                        printf(" ");
+                    }
+                    printf(" ");
+
+                    if (wArr[x].word_org[dotBoi - 1] == '.')
+                    {
+                        x++;
+                        e = x;
+                        break;
+                    }
+                }
+                /////////////////
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             printf("\n\n>");
 
            
