@@ -29,9 +29,18 @@ int getScores(int scoretype) {
 
     fscanf(fp, "%d,%d,%d,%d", &p.ordklasse, &p.komma, &p.help, &p.ekstra);
     switch(scoretype) {
-    	case 1:
+    	case ORDKLASSE:
     		return p.ordklasse;
     		break;
+		case KOMMA:
+			return p.komma;
+			break;
+		case HELP:
+			return p.help;
+			break;
+		case EKSTRA:
+			return p.ekstra;
+			break;
 		default:
 			return 0;
 			break;
@@ -57,16 +66,16 @@ void achievements(int point, int scoretype) {
     fscanf(fp, "%d,%d,%d,%d", &p.ordklasse, &p.komma, &p.help, &p.ekstra);
 
     switch(scoretype) {
-    	case 0: 
+    	case ORDKLASSE: 
     		p.ordklasse = p.ordklasse + point;
     		break;
-    	case 1: 
+    	case KOMMA: 
     		p.komma = p.komma + point;
     		break;		
-    	case 2: 
+    	case HELP: 
     		p.help = p.help + point;
     		break;	
-    	case 3: 
+    	case EKSTRA: 
     		p.ekstra = p.ekstra + point;
     		break;
     }

@@ -163,9 +163,9 @@ void menu() {
                 printf("\nKOMMER SNART\n");
                 break;
             case 51:
-                printf("\nKommascore: %d\n", getScores(2)); 
-                printf("Ordklassescore: %d\n", getScores(1));
-                printf("Hjælp brugt: %d\n", getScores(3));
+                printf("\nKommascore: %d\n", getScores(KOMMA)); 
+                printf("Ordklassescore: %d\n", getScores(ORDKLASSE));
+                printf("Hjælp brugt: %d\n", getScores(HELP));
 
                 break;
             case 52:
@@ -284,7 +284,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                         }
                     }
                 }
-                achievements(1, 2);
+                achievements(1, HELP);
                 printf("\n>");
                 scanf("%s", user_input);
             }
@@ -300,7 +300,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                     {
 
                         printf("\nDU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n\n");
-                        achievements(10, 1);
+                        achievements(10, KOMMA);
                         for (int q = n+1; q < m; q++) {
                              if (found_nexus[q] == 1 || found_rule[q] == 1) {
                                 printf("Der er et yderligere komma! Foran hvilket ord skal næste komma være?\n");
@@ -308,7 +308,7 @@ void user_prompt(int *found_nexus, int *found_rule, int tekst_count, word *wArr,
                                 scanf("%s", user_input);
                                 if (utf8cmp(wArr[q].word_org, user_input) == 0) {
                                     printf("\nDU HAR SAT ET RIGTIGT KOMMA + 10 POINT \n\n");
-                                    achievements(10, 1);
+                                    achievements(10, KOMMA);
                                 } else if(utf8cmp(user_input, "menu") == 0) {
                                     menu();
                                     printf("\n>");

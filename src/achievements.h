@@ -7,5 +7,12 @@ typedef struct {
 
 } profile;
 
+typedef enum {
+	ORDKLASSE,
+	KOMMA,
+	HELP,
+	EKSTRA
+} scoretypes;
+
 void achievements(int point, int scoretype);
 int getScores(int scoretype);
