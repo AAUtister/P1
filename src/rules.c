@@ -16,11 +16,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr, int rule_used[]) {
         c++;
     }
 
-
-
-
-
-
    /*******************************************************
     * Regel 7: Der sættes komma foran HV-ord.
     */
@@ -86,9 +81,6 @@ void rules(char *tekst_array[], int found_rule[], word *wArr, int rule_used[]) {
         }
         i++;
     }
-
-
-
 
    /*******************************************************
     * REGEL 3: Der sættes komma ved opremsning.
